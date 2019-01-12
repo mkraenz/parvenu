@@ -9,4 +9,5 @@ install:
 script:
   - npm run test:coverage
 after-success:
+  - mv coverage/coverage-final.json coverage/coverage.json
   - codecov
