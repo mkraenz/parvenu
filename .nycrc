@@ -10,6 +10,7 @@
     "branches": 90,
     "reporter": [
         "text",
-        "html"
+        "html",
+        "json"
     ]
 }
