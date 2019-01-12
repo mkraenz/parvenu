@@ -8,4 +8,5 @@ install:
   - npm install -save-dev codecov
 script:
   - npm run test:coverage
+after_success:
   - npx codecov
