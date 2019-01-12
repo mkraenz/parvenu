@@ -1,6 +1,5 @@
 export class Inventory {
-    public readonly startQuantity = 10;
-    public ware = this.startQuantity;
+    constructor(public ware: number = 10) {}
 
     public isValidSell(quantity: number) {
         return this.ware - quantity >= 0;
