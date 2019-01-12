@@ -1,30 +1,46 @@
 import { GameObjects, Scene } from "phaser";
+import { MainSceneLogic } from "./mainSceneLogic";
 
 export class MainScene extends Scene {
-    private logo!: GameObjects.Sprite;
+    private logic: MainSceneLogic;
 
     constructor() {
         super({
             key: "MainScene"
         });
+        this.logic = new MainSceneLogic();
     }
 
     public preload(): void {
-        this.load.image("logo", "./assets/boilerplate/phaser.png");
+        this.load.image("buy", "./assets/buy.png");
+        this.load.image("sell", "./assets/sell.png");
     }
 
     public create(): void {
-        this.logo = this.add.sprite(400, 300, "logo");
+        this.addBuyButton();
+        this.addSellButton();
     }
 
-    public update(): void {
-        this.moveLogoAndDestroy();
+    private addBuyButton() {
+        this.addButton("buy", { x: 200, y: 300 }, this.logic.buy);
     }
 
-    private moveLogoAndDestroy() {
-        this.logo.setX(this.logo.x - 1);
-        if (this.logo.x < 200) {
-            this.logo.destroy();
-        }
+    private addSellButton() {
+        this.addButton("sell", { x: 600, y: 300 }, this.logic.sell);
     }
+
+    private addButton(imageKey: string, pos: IPoint, cb: () => void) {
+        const button: GameObjects.Sprite = this.add.sprite(
+            pos.x,
+            pos.y,
+            imageKey
+        );
+        button.setInteractive();
+        button.on("pointerdown", cb.bind(this.logic));
+    }
+}
+
+interface IPoint {
+    x: number;
+    y: number;
 }
