@@ -5,9 +5,8 @@ node_js:
   - 8
 install:
   - npm install
-  - npm install -g codecov
+  - npm install -save-dev codecov
 script:
   - npm run test:coverage
-after-success:
   - mv coverage/coverage-final.json coverage/coverage.json
-  - codecov
+  - npm run codecov
