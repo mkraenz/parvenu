@@ -1,4 +1,5 @@
 import { GameObjects, Scene } from "phaser";
+import { Inventory } from "./inventory";
 import { MainSceneLogic } from "./mainSceneLogic";
 
 export class MainScene extends Scene {
@@ -8,7 +9,7 @@ export class MainScene extends Scene {
         super({
             key: "MainScene"
         });
-        this.logic = new MainSceneLogic();
+        this.logic = new MainSceneLogic(new Inventory(), new Inventory());
     }
 
     public preload(): void {

@@ -1,4 +1,6 @@
-export class Inventory {
+import { IInventory } from "./i-inventory";
+
+export class Inventory implements IInventory {
     constructor(public ware: number = 10) {}
 
     public isValidSell(quantity: number) {
