@@ -39,4 +39,5 @@ npm run dev
 
 - [Leshy SpriteSheet Tool](https://www.leshylabs.com/apps/sstool)
 - [Littera](http://kvazars.com/littera)
+* [MagicTools](https://github.com/ellisonleao/magictools)
 - [Tiled](https://www.mapeditor.org)
