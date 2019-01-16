@@ -1,4 +1,5 @@
-import { GameObjects, Scene } from "phaser";
+import { Scene } from "phaser";
+import { gameConfig } from "../game-config";
 import { Inventory } from "./inventory";
 import { MainSceneLogic } from "./mainSceneLogic";
 
@@ -13,13 +14,33 @@ export class MainScene extends Scene {
     }
 
     public preload(): void {
-        this.load.image("buy", "./assets/buy.png");
-        this.load.image("sell", "./assets/sell.png");
+        this.load.image("buy", "./assets/images/buy.png");
+        this.load.image("sell", "./assets/images/sell.png");
+        this.load.image("background", "./assets/images/background500x300.png");
+        this.load.audio("buy", "./assets/sounds/buy.wav");
+        this.load.audio("sell", "./assets/sounds/sell.wav");
+        this.load.audio("background", "./assets/sounds/bgm.mp3");
     }
 
     public create(): void {
+        this.addBackground();
         this.addBuyButton();
         this.addSellButton();
+        this.addBackgroundMusic();
+    }
+
+    private addBackgroundMusic() {
+        this.sound.add("background").play("", { loop: true });
+    }
+
+    private addBackground() {
+        this.add
+            .image(0, 0, "background")
+            .setOrigin(0)
+            .setScale(
+                (gameConfig.width as number) / 500,
+                (gameConfig.height as number) / 300
+            );
     }
 
     private addBuyButton() {
@@ -30,14 +51,14 @@ export class MainScene extends Scene {
         this.addButton("sell", { x: 600, y: 300 }, this.logic.sell);
     }
 
-    private addButton(imageKey: string, pos: IPoint, cb: () => void) {
-        const button: GameObjects.Sprite = this.add.sprite(
-            pos.x,
-            pos.y,
-            imageKey
-        );
+    private addButton(key: string, pos: IPoint, logicCallback: () => void) {
+        const button = this.add.sprite(pos.x, pos.y, key);
         button.setInteractive();
-        button.on("pointerdown", cb.bind(this.logic));
+        const callBackWithSound = () => {
+            logicCallback.bind(this.logic);
+            this.sound.add(key).play();
+        };
+        button.on("pointerdown", callBackWithSound);
     }
 }
 
