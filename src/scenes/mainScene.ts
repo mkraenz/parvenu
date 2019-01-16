@@ -1,16 +1,15 @@
 import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
-import { Inventory } from "./inventory";
-import { MainSceneLogic } from "./mainSceneLogic";
+import { ILogic } from "./i-logic";
+import { LogicBuilder } from "./logicBuilder";
 
 export class MainScene extends Scene {
-    private logic: MainSceneLogic;
+    private logic!: ILogic;
 
     constructor() {
         super({
             key: "MainScene"
         });
-        this.logic = new MainSceneLogic(new Inventory(), new Inventory());
     }
 
     public preload(): void {
@@ -23,6 +22,7 @@ export class MainScene extends Scene {
     }
 
     public create(): void {
+        this.logic = LogicBuilder.get();
         this.addBackground();
         this.addBuyButton();
         this.addSellButton();

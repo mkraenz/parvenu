@@ -1,6 +1,7 @@
 import { IInventory } from "./i-inventory";
+import { ILogic } from "./i-logic";
 
-export class MainSceneLogic {
+export class Logic implements ILogic {
     constructor(private player: IInventory, private city: IInventory) {}
 
     public buy(): void {

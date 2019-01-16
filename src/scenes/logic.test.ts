@@ -5,7 +5,7 @@ import * as chai from "chai";
 import * as sinon from "sinon";
 import sinonChai = require("sinon-chai");
 import { IInventory } from "./i-inventory";
-import { MainSceneLogic } from "./mainSceneLogic";
+import { Logic } from "./logic";
 
 chai.use(sinonChai);
 const expect = chai.expect;
@@ -33,7 +33,7 @@ describe("MainSceneLogic.", () => {
     describe("buy()", () => {
         it("checks if city can sell", () => {
             city.isValidSell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.buy();
 
@@ -41,7 +41,7 @@ describe("MainSceneLogic.", () => {
         });
         it("calls buy() on player", () => {
             player.buy = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.buy();
 
@@ -49,7 +49,7 @@ describe("MainSceneLogic.", () => {
         });
         it("calls sell() on city", () => {
             city.sell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.buy();
 
@@ -58,7 +58,7 @@ describe("MainSceneLogic.", () => {
         it("does nothing on player if city cannot sell", () => {
             city.isValidSell = sinon.stub().returns(false);
             player.buy = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.buy();
 
@@ -67,7 +67,7 @@ describe("MainSceneLogic.", () => {
         it("does nothing on city if city cannot sell", () => {
             city.isValidSell = sinon.stub().returns(false);
             city.sell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.buy();
 
@@ -78,7 +78,7 @@ describe("MainSceneLogic.", () => {
     describe("sell()", () => {
         it("checks if player can sell", () => {
             player.isValidSell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.sell();
 
@@ -86,7 +86,7 @@ describe("MainSceneLogic.", () => {
         });
         it("calls buy() on city", () => {
             city.buy = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.sell();
 
@@ -94,7 +94,7 @@ describe("MainSceneLogic.", () => {
         });
         it("calls sell() on player", () => {
             player.sell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.sell();
 
@@ -103,7 +103,7 @@ describe("MainSceneLogic.", () => {
         it("does nothing on city if player cannot sell", () => {
             player.isValidSell = stubReturningFalse();
             city.buy = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.sell();
 
@@ -112,7 +112,7 @@ describe("MainSceneLogic.", () => {
         it("does nothing on player if player cannot sell", () => {
             player.isValidSell = sinon.stub().returns(false);
             player.sell = stub;
-            const logic = new MainSceneLogic(player, city);
+            const logic = new Logic(player, city);
 
             logic.sell();
 
