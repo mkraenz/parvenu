@@ -1,19 +1,31 @@
 import { IInventory } from "./i-inventory";
+import { IWare } from "./i-ware";
+import { WareType } from "./WareType";
 
 export class Inventory implements IInventory {
-    constructor(public ware: number = 10) {}
+    private wares: Map<WareType, IWare>;
 
-    public isValidSell(quantity: number) {
-        return this.ware - quantity >= 0;
+    constructor(wares: IWare[]) {
+        this.wares = new Map<WareType, IWare>();
+        wares.map(ware => this.wares.set(ware.type, ware));
     }
 
-    public buy(quantity: number) {
-        this.ware += quantity;
+    /** Assumes existing ware for each type */
+    public get(type: WareType): IWare {
+        return this.wares.get(type)!;
     }
 
-    public sell(quantity: number) {
-        if (this.isValidSell(quantity)) {
-            this.ware -= quantity;
+    public isValidSell(type: WareType, quantity: number) {
+        return this.wares.get(type)!.quantity - quantity >= 0;
+    }
+
+    public buy(type: WareType, quantity: number) {
+        this.wares.get(type)!.quantity += quantity;
+    }
+
+    public sell(type: WareType, quantity: number) {
+        if (this.isValidSell(type, quantity)) {
+            this.wares.get(type)!.quantity -= quantity;
         }
     }
 }

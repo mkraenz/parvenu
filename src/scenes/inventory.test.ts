@@ -2,14 +2,17 @@
 
 import { expect } from "chai";
 import { Inventory } from "./inventory";
+import { WareType } from "./WareType";
 
 describe("Inventory.", () => {
     it("buy() increases wares by quantity", () => {
-        const inventory = new Inventory(345);
+        const inventory = new Inventory([
+            { quantity: 345, type: WareType.Furs }
+        ]);
 
-        inventory.buy(100);
+        inventory.buy(WareType.Furs, 100);
 
-        expect(inventory.ware).to.equal(345 + 100);
+        expect(inventory.get(WareType.Furs).quantity).to.equal(345 + 100);
     });
     it("sell() decreases wares by quantity", () => {
         const inventory = new Inventory(200);

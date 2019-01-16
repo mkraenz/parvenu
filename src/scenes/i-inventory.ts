@@ -1,5 +1,7 @@
+import { WareType } from "./WareType";
+
 export interface IInventory {
-    isValidSell(quantity: number): boolean;
-    buy(quantity: number): void;
-    sell(quantity: number): void;
+    isValidSell(type: WareType, quantity: number): boolean;
+    buy(type: WareType, quantity: number): void;
+    sell(type: WareType, quantity: number): void;
 }
