@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/proSingularity/parvenu.svg?branch=master)](https://travis-ci.com/proSingularity/parvenu)
+[![codecov](https://codecov.io/gh/proSingularity/parvenu/branch/master/graph/badge.svg)](https://codecov.io/gh/proSingularity/parvenu)
+
 # Parvenu
 
 A phaser3 game build in TypeScript
