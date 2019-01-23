@@ -1,16 +1,15 @@
 // tslint:disable:no-unused-expression
 // tslint:disable:no-empty
 
-import * as chai from "chai";
+import { expect, use } from "chai";
 import * as sinon from "sinon";
 import sinonChai = require("sinon-chai");
 import { IInventory } from "./i-inventory";
 import { Logic } from "./logic";
 
-chai.use(sinonChai);
-const expect = chai.expect;
+use(sinonChai);
 
-describe("MainSceneLogic.", () => {
+describe("Logic.", () => {
     let player: IInventory;
     let city: IInventory;
     let stub: sinon.SinonStub;

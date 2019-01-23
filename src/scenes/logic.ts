@@ -5,21 +5,19 @@ import { WareType } from "./WareType";
 export class Logic implements ILogic {
     constructor(private player: IInventory, private city: IInventory) {}
 
-    public buy(): void {
-        this.trade(this.player, this.city);
+    public buy(ware: WareType): void {
+        this.trade(this.player, this.city, ware);
     }
 
-    public sell(): void {
-        this.trade(this.city, this.player);
+    public sell(ware: WareType): void {
+        this.trade(this.city, this.player, ware);
     }
 
-    private trade(buyer: IInventory, seller: IInventory) {
+    private trade(buyer: IInventory, seller: IInventory, ware: WareType) {
         const quantity = 1;
-        const type = WareType.Furs;
-        // TODO #10
-        if (seller.isValidSell(type, quantity)) {
-            buyer.buy(type, quantity);
-            seller.sell(type, quantity);
+        if (seller.isValidSell(ware, quantity)) {
+            buyer.buy(ware, quantity);
+            seller.sell(ware, quantity);
         }
     }
 }

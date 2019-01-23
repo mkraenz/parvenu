@@ -1,6 +1,6 @@
 import { IInventory } from "./i-inventory";
 import { IWare } from "./i-ware";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export class Inventory implements IInventory {
     private wares: Map<WareType, IWare>;
@@ -13,6 +13,9 @@ export class Inventory implements IInventory {
 
     /** Assumes existing ware for each type */
     public get(type: WareType): IWare {
+        if (!this.wares.has(type)) {
+            throw new Error(`WareType not found ${type}`);
+        }
         return this.wares.get(type)!;
     }
 

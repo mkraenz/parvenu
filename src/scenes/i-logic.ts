@@ -1,4 +1,6 @@
+import { WareType } from "./WareType";
+
 export interface ILogic {
-    buy(): void;
-    sell(): void;
+    buy(ware: WareType): void;
+    sell(ware: WareType): void;
 }

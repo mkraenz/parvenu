@@ -2,6 +2,7 @@ import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
 import { ILogic } from "./i-logic";
 import { LogicBuilder } from "./logicBuilder";
+import { WareType } from "./WareType";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
@@ -43,12 +44,17 @@ export class MainScene extends Scene {
             );
     }
 
+    // TODO #10
     private addBuyButton() {
-        this.addButton("buy", { x: 200, y: 300 }, () => this.logic.buy());
+        this.addButton("buy", { x: 200, y: 300 }, () =>
+            this.logic.buy(WareType.Furs)
+        );
     }
 
     private addSellButton() {
-        this.addButton("sell", { x: 600, y: 300 }, () => this.logic.sell());
+        this.addButton("sell", { x: 600, y: 300 }, () =>
+            this.logic.sell(WareType.Furs)
+        );
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
