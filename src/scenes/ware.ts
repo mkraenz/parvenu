@@ -5,7 +5,7 @@ export class Ware implements IWare {
     public quantity: number;
     public readonly type: WareType;
 
-    constructor(quantity: number, type: WareType) {
+    constructor(type: WareType, quantity: number) {
         this.quantity = quantity;
         this.type = type;
     }

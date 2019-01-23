@@ -1,5 +1,6 @@
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
+import { WareType } from "./WareType";
 
 export class Logic implements ILogic {
     constructor(private player: IInventory, private city: IInventory) {}
@@ -14,9 +15,11 @@ export class Logic implements ILogic {
 
     private trade(buyer: IInventory, seller: IInventory) {
         const quantity = 1;
-        if (seller.isValidSell(quantity)) {
-            buyer.buy(quantity);
-            seller.sell(quantity);
+        const type = WareType.Furs;
+        // TODO #10
+        if (seller.isValidSell(type, quantity)) {
+            buyer.buy(type, quantity);
+            seller.sell(type, quantity);
         }
     }
 }
