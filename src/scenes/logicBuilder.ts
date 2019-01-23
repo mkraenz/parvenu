@@ -6,7 +6,8 @@ import { WareType } from "./WareType";
 export class LogicBuilder {
     public static get() {
         // TODO #10
-        const ware1 = new Ware(WareType.Furs, 10);
-        return new Logic(new Inventory([ware1]), new Inventory([ware1]));
+        const player = new Inventory([new Ware(WareType.Furs, 10)]);
+        const city = new Inventory([new Ware(WareType.Furs, 10)]);
+        return new Logic(player, city);
     }
 }

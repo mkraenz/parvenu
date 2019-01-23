@@ -5,6 +5,7 @@ import { WareType } from "./WareType";
 export class Inventory implements IInventory {
     private wares: Map<WareType, IWare>;
 
+    /** During production, make sure that we have an `IWare` for each `WareType` */
     constructor(wares: IWare[]) {
         this.wares = new Map<WareType, IWare>();
         wares.map(ware => this.wares.set(ware.type, ware));
@@ -16,16 +17,16 @@ export class Inventory implements IInventory {
     }
 
     public isValidSell(type: WareType, quantity: number) {
-        return this.wares.get(type)!.quantity - quantity >= 0;
+        return this.get(type).quantity - quantity >= 0;
     }
 
     public buy(type: WareType, quantity: number) {
-        this.wares.get(type)!.quantity += quantity;
+        this.get(type).quantity += quantity;
     }
 
     public sell(type: WareType, quantity: number) {
         if (this.isValidSell(type, quantity)) {
-            this.wares.get(type)!.quantity -= quantity;
+            this.get(type).quantity -= quantity;
         }
     }
 }

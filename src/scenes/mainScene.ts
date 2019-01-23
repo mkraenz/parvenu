@@ -44,18 +44,18 @@ export class MainScene extends Scene {
     }
 
     private addBuyButton() {
-        this.addButton("buy", { x: 200, y: 300 }, this.logic.buy);
+        this.addButton("buy", { x: 200, y: 300 }, () => this.logic.buy());
     }
 
     private addSellButton() {
-        this.addButton("sell", { x: 600, y: 300 }, this.logic.sell);
+        this.addButton("sell", { x: 600, y: 300 }, () => this.logic.sell());
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
         const button = this.add.sprite(pos.x, pos.y, key);
         button.setInteractive();
         const callBackWithSound = () => {
-            logicCallback.bind(this.logic);
+            logicCallback();
             this.sound.add(key).play();
         };
         button.on("pointerdown", callBackWithSound);
