@@ -1,6 +1,6 @@
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export class Logic implements ILogic {
     private quantity = 1;

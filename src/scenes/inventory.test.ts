@@ -2,7 +2,7 @@
 
 import { expect } from "chai";
 import { Inventory } from "./inventory";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 describe("Inventory.", () => {
     const type = WareType.Furs;

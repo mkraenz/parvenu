@@ -1,5 +1,5 @@
 import { IWare } from "./i-ware";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export class Ware implements IWare {
     public static getWaresOfEachType(): Ware[] {

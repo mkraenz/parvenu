@@ -1,4 +1,4 @@
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export interface IInventory {
     isValidSell(type: WareType, quantity: number): boolean;

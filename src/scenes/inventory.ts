@@ -1,6 +1,6 @@
 import { IInventory } from "./i-inventory";
 import { IWare } from "./i-ware";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export class Inventory implements IInventory {
     private wares: Map<WareType, IWare>;

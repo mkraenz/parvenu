@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { Ware } from "./ware";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 describe("Ware.", () => {
     it("getWaresOfEachType() has correct length", () => {

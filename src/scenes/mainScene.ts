@@ -2,7 +2,7 @@ import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
 import { ILogic } from "./i-logic";
 import { LogicBuilder } from "./logicBuilder";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 export class MainScene extends Scene {
     private logic!: ILogic;

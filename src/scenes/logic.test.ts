@@ -6,7 +6,7 @@ import * as sinon from "sinon";
 import sinonChai = require("sinon-chai");
 import { IInventory } from "./i-inventory";
 import { Logic } from "./logic";
-import { WareType } from "./WareType";
+import { WareType } from "./wareType";
 
 use(sinonChai);
 
