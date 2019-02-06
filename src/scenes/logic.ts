@@ -3,6 +3,8 @@ import { ILogic } from "./i-logic";
 import { WareType } from "./WareType";
 
 export class Logic implements ILogic {
+    private quantity = 1;
+
     constructor(private player: IInventory, private city: IInventory) {}
 
     public buy(ware: WareType): void {
@@ -14,10 +16,9 @@ export class Logic implements ILogic {
     }
 
     private trade(buyer: IInventory, seller: IInventory, ware: WareType) {
-        const quantity = 1;
-        if (seller.isValidSell(ware, quantity)) {
-            buyer.buy(ware, quantity);
-            seller.sell(ware, quantity);
+        if (seller.isValidSell(ware, this.quantity)) {
+            buyer.buy(ware, this.quantity);
+            seller.sell(ware, this.quantity);
         }
     }
 }
