@@ -14,3 +14,4 @@ export class Ware implements IWare {
         this.type = type;
     }
 }
+ 

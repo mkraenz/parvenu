@@ -25,8 +25,7 @@ export class MainScene extends Scene {
     public create(): void {
         this.logic = LogicBuilder.get();
         this.addBackground();
-        this.addBuyButton();
-        this.addSellButton();
+        this.addTable();
         this.addBackgroundMusic();
     }
 
@@ -44,17 +43,34 @@ export class MainScene extends Scene {
             );
     }
 
-    // TODO #10
-    private addBuyButton() {
-        this.addButton("buy", { x: 200, y: 300 }, () =>
-            this.logic.buy(WareType.Furs)
-        );
+    private addTable() {
+        Object.values(WareType).forEach((ware, i) => {
+            this.addRow(ware, 200 + i * 150);
+        });
     }
 
-    private addSellButton() {
-        this.addButton("sell", { x: 600, y: 300 }, () =>
-            this.logic.sell(WareType.Furs)
-        );
+    private addRow(ware: WareType, y: number) {
+        this.addBuyButton(ware, y);
+        this.addSellButton(ware, y);
+        this.addNameSign(ware, y);
+    }
+
+    // TODO #10
+    private addBuyButton(ware: WareType, y: number) {
+        this.addButton("buy", { x: 200, y }, () => this.logic.buy(ware));
+    }
+
+    private addSellButton(ware: WareType, y: number) {
+        this.addButton("sell", { x: 500, y }, () => this.logic.sell(ware));
+    }
+
+    private addNameSign(ware: WareType, y: number) {
+        const black = "#000000";
+        this.add
+            .text(50, y, ware)
+            .setFontFamily("Arial")
+            .setFontSize(32)
+            .setColor(black);
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
