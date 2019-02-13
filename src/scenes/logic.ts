@@ -7,6 +7,13 @@ export class Logic implements ILogic {
 
     constructor(private player: IInventory, private city: IInventory) {}
 
+    public getCityQuantity(ware: WareType): number {
+        return this.city.get(ware).quantity;
+    }
+    public getPlayerQuantity(ware: WareType): number {
+        return this.player.get(ware).quantity;
+    }
+
     public buy(ware: WareType): void {
         this.trade(this.player, this.city, ware);
     }

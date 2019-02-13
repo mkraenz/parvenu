@@ -71,6 +71,8 @@ export class MainScene extends Scene {
             .setFontFamily("Arial")
             .setFontSize(32)
             .setColor(black);
+        this.add.text(100, y, this.logic.getCityQuantity(ware).toString());
+        this.add.text(150, y, this.logic.getPlayerQuantity(ware).toString());
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
