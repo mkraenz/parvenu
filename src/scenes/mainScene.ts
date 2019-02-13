@@ -4,6 +4,8 @@ import { ILogic } from "./i-logic";
 import { LogicBuilder } from "./logicBuilder";
 import { WareType } from "./wareType";
 
+const black = "#000000";
+
 export class MainScene extends Scene {
     private logic!: ILogic;
 
@@ -44,9 +46,15 @@ export class MainScene extends Scene {
     }
 
     private addTable() {
+        this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
             this.addRow(ware, 200 + i * 150);
         });
+    }
+    private addHeader(): any {
+        const addTextAtY = this.addTableText(150);
+        addTextAtY(200, "City");
+        addTextAtY(300, "You");
     }
 
     private addRow(ware: WareType, y: number) {
@@ -55,9 +63,8 @@ export class MainScene extends Scene {
         this.addNameSign(ware, y);
     }
 
-    // TODO #10
     private addBuyButton(ware: WareType, y: number) {
-        this.addButton("buy", { x: 200, y }, () => this.logic.buy(ware));
+        this.addButton("buy", { x: 400, y }, () => this.logic.buy(ware));
     }
 
     private addSellButton(ware: WareType, y: number) {
@@ -65,14 +72,19 @@ export class MainScene extends Scene {
     }
 
     private addNameSign(ware: WareType, y: number) {
-        const black = "#000000";
-        this.add
-            .text(50, y, ware)
-            .setFontFamily("Arial")
-            .setFontSize(32)
-            .setColor(black);
-        this.add.text(100, y, this.logic.getCityQuantity(ware).toString());
-        this.add.text(150, y, this.logic.getPlayerQuantity(ware).toString());
+        const addTextAtY = this.addTableText(y);
+        addTextAtY(50, ware);
+        addTextAtY(200, this.logic.getCityQuantity(ware).toString());
+        addTextAtY(300, this.logic.getPlayerQuantity(ware).toString());
+    }
+
+    private addTableText(y: number) {
+        return (x: number, text: string) =>
+            this.add
+                .text(x, y, text)
+                .setFontFamily("Arial")
+                .setFontSize(32)
+                .setColor(black);
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
