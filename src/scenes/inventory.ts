@@ -20,16 +20,16 @@ export class Inventory implements IInventory {
     }
 
     public isValidSell(type: WareType, quantity: number) {
-        return this.get(type).quantity - quantity >= 0;
+        return this.get(type).getQuantity() - quantity >= 0;
     }
 
     public buy(type: WareType, quantity: number) {
-        this.get(type).quantity += quantity;
+        this.get(type).add(quantity);
     }
 
     public sell(type: WareType, quantity: number) {
         if (this.isValidSell(type, quantity)) {
-            this.get(type).quantity -= quantity;
+            this.get(type).add(-quantity);
         }
     }
 }

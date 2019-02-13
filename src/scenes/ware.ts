@@ -1,3 +1,4 @@
+import { Subject } from "rxjs";
 import { IWare } from "./i-ware";
 import { WareType } from "./wareType";
 
@@ -6,5 +7,29 @@ export class Ware implements IWare {
         return Object.values(WareType).map(type => new Ware(type, 10));
     }
 
-    constructor(public readonly type: WareType, public quantity: number) {}
+    private quantity$ = new Subject<number>();
+
+    constructor(public readonly type: WareType, private quantity: number) {
+        this.quantity$.subscribe(quantityEvent => {
+            this.quantity = quantityEvent;
+        });
+        this.quantity$.next(quantity);
+    }
+
+    // TODO #22 add tests
+    public setQuantity(quantity: number) {
+        this.quantity$.next(quantity);
+    }
+
+    public add(quantity: number) {
+        this.setQuantity(this.quantity + quantity);
+    }
+
+    public getStream() {
+        return this.quantity$;
+    }
+
+    public getQuantity() {
+        return this.quantity;
+    }
 }

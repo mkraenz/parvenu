@@ -1,6 +1,9 @@
+import { Observable } from "rxjs";
 import { WareType } from "./wareType";
 
 export interface IWare {
-    quantity: number;
     readonly type: WareType;
+    getQuantity(): number;
+    add(quantity: number): void;
+    getStream(): Observable<number>;
 }

@@ -51,7 +51,7 @@ export class MainScene extends Scene {
             this.addRow(ware, 200 + i * 150);
         });
     }
-    private addHeader(): any {
+    private addHeader() {
         const addTextAtY = this.addTableText(150);
         addTextAtY(200, "City");
         addTextAtY(300, "You");
@@ -60,7 +60,10 @@ export class MainScene extends Scene {
     private addRow(ware: WareType, y: number) {
         this.addBuyButton(ware, y);
         this.addSellButton(ware, y);
-        this.addNameSign(ware, y);
+        const addTextAtY = this.addTableText(y);
+        addTextAtY(50, ware);
+        this.addCityQuantityText(addTextAtY, ware);
+        this.addPlayerQuantityText(addTextAtY, ware);
     }
 
     private addBuyButton(ware: WareType, y: number) {
@@ -71,11 +74,34 @@ export class MainScene extends Scene {
         this.addButton("sell", { x: 500, y }, () => this.logic.sell(ware));
     }
 
-    private addNameSign(ware: WareType, y: number) {
-        const addTextAtY = this.addTableText(y);
-        addTextAtY(50, ware);
-        addTextAtY(200, this.logic.getCityQuantity(ware).toString());
-        addTextAtY(300, this.logic.getPlayerQuantity(ware).toString());
+    private addCityQuantityText(
+        addTextAtY: (x: number, text: string) => Phaser.GameObjects.Text,
+        ware: WareType
+    ) {
+        const cityQuantityText = addTextAtY(
+            200,
+            this.logic.getCityQuantity(ware).toString()
+        );
+        this.logic
+            .getCityQuantityStream(ware)
+            .subscribe(quantity =>
+                cityQuantityText.setText(quantity.toString())
+            );
+    }
+
+    private addPlayerQuantityText(
+        addTextAtY: (x: number, text: string) => Phaser.GameObjects.Text,
+        ware: WareType
+    ) {
+        const playerQuantityText = addTextAtY(
+            300,
+            this.logic.getPlayerQuantity(ware).toString()
+        );
+        this.logic
+            .getPlayerQuantityStream(ware)
+            .subscribe(quantity =>
+                playerQuantityText.setText(quantity.toString())
+            );
     }
 
     private addTableText(y: number) {
@@ -92,6 +118,7 @@ export class MainScene extends Scene {
         button.setInteractive();
         const callBackWithSound = () => {
             logicCallback();
+            // TODO dont `add` in each call, add once and play often
             this.sound.add(key).play();
         };
         button.on("pointerdown", callBackWithSound);
