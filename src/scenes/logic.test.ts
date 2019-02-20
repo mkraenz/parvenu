@@ -20,11 +20,13 @@ describe("Logic.", () => {
         const doNothing = () => {};
         player = {
             buy: doNothing,
+            get: null as any,
             isValidSell: () => true,
             sell: doNothing
         };
         city = {
             buy: doNothing,
+            get: null as any,
             isValidSell: () => true,
             sell: doNothing
         };

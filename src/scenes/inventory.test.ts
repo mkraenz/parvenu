@@ -1,6 +1,7 @@
 // tslint:disable:no-unused-expression
 
 import { expect } from "chai";
+import { SinonStub, stub } from "sinon";
 import { Inventory } from "./inventory";
 import { WareType } from "./wareType";
 
@@ -8,21 +9,30 @@ describe("Inventory.", () => {
     const type = WareType.Furs;
 
     function getMockInventory(quantity: number) {
-        return new Inventory([{ quantity, type }]);
+        return new Inventory([
+            {
+                add: stub(),
+                getQuantity: () => quantity,
+                getStream: null as any,
+                type
+            }
+        ]);
     }
-    it("buy() increases wares by quantity", () => {
+    it("buy() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
         inventory.buy(type, 100);
 
-        expect(inventory.get(type).quantity).to.equal(200 + 100);
+        expect(inventory.get(type)
+            .add as SinonStub).to.have.been.calledOnceWithExactly(100);
     });
-    it("sell() decreases wares by quantity", () => {
+    it("sell() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
         inventory.sell(type, 50);
 
-        expect(inventory.get(type).quantity).to.equal(200 - 50);
+        expect(inventory.get(type)
+            .add as SinonStub).to.have.been.calledOnceWithExactly(-50);
     });
     describe("isValidSell()", () => {
         it("returns true for valid sell", () => {
