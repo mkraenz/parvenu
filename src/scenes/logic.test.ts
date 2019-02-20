@@ -5,6 +5,7 @@ import { expect, use } from "chai";
 import * as sinon from "sinon";
 import sinonChai = require("sinon-chai");
 import { IInventory } from "./i-inventory";
+import { ICity } from "./ICity";
 import { Logic } from "./logic";
 import { WareType } from "./wareType";
 
@@ -12,7 +13,7 @@ use(sinonChai);
 
 describe("Logic.", () => {
     let player: IInventory;
-    let city: IInventory;
+    let city: ICity;
     let stub: sinon.SinonStub;
 
     beforeEach(() => {
@@ -21,12 +22,17 @@ describe("Logic.", () => {
         player = {
             buy: doNothing,
             get: null as any,
+            hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing
         };
+        // TODO #14 Test getPrice get called
         city = {
             buy: doNothing,
             get: null as any,
+            getBuyPrice: () => 1234,
+            getSellPrice: () => 2345,
+            hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing
         };

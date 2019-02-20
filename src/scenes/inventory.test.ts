@@ -5,15 +5,22 @@ import { SinonStub, stub } from "sinon";
 import { Inventory } from "./inventory";
 import { WareType } from "./wareType";
 
+class MockInventory extends Inventory {
+    public hasMoney(): boolean {
+        return true;
+    }
+}
+
 describe("Inventory.", () => {
     const type = WareType.Furs;
 
     function getMockInventory(quantity: number) {
-        return new Inventory([
+        return new MockInventory([
             {
                 add: stub(),
                 getQuantity: () => quantity,
                 getStream: null as any,
+                price: 1234,
                 type
             }
         ]);
@@ -21,7 +28,7 @@ describe("Inventory.", () => {
     it("buy() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
-        inventory.buy(type, 100);
+        inventory.buy(type, 100, 1234);
 
         expect(inventory.get(type)
             .add as SinonStub).to.have.been.calledOnceWithExactly(100);
@@ -29,7 +36,7 @@ describe("Inventory.", () => {
     it("sell() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
-        inventory.sell(type, 50);
+        inventory.sell(type, 50, 1234);
 
         expect(inventory.get(type)
             .add as SinonStub).to.have.been.calledOnceWithExactly(-50);
