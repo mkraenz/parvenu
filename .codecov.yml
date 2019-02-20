@@ -1,0 +1,10 @@
+# https://docs.codecov.io/docs/commit-status
+
+coverage:
+  status:
+    project:
+      default:
+        # basic
+        target: 95
+        threshold: null
+        base: auto
