@@ -1,13 +1,15 @@
 import { Scene } from "phaser";
+import { Color } from "../Color";
 import { gameConfig } from "../game-config";
 import { ILogic } from "./i-logic";
+import { IPlayer } from "./IPlayer";
 import { LogicBuilder } from "./logicBuilder";
+import { TextPlayerMoney } from "./TextPlayerMoney";
 import { WareType } from "./wareType";
-
-const black = "#000000";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
+    private playerMoneyText!: TextPlayerMoney;
 
     constructor() {
         super({
@@ -25,10 +27,17 @@ export class MainScene extends Scene {
     }
 
     public create(): void {
-        this.logic = LogicBuilder.get();
+        const logicObjects = LogicBuilder.create();
+        this.logic = logicObjects.logic;
+
         this.addBackground();
+        this.addPlayerMoneyText(logicObjects.player);
         this.addTable();
         this.addBackgroundMusic();
+    }
+
+    public update() {
+        this.playerMoneyText.update();
     }
 
     private addBackgroundMusic() {
@@ -43,6 +52,12 @@ export class MainScene extends Scene {
                 (gameConfig.width as number) / 500,
                 (gameConfig.height as number) / 300
             );
+    }
+
+    private addPlayerMoneyText(player: IPlayer) {
+        this.playerMoneyText = new TextPlayerMoney(this, 50, 75, "", {});
+        this.children.add(this.playerMoneyText);
+        this.playerMoneyText.init(player);
     }
 
     private addTable() {
@@ -110,7 +125,7 @@ export class MainScene extends Scene {
                 .text(x, y, text)
                 .setFontFamily("Arial")
                 .setFontSize(32)
-                .setColor(black);
+                .setColor(Color.black);
     }
 
     private addButton(key: string, pos: IPoint, logicCallback: () => void) {
