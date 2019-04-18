@@ -12,6 +12,9 @@ import { WareType } from "./wareType";
 use(sinonChai);
 
 describe("Logic.", () => {
+    const buyPrice = 1234;
+    const sellPrice = 2345;
+
     let player: IInventory;
     let city: ICity;
     let stub: sinon.SinonStub;
@@ -26,12 +29,11 @@ describe("Logic.", () => {
             isValidSell: () => true,
             sell: doNothing
         };
-        // TODO #14 Test getPrice get called
         city = {
             buy: doNothing,
             get: null as any,
-            getBuyPrice: () => 1234,
-            getSellPrice: () => 2345,
+            getBuyPrice: () => buyPrice,
+            getSellPrice: () => sellPrice,
             hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing
@@ -53,7 +55,11 @@ describe("Logic.", () => {
                 quantity
             );
         });
-        it("calls buy() with correct waretype on player", () => {
+        // TODO #14 write tests for validity of trades
+        it("TODO", () => {
+            expect.fail();
+        });
+        it("calls player.buy() with correct params", () => {
             player.buy = stub;
             const logic = new Logic(player, city);
 
@@ -61,10 +67,11 @@ describe("Logic.", () => {
 
             expect(player.buy).to.have.been.calledOnceWithExactly(
                 type,
-                quantity
+                quantity,
+                buyPrice
             );
         });
-        it("calls sell() with correct waretype on city", () => {
+        it("calls city.sell() with correct params", () => {
             city.sell = stub;
             const logic = new Logic(player, city);
 
@@ -72,7 +79,8 @@ describe("Logic.", () => {
 
             expect(city.sell).to.have.been.calledOnceWithExactly(
                 type,
-                quantity
+                quantity,
+                buyPrice
             );
         });
         it("does nothing on player if city cannot sell", () => {
@@ -107,15 +115,19 @@ describe("Logic.", () => {
                 quantity
             );
         });
-        it("calls buy() with correct waretype on city", () => {
+        it("calls city.buy() with correct params ", () => {
             city.buy = stub;
             const logic = new Logic(player, city);
 
             logic.sell(type);
 
-            expect(city.buy).to.have.been.calledOnceWithExactly(type, quantity);
+            expect(city.buy).to.have.been.calledOnceWithExactly(
+                type,
+                quantity,
+                sellPrice
+            );
         });
-        it("calls sell() with correct waretype on player", () => {
+        it("calls player.sell() with correct params", () => {
             player.sell = stub;
             const logic = new Logic(player, city);
 
@@ -123,7 +135,8 @@ describe("Logic.", () => {
 
             expect(player.sell).to.have.been.calledOnceWithExactly(
                 type,
-                quantity
+                quantity,
+                sellPrice
             );
         });
         it("does nothing on city if player cannot sell", () => {
