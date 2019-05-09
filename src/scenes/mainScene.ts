@@ -2,14 +2,18 @@ import { Scene } from "phaser";
 import { Color } from "../Color";
 import { gameConfig } from "../game-config";
 import { ILogic } from "./i-logic";
+import { ICity } from "./ICity";
 import { IPlayer } from "./IPlayer";
 import { LogicBuilder } from "./logicBuilder";
+import { TextBuyPrice } from "./TextBuyPrice";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { WareType } from "./wareType";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
     private playerMoneyText!: TextPlayerMoney;
+    /* textBuyPrice soll array werden, da sonst textBruyPrice dreimal für alle Warentypen gemacht werden muss.... viel text xS */
+    private textBuyPrice!: TextBuyPrice;
 
     constructor() {
         super({
@@ -32,12 +36,14 @@ export class MainScene extends Scene {
 
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
+        this.addBuyPriceText(logicObjects.city, WareType.Furs);
         this.addTable();
         this.addBackgroundMusic();
     }
 
     public update() {
         this.playerMoneyText.update();
+        this.textBuyPrice.update();
     }
 
     private addBackgroundMusic() {
@@ -58,6 +64,12 @@ export class MainScene extends Scene {
         this.playerMoneyText = new TextPlayerMoney(this, 50, 75, "", {});
         this.children.add(this.playerMoneyText);
         this.playerMoneyText.init(player);
+    }
+
+    private addBuyPriceText(city: ICity, type: WareType) {
+        this.textBuyPrice = new TextBuyPrice(this, 600, 200, "", {});
+        this.children.add(this.textBuyPrice);
+        this.textBuyPrice.init(city, type);
     }
 
     private addTable() {

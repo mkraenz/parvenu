@@ -9,6 +9,7 @@ export class LogicBuilder {
         const player = new Player(Ware.getWaresOfEachType());
         const city = new City(Ware.getWaresOfEachType());
         return {
+            city,
             logic: new Logic(player, city),
             player
         };
