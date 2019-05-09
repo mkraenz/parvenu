@@ -18,6 +18,7 @@ describe("Logic.", () => {
     let player: IInventory;
     let city: ICity;
     let stub: sinon.SinonStub;
+    let logic: Logic;
 
     beforeEach(() => {
         stub = sinon.stub();
@@ -38,6 +39,7 @@ describe("Logic.", () => {
             isValidSell: () => true,
             sell: doNothing
         };
+        logic = new Logic(player, city);
     });
 
     const type = WareType.Furs;
@@ -46,7 +48,6 @@ describe("Logic.", () => {
     describe("buy()", () => {
         it("checks if city can sell correct waretype", () => {
             city.isValidSell = stub;
-            const logic = new Logic(player, city);
 
             logic.buy(type);
 
@@ -55,13 +56,26 @@ describe("Logic.", () => {
                 quantity
             );
         });
-        // TODO #14 write tests for validity of trades
-        it("TODO", () => {
-            expect.fail();
+        it("calls city.getBuyPrice() exactly once", () => {
+            city.getBuyPrice = stub;
+
+            logic.buy(type);
+            expect(city.getBuyPrice).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("checks if player has money", () => {
+            player.hasMoney = stub;
+
+            logic.buy(type);
+
+            expect(player.hasMoney).to.have.been.calledOnceWithExactly(
+                quantity * buyPrice
+            );
         });
         it("calls player.buy() with correct params", () => {
             player.buy = stub;
-            const logic = new Logic(player, city);
 
             logic.buy(type);
 
@@ -73,7 +87,6 @@ describe("Logic.", () => {
         });
         it("calls city.sell() with correct params", () => {
             city.sell = stub;
-            const logic = new Logic(player, city);
 
             logic.buy(type);
 
@@ -86,7 +99,6 @@ describe("Logic.", () => {
         it("does nothing on player if city cannot sell", () => {
             city.isValidSell = stubReturningFalse();
             player.buy = stub;
-            const logic = new Logic(player, city);
 
             logic.buy(type);
 
@@ -95,7 +107,6 @@ describe("Logic.", () => {
         it("does nothing on city if city cannot sell", () => {
             city.isValidSell = stubReturningFalse();
             city.sell = stub;
-            const logic = new Logic(player, city);
 
             logic.buy(type);
 
@@ -106,7 +117,6 @@ describe("Logic.", () => {
     describe("sell()", () => {
         it("checks if player can sell correct waretype", () => {
             player.isValidSell = stub;
-            const logic = new Logic(player, city);
 
             logic.sell(type);
 
@@ -117,7 +127,6 @@ describe("Logic.", () => {
         });
         it("calls city.buy() with correct params ", () => {
             city.buy = stub;
-            const logic = new Logic(player, city);
 
             logic.sell(type);
 
@@ -127,9 +136,18 @@ describe("Logic.", () => {
                 sellPrice
             );
         });
+        it("calls city.getSellPrice() with correct params", () => {
+            city.getSellPrice = stub;
+
+            logic.sell(type);
+
+            expect(city.getSellPrice).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
         it("calls player.sell() with correct params", () => {
             player.sell = stub;
-            const logic = new Logic(player, city);
 
             logic.sell(type);
 
@@ -142,7 +160,6 @@ describe("Logic.", () => {
         it("does nothing on city if player cannot sell", () => {
             player.isValidSell = stubReturningFalse();
             city.buy = stub;
-            const logic = new Logic(player, city);
 
             logic.sell(type);
 
@@ -151,7 +168,6 @@ describe("Logic.", () => {
         it("does nothing on player if player cannot sell", () => {
             player.isValidSell = stubReturningFalse();
             player.sell = stub;
-            const logic = new Logic(player, city);
 
             logic.sell(type);
 
