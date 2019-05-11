@@ -13,7 +13,7 @@ export class MainScene extends Scene {
     private logic!: ILogic;
     private playerMoneyText!: TextPlayerMoney;
     /* textBuyPrice soll array werden, da sonst textBruyPrice dreimal für alle Warentypen gemacht werden muss.... viel text xS */
-    private textBuyPrice!: TextBuyPrice;
+    private textBuyPrices!: TextBuyPrice[];
 
     constructor() {
         super({
@@ -34,16 +34,18 @@ export class MainScene extends Scene {
         const logicObjects = LogicBuilder.create();
         this.logic = logicObjects.logic;
 
+        this.addBackgroundMusic();
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
-        this.addBuyPriceText(logicObjects.city, WareType.Furs);
+        this.addBuyPriceTable(logicObjects.city);
         this.addTable();
-        this.addBackgroundMusic();
     }
 
     public update() {
         this.playerMoneyText.update();
-        this.textBuyPrice.update();
+        for (const entry of this.textBuyPrices) {
+            entry.update();
+        }
     }
 
     private addBackgroundMusic() {
@@ -65,11 +67,16 @@ export class MainScene extends Scene {
         this.children.add(this.playerMoneyText);
         this.playerMoneyText.init(player);
     }
-
-    private addBuyPriceText(city: ICity, type: WareType) {
-        this.textBuyPrice = new TextBuyPrice(this, 600, 200, "", {});
-        this.children.add(this.textBuyPrice);
-        this.textBuyPrice.init(city, type);
+    private addBuyPriceTable(city: ICity) {
+        this.textBuyPrices = [];
+        Object.values(WareType).forEach((ware, i) => {
+            this.textBuyPrices.push(
+                new TextBuyPrice(this, 600, i * 150 + 200, "", {})
+            );
+            /* assuming that textBuyPrices has length 0*/
+            this.children.add(this.textBuyPrices[i]);
+            this.textBuyPrices[i].init(city, ware);
+        });
     }
 
     private addTable() {
