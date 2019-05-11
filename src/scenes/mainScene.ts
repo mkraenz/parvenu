@@ -37,7 +37,7 @@ export class MainScene extends Scene {
         this.addBackgroundMusic();
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
-        this.addBuyPriceTable(logicObjects.city);
+        this.addBuyPriceColumn(logicObjects.city);
         this.addTable();
     }
 
@@ -67,7 +67,7 @@ export class MainScene extends Scene {
         this.children.add(this.playerMoneyText);
         this.playerMoneyText.init(player);
     }
-    private addBuyPriceTable(city: ICity) {
+    private addBuyPriceColumn(city: ICity) {
         this.textBuyPrices = [];
         Object.values(WareType).forEach((ware, i) => {
             this.textBuyPrices.push(
@@ -89,6 +89,7 @@ export class MainScene extends Scene {
         const addTextAtY = this.addTableText(150);
         addTextAtY(200, "City");
         addTextAtY(300, "You");
+        addTextAtY(600, "Price");
     }
 
     private addRow(ware: WareType, y: number) {
