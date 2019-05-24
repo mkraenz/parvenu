@@ -1,0 +1,24 @@
+{
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": [
+                "**/.*.md",
+                "**/.*.yaml",
+                "**/.*.yml",
+                "**/*.md",
+                "**/*.yaml",
+                "**/*.yml"
+            ],
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": ".prettierrc",
+            "options": {
+                "parser": "json"
+            }
+        }
+    ]
+}
