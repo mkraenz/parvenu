@@ -2,7 +2,7 @@ import { IInventory } from "./i-inventory";
 import { IWare } from "./i-ware";
 import { WareType } from "./wareType";
 
-export class Inventory implements IInventory {
+export abstract class Inventory implements IInventory {
     private wares: Map<WareType, IWare>;
 
     /** During production, make sure that we have an `IWare` for each `WareType` */
@@ -10,6 +10,7 @@ export class Inventory implements IInventory {
         this.wares = new Map<WareType, IWare>();
         wares.map(ware => this.wares.set(ware.type, ware));
     }
+    public abstract hasMoney(totalPrice: number): boolean;
 
     /** Assumes existing ware for each type */
     public get(type: WareType): IWare {
@@ -23,13 +24,11 @@ export class Inventory implements IInventory {
         return this.get(type).getQuantity() - quantity >= 0;
     }
 
-    public buy(type: WareType, quantity: number) {
+    public buy(type: WareType, quantity: number, _: number) {
         this.get(type).add(quantity);
     }
 
-    public sell(type: WareType, quantity: number) {
-        if (this.isValidSell(type, quantity)) {
-            this.get(type).add(-quantity);
-        }
+    public sell(type: WareType, quantity: number, _: number) {
+        this.get(type).add(-quantity);
     }
 }

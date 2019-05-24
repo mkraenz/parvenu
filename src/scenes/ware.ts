@@ -6,6 +6,7 @@ export class Ware implements IWare {
     public static getWaresOfEachType(): Ware[] {
         return Object.values(WareType).map(type => new Ware(type, 10));
     }
+    public price = 10;
 
     private quantity$ = new Subject<number>();
 
