@@ -8,26 +8,6 @@ export class Logic implements ILogic {
 
     constructor(private player: IInventory, private city: ICity) {}
 
-    // TODO #22 add tests
-    public getCityQuantityStream(ware: WareType) {
-        return this.city.get(ware).getStream();
-    }
-
-    // TODO #22 add tests
-    public getPlayerQuantityStream(ware: WareType) {
-        return this.player.get(ware).getStream();
-    }
-
-    // TODO #22 add tests
-    public getCityQuantity(ware: WareType): number {
-        return this.city.get(ware).getQuantity();
-    }
-
-    // TODO #22 add tests
-    public getPlayerQuantity(ware: WareType): number {
-        return this.player.get(ware).getQuantity();
-    }
-
     /** player buys */
     public buy(ware: WareType): void {
         const totalPrice = this.city.getBuyPrice(ware, this.tradedQuantity);

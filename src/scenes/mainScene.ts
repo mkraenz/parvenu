@@ -13,6 +13,7 @@ import { WareType } from "./wareType";
 export class MainScene extends Scene {
     private logic!: ILogic;
     private city!: ICity;
+    private player!: IPlayer;
     private playerMoneyText!: TextPlayerMoney;
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
@@ -36,6 +37,7 @@ export class MainScene extends Scene {
         const logicObjects = LogicBuilder.create();
         this.logic = logicObjects.logic;
         this.city = logicObjects.city;
+        this.player = logicObjects.player;
         this.addBackgroundMusic();
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
@@ -121,10 +123,14 @@ export class MainScene extends Scene {
     ) {
         const cityQuantityText = addTextAtY(
             200,
-            this.logic.getCityQuantity(ware).toString()
+            this.city
+                .get(ware)
+                .getQuantity()
+                .toString()
         );
-        this.logic
-            .getCityQuantityStream(ware)
+        this.city
+            .get(ware)
+            .getStream()
             .subscribe(quantity =>
                 cityQuantityText.setText(quantity.toString())
             );
@@ -136,10 +142,14 @@ export class MainScene extends Scene {
     ) {
         const playerQuantityText = addTextAtY(
             300,
-            this.logic.getPlayerQuantity(ware).toString()
+            this.player
+                .get(ware)
+                .getQuantity()
+                .toString()
         );
-        this.logic
-            .getPlayerQuantityStream(ware)
+        this.player
+            .get(ware)
+            .getStream()
             .subscribe(quantity =>
                 playerQuantityText.setText(quantity.toString())
             );
