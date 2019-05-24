@@ -13,7 +13,10 @@ after_success:
   - npx codecov
 
 before_deploy:
-  - npm run build
+  # HACK: Delete "build" from gitignore for deployment because github pages works with `git add --all`
+  - cat .gitignore | grep -v "build" > .gitignore.without.build.tmp
+  - cat .gitignore.without.build.tmp > .gitignore
+  - rm .gitignore.without.build.tmp
 deploy:
   provider: pages
   skip_cleanup: true
