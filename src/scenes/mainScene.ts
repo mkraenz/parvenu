@@ -12,6 +12,7 @@ import { WareType } from "./wareType";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
+    private city!: ICity;
     private playerMoneyText!: TextPlayerMoney;
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
@@ -34,10 +35,11 @@ export class MainScene extends Scene {
     public create(): void {
         const logicObjects = LogicBuilder.create();
         this.logic = logicObjects.logic;
+        this.city = logicObjects.city;
         this.addBackgroundMusic();
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
-        this.addTable(logicObjects.city);
+        this.addTable();
     }
 
     public update() {
@@ -67,10 +69,10 @@ export class MainScene extends Scene {
         this.playerMoneyText.init(player);
     }
 
-    private addTable(city: ICity) {
+    private addTable() {
         this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
-            this.addRow(ware, 200 + i * 150, city);
+            this.addRow(ware, 200 + i * 150);
         });
     }
     private addHeader() {
@@ -81,28 +83,28 @@ export class MainScene extends Scene {
         addTextAtY(700, "Sell");
     }
 
-    private addRow(ware: WareType, y: number, city: ICity) {
+    private addRow(ware: WareType, y: number) {
         this.addBuyButton(ware, y);
         this.addSellButton(ware, y);
         const addTextAtY = this.addTableText(y);
         addTextAtY(50, ware);
         this.addCityQuantityText(addTextAtY, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
-        this.addBuyPrice(y, city, ware);
-        this.addSellPrice(y, city, ware);
+        this.addBuyPrice(y, ware);
+        this.addSellPrice(y, ware);
     }
 
-    private addBuyPrice(y: number, city: ICity, ware: WareType) {
+    private addBuyPrice(y: number, ware: WareType) {
         const text = new TextBuyPrice(this, 600, y, "", {});
         this.textBuyPrices.push(text);
         this.children.add(text);
-        text.init(city, ware);
+        text.init(this.city, ware);
     }
-    private addSellPrice(y: number, city: ICity, ware: WareType) {
+    private addSellPrice(y: number, ware: WareType) {
         const text = new TextSellPrice(this, 700, y, "", {});
         this.textSellPrices.push(text);
         this.children.add(text);
-        text.init(city, ware);
+        text.init(this.city, ware);
     }
 
     private addBuyButton(ware: WareType, y: number) {
