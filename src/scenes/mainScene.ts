@@ -7,12 +7,14 @@ import { IPlayer } from "./IPlayer";
 import { LogicBuilder } from "./logicBuilder";
 import { TextBuyPrice } from "./TextBuyPrice";
 import { TextPlayerMoney } from "./TextPlayerMoney";
+import { TextSellPrice } from "./TextSellPrice";
 import { WareType } from "./wareType";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
     private playerMoneyText!: TextPlayerMoney;
     private textBuyPrices: TextBuyPrice[] = [];
+    private textSellPrices: TextSellPrice[] = [];
 
     constructor() {
         super({
@@ -39,10 +41,10 @@ export class MainScene extends Scene {
     }
 
     public update() {
+        const update = (x: { update(): void }) => x.update();
         this.playerMoneyText.update();
-        for (const entry of this.textBuyPrices) {
-            entry.update();
-        }
+        this.textBuyPrices.forEach(update);
+        this.textSellPrices.forEach(update);
     }
 
     private addBackgroundMusic() {
@@ -87,11 +89,18 @@ export class MainScene extends Scene {
         this.addCityQuantityText(addTextAtY, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addBuyPrice(y, city, ware);
+        this.addSellPrice(y, city, ware);
     }
 
     private addBuyPrice(y: number, city: ICity, ware: WareType) {
         const text = new TextBuyPrice(this, 600, y, "", {});
         this.textBuyPrices.push(text);
+        this.children.add(text);
+        text.init(city, ware);
+    }
+    private addSellPrice(y: number, city: ICity, ware: WareType) {
+        const text = new TextSellPrice(this, 700, y, "", {});
+        this.textSellPrices.push(text);
         this.children.add(text);
         text.init(city, ware);
     }
