@@ -13,10 +13,8 @@ after_success:
   - npx codecov
 
 before_deploy:
-  # HACK: Delete "build" from gitignore for deployment because github pages works with `git add --all`
-  - cat .gitignore | grep -v "build" > .gitignore.without.build.tmp
-  - cat .gitignore.without.build.tmp > .gitignore
-  - rm .gitignore.without.build.tmp
+  # HACK: Delete "build" from gitignore because github pages uses `git add --all`
+  - ./deployment/delete-build-dir-from-gitignore.sh
 deploy:
   provider: pages
   skip_cleanup: true
