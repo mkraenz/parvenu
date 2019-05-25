@@ -8,7 +8,7 @@ services:
   - docker
 
 env:
-  - PROJECT=parvenu DOCKER_REPO=parvenu
+  - PROJECT=parvenu DOCKER_REPO=parvenu URL="http://localhost:8080"
 
 install:
   - npm install
@@ -16,6 +16,8 @@ install:
 script:
   - npm run build
   - npm run test:coverage
+  - docker-compose up -d
+  - curl "$URL" --retry-connrefused --retry 10 --retry-delay 1
 after_success:
   - npx codecov
 
