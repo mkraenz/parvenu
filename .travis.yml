@@ -1,8 +1,15 @@
-language: node_js
 sudo: false
+language: node_js
 node_js:
   - "11"
   - "8"
+
+services:
+  - docker
+
+env:
+  - PROJECT=parvenu DOCKER_REPO=parvenu
+
 install:
   - npm install
   - npm install codecov
@@ -18,7 +25,10 @@ before_deploy:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  github_token: $GITHUB_TOKEN # Set in the settings page of travis repository, as a secure variable
   keep_history: true
   on:
     branch: master
+
+after_deploy:
+  - ./deployment/push-to-docker-hub.sh
