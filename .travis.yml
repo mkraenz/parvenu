@@ -17,7 +17,7 @@ script:
   - npm run build
   - npm run test:coverage
   - docker-compose up -d
-  - curl "$URL" --retry-connrefused --retry 10 --retry-delay 1
+  - curl "$URL"
 after_success:
   - npx codecov
 
