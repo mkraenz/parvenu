@@ -36,9 +36,22 @@ Perform a quick build (bundle.js) and start server:
 npm run dev
 ```
 
+### Running with Docker
+
+```
+# Assumes local installation of Docker.
+npm run build && docker-compose up
+```
+
+In your browser, navigate to [localhost:8080](http://localhost:8080).
+
 ## Deployment
 
-Continuous deployment to github pages [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/). is done on each push to `master`. See [.travis.yml](.travis.yml).
+Continuous deployment to github pages [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/) is performed on each push to `master`.
+
+At the same time, a new Docker image is published to [Parvenu's Docker Hub repository](https://cloud.docker.com/u/nonbiri/repository/docker/nonbiri/parvenu).
+
+See [.travis.yml](.travis.yml).
 
 ## External Resources
 
