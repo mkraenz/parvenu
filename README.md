@@ -3,16 +3,23 @@
 
 # Parvenu
 
-A phaser3 game build in TypeScript
+Play now at [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/).
+
+A phaser3 trading simulation game in TypeScript.
 
 ## Getting started
 
 ### Installing
 
+Assumes you have globally installed
+
+- git
+- node.js
+
 Clone the git repository
 
 ```
-git clone %reponame%
+git clone https://github.com/proSingularity/parvenu.git
 ```
 
 Install dependencies:
@@ -29,6 +36,10 @@ Perform a quick build (bundle.js) and start server:
 npm run dev
 ```
 
+## Deployment
+
+Continuous deployment to github pages [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/). is done on each push to `master`. See [.travis.yml](.travis.yml).
+
 ## External Resources
 
 - [Phaser 3 Framework](https://github.com/photonstorm/phaser)
@@ -40,7 +51,8 @@ npm run dev
 
 ## Helpful tools
 
+- [Pixel Art Maker](http://pixelartmaker.com/)
 - [Leshy SpriteSheet Tool](https://www.leshylabs.com/apps/sstool)
 - [Littera](http://kvazars.com/littera)
-* [MagicTools](https://github.com/ellisonleao/magictools)
+- [MagicTools](https://github.com/ellisonleao/magictools)
 - [Tiled](https://www.mapeditor.org)

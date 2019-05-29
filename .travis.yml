@@ -21,4 +21,4 @@ deploy:
   github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: 27-As-a-user-I-want-a-deployed-app # TODO #27 change to master after successful test deployment
+    branch: master
