@@ -1,13 +1,24 @@
 language: node_js
 sudo: false
 node_js:
-  - 11
-  - 8
+  - "11"
+  - "8"
 install:
   - npm install
-  - npm install -save-dev codecov
+  - npm install codecov
 script:
   - npm run build
   - npm run test:coverage
 after_success:
   - npx codecov
+
+before_deploy:
+  # HACK: Delete "build" from gitignore because github pages uses `git add --all`
+  - ./deployment/delete-build-dir-from-gitignore.sh
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
