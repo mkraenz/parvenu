@@ -19,7 +19,12 @@ export class Logic implements ILogic {
         const totalPrice = this.city.getSellPrice(ware, this.tradedQuantity);
         this.trade(this.city, this.player, ware, totalPrice);
     }
-
+    public gameOver(): boolean {
+        if (this.player.isValidSell(WareType.Furs, 1)) {
+            return false;
+        }
+        return true;
+    }
     private trade(
         buyer: IInventory,
         seller: IInventory,
