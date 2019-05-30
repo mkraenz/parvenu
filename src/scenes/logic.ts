@@ -20,8 +20,14 @@ export class Logic implements ILogic {
         this.trade(this.city, this.player, ware, totalPrice);
     }
     public gameOver(): boolean {
-        if (this.player.isValidSell(WareType.Furs, 1)) {
-            return false;
+        const waretypes = Object.values(WareType).map(type => type);
+        for (const waretype of waretypes) {
+            if (
+                this.player.isValidSell(waretype, 1) ||
+                this.player.hasMoney(this.city.getBuyPrice(waretype, 1))
+            ) {
+                return false;
+            }
         }
         return true;
     }

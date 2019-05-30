@@ -120,7 +120,7 @@ export class MainScene extends Scene {
         this.children.add(text);
         text.init(this.city, ware);
     }
-
+    /*interessant*/
     private addBuyButton(ware: WareType, y: number) {
         this.addButton("buy", { x: 400, y }, () => this.logic.buy(ware));
     }
