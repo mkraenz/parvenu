@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parvenu-deployment
+  labels:
+    app: parvenu
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: parvenu
+  template:
+    metadata:
+      labels:
+        app: parvenu
+    spec:
+      containers:
+        - name: parvenu
+          image: nonbiri/parvenu:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: parvenu-service
+spec:
+  selector:
+    app: parvenu
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
