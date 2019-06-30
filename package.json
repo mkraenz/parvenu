@@ -35,7 +35,7 @@
         "prettier-tslint": "^0.4.0",
         "sinon": "^7.2.2",
         "sinon-chai": "^3.3.0",
-        "ts-loader": "5.3.2",
+        "ts-loader": "6.0.4",
         "ts-node": "^7.0.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
