@@ -1,11 +1,12 @@
 import { cityConfig } from "./City.config";
+import { CityName } from "./CityName";
 import { ICity } from "./ICity";
 import { Inventory } from "./inventory";
 import { IWareForCity } from "./IWareForCity";
 import { WareType } from "./wareType";
 
 export class City extends Inventory implements ICity {
-    constructor(wares: IWareForCity[]) {
+    constructor(wares: IWareForCity[], public readonly name: CityName) {
         super(wares);
     }
 

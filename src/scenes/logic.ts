@@ -1,12 +1,33 @@
+import { CityName } from "./CityName";
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
 import { WareType } from "./wareType";
 
 export class Logic implements ILogic {
+    public selectedCity: CityName;
+    private cities: Map<CityName, ICity>;
     private tradedQuantity = 1;
 
-    constructor(private player: IInventory, private city: ICity) {}
+    constructor(
+        private player: IInventory,
+        cities: ICity[],
+        startCity: CityName
+    ) {
+        if (!cities.length) {
+            throw new Error("Must provide at least one city");
+        }
+
+        this.cities = new Map(cities.map(value => [value.name, value]));
+        this.selectedCity = startCity;
+    }
+
+    get city(): ICity {
+        if (!this.cities.has(this.selectedCity)) {
+            throw new Error(`City not found ${this.selectedCity}`);
+        }
+        return this.cities.get(this.selectedCity)!;
+    }
 
     /** player buys */
     public buy(ware: WareType): void {

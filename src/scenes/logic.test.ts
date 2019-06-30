@@ -4,6 +4,7 @@
 import { expect, use } from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
+import { CityName } from "./CityName";
 import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
 import { Logic } from "./logic";
@@ -38,9 +39,10 @@ describe("Logic", () => {
             getSellPrice: () => sellPrice,
             hasMoney: () => true,
             isValidSell: () => true,
+            name: CityName.Mecklenburg,
             sell: doNothing,
         };
-        logic = new Logic(player, city);
+        logic = new Logic(player, [city], CityName.Mecklenburg);
     });
 
     const type = WareType.Furs;

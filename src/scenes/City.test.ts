@@ -3,6 +3,7 @@ import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { City } from "./City";
 import { cityConfig } from "./City.config";
+import { CityName } from "./CityName";
 import { IWareForCity } from "./IWareForCity";
 import { WareType } from "./wareType";
 
@@ -22,7 +23,7 @@ describe("City", () => {
             price: 123,
             type: WareType.Furs,
         };
-        city = new City([ware]);
+        city = new City([ware], CityName.Mecklenburg);
     });
 
     describe("getSellPrice()", () => {
