@@ -1,6 +1,7 @@
 import { Scene } from "phaser";
 import { Color } from "../Color";
 import { gameConfig } from "../game-config";
+import { logicConfig } from "../logic.config";
 import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
 import { IPlayer } from "./IPlayer";
@@ -42,6 +43,12 @@ export class MainScene extends Scene {
         this.addBackground();
         this.addPlayerMoneyText(logicObjects.player);
         this.addTable();
+
+        this.time.addEvent({
+            callback: () => this.city.consume(),
+            delay: logicConfig.cityConsumeTime,
+            loop: true
+        });
     }
 
     public update() {
