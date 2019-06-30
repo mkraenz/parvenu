@@ -1,3 +1,4 @@
+// tslint:disable:no-unused-expression
 import { expect, use } from "chai";
 import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
@@ -80,7 +81,16 @@ describe("City", () => {
     });
 
     describe("consume()", () => {
-        it("reduces ware quantity by 1", () => {
+        it("does not reduce quantity when quantity = 0", () => {
+            ware.add = spy();
+
+            city.consume();
+
+            expect(ware.add).to.have.not.been.called;
+        });
+
+        it("reduces ware quantity by 1 when quantity > 1", () => {
+            ware.getQuantity = () => 1;
             ware.add = spy();
 
             city.consume();

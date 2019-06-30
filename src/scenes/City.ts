@@ -50,7 +50,11 @@ export class City extends Inventory implements ICity {
     }
 
     public consume() {
-        this.wares.forEach(ware => ware.add(-1));
+        this.wares.forEach(ware => {
+            if (ware.getQuantity() > 0) {
+                ware.add(-1);
+            }
+        });
     }
 
     private getPrice(ware: IWareForCity, quantity: number) {
