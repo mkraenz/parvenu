@@ -13,12 +13,6 @@
             "options": {
                 "tabWidth": 2
             }
-        },
-        {
-            "files": ".prettierrc",
-            "options": {
-                "parser": "json"
-            }
         }
     ]
 }

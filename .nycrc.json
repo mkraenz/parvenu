@@ -8,9 +8,6 @@
     "statements": 90,
     "functions": 90,
     "branches": 90,
-    "reporter": [
-        "text",
-        "html",
-        "lcov"
-    ]
+    "exclude": ["**/*.d.ts", "**/*.test.ts"],
+    "reporter": ["text", "html", "lcov"]
 }
