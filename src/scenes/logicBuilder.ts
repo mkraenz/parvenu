@@ -8,10 +8,12 @@ import { Ware } from "./ware";
 export class LogicBuilder {
     public static create(): IMainSceneParams {
         const player = new Player(Ware.getWaresOfEachType());
-        const city = new City(Ware.getWaresOfEachType(), CityName.Mecklenburg);
+        const cities = Object.values(CityName).map(
+            name => new City(Ware.getWaresOfEachType(), name)
+        );
         return {
-            city,
-            logic: new Logic(player, [city], CityName.Mecklenburg),
+            city: cities[0],
+            logic: new Logic(player, cities, CityName.Mecklenburg),
             player,
         };
     }
