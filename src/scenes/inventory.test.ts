@@ -11,7 +11,7 @@ class MockInventory extends Inventory {
     }
 }
 
-describe("Inventory.", () => {
+describe("Inventory", () => {
     const type = WareType.Furs;
 
     function getMockInventory(quantity: number) {

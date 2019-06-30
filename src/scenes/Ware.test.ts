@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { Ware } from "./ware";
 import { WareType } from "./wareType";
 
-describe("Ware.", () => {
+describe("Ware", () => {
     it("getWaresOfEachType() has correct length", () => {
         const wares = Ware.getWaresOfEachType();
         expect(wares.length).to.equal(Object.keys(WareType).length);

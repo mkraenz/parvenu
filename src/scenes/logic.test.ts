@@ -11,7 +11,7 @@ import { WareType } from "./wareType";
 
 use(sinonChai);
 
-describe("Logic.", () => {
+describe("Logic", () => {
     const buyPrice = 1234;
     const sellPrice = 2345;
 
@@ -22,7 +22,7 @@ describe("Logic.", () => {
 
     beforeEach(() => {
         stub = sinon.stub();
-        const doNothing = () => {};
+        const doNothing = () => undefined;
         player = {
             buy: doNothing,
             get: null as any,
