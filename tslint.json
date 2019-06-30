@@ -8,7 +8,11 @@
             ".nyc_output/**"
         ],
         "rules": {
-            "prettier": true
+            "prettier": true,
+            "object-literal-sort-keys": false
+        },
+        "jsRules": {
+            "object-literal-sort-keys": false
         }
     }
 }

@@ -1,5 +1,6 @@
 import { Subject } from "rxjs";
 import { IWare } from "./i-ware";
+import { wareConfig } from "./Ware.config";
 import { WareType } from "./wareType";
 
 export class Ware implements IWare {
@@ -15,6 +16,14 @@ export class Ware implements IWare {
             this.quantity = quantityEvent;
         });
         this.quantity$.next(quantity);
+    }
+
+    public get maxPrice(): number {
+        return wareConfig.maxPrice[this.type];
+    }
+
+    public get minPrice(): number {
+        return wareConfig.minPrice[this.type];
     }
 
     // TODO #22 add tests
