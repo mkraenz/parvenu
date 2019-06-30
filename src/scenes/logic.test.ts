@@ -3,7 +3,7 @@
 
 import { expect, use } from "chai";
 import * as sinon from "sinon";
-import sinonChai = require("sinon-chai");
+import * as sinonChai from "sinon-chai";
 import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
 import { Logic } from "./logic";
@@ -11,7 +11,7 @@ import { WareType } from "./wareType";
 
 use(sinonChai);
 
-describe("Logic.", () => {
+describe("Logic", () => {
     const buyPrice = 1234;
     const sellPrice = 2345;
 
@@ -22,7 +22,7 @@ describe("Logic.", () => {
 
     beforeEach(() => {
         stub = sinon.stub();
-        const doNothing = () => {};
+        const doNothing = () => undefined;
         player = {
             buy: doNothing,
             get: null as any,
@@ -32,6 +32,7 @@ describe("Logic.", () => {
         };
         city = {
             buy: doNothing,
+            consume: doNothing,
             get: null as any,
             getBuyPrice: () => buyPrice,
             getSellPrice: () => sellPrice,
