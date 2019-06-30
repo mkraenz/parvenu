@@ -169,8 +169,7 @@ export class MainScene extends Scene {
         button.setInteractive();
         const callBackWithSound = () => {
             logicCallback();
-            // TODO dont `add` in each call, add once and play often
-            this.sound.add(key).play();
+            this.sound.play(key);
         };
         button.on("pointerdown", callBackWithSound);
     }
