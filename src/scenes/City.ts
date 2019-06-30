@@ -48,6 +48,10 @@ export class City extends Inventory implements ICity {
         return true;
     }
 
+    public consume() {
+        this.wares.forEach(ware => ware.add(-1));
+    }
+
     private getPrice(ware: IWareForCity, quantity: number) {
         if (quantity === 0) {
             return ware.maxPrice;

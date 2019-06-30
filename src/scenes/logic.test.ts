@@ -3,7 +3,7 @@
 
 import { expect, use } from "chai";
 import * as sinon from "sinon";
-import sinonChai = require("sinon-chai");
+import * as sinonChai from "sinon-chai";
 import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
 import { Logic } from "./logic";
@@ -32,6 +32,7 @@ describe("Logic.", () => {
         };
         city = {
             buy: doNothing,
+            consume: doNothing,
             get: null as any,
             getBuyPrice: () => buyPrice,
             getSellPrice: () => sellPrice,

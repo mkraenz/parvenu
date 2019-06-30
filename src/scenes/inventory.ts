@@ -3,7 +3,7 @@ import { IWare } from "./i-ware";
 import { WareType } from "./wareType";
 
 export abstract class Inventory implements IInventory {
-    private wares: Map<WareType, IWare>;
+    protected wares: Map<WareType, IWare>;
 
     /** During production, make sure that we have an `IWare` for each `WareType` */
     constructor(wares: IWare[]) {
