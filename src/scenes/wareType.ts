@@ -1,5 +1,5 @@
 export enum WareType {
-    Furs = 'Furs',
-    Salt = 'Salt',
-    Juwelry = 'Juwelry'
+    Furs = "Furs",
+    Salt = "Salt",
+    Juwelry = "Juwelry",
 }

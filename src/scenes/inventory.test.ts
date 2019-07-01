@@ -21,8 +21,8 @@ describe("Inventory", () => {
                 getQuantity: () => quantity,
                 getStream: null as any,
                 price: 1234,
-                type
-            }
+                type,
+            },
         ]);
     }
     it("buy() relays to wares.add with correct quantity", () => {

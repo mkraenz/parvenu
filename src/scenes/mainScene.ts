@@ -21,7 +21,7 @@ export class MainScene extends Scene {
 
     constructor() {
         super({
-            key: "MainScene"
+            key: "MainScene",
         });
     }
 
@@ -47,7 +47,7 @@ export class MainScene extends Scene {
         this.time.addEvent({
             callback: () => this.city.consume(),
             delay: logicConfig.cityConsumeTime,
-            loop: true
+            loop: true,
         });
     }
 

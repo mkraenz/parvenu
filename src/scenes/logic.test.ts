@@ -28,7 +28,7 @@ describe("Logic", () => {
             get: null as any,
             hasMoney: () => true,
             isValidSell: () => true,
-            sell: doNothing
+            sell: doNothing,
         };
         city = {
             buy: doNothing,
@@ -38,7 +38,7 @@ describe("Logic", () => {
             getSellPrice: () => sellPrice,
             hasMoney: () => true,
             isValidSell: () => true,
-            sell: doNothing
+            sell: doNothing,
         };
         logic = new Logic(player, city);
     });
