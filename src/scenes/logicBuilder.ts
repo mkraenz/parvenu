@@ -11,7 +11,7 @@ export class LogicBuilder {
         return {
             city,
             logic: new Logic(player, city),
-            player
+            player,
         };
     }
 }

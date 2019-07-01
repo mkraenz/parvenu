@@ -1,3 +1,3 @@
 export const enum Color {
-    black = "#000000"
+    black = "#000000",
 }

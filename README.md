@@ -5,7 +5,7 @@
 
 Play now at [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/).
 
-Or on [Google Cloud Engine](34.90.37.206:80) 
+Or on [Google Cloud Engine](34.90.37.206:80)
 
 A phaser3 trading simulation game in TypeScript.
 

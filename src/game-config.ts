@@ -5,5 +5,5 @@ export const gameConfig: GameConfig = {
     parent: "game",
     scene: MainScene,
     type: Phaser.AUTO,
-    width: 800
+    width: 800,
 };
