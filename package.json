@@ -20,6 +20,7 @@
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",
+        "@types/lodash": "^4.14.135",
         "@types/mocha": "^5.2.5",
         "@types/ms": "^0.7.30",
         "@types/sinon": "^7.0.3",
@@ -47,9 +48,10 @@
         "webpack-dev-server": "3.7.2"
     },
     "dependencies": {
+        "lodash": "^4.17.11",
+        "ms": "^2.1.2",
         "phaser": "^3.18.1",
-        "rxjs": "^6.4.0",
-        "ms": "^2.1.2"
+        "rxjs": "^6.4.0"
     },
     "husky": {
         "hooks": {

@@ -1,3 +1,4 @@
+import { uniq } from "lodash";
 import { CityName } from "./CityName";
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
@@ -16,6 +17,12 @@ export class Logic implements ILogic {
     ) {
         if (!cities.length) {
             throw new Error("Must provide at least one city");
+        }
+
+        const hasDuplicateName =
+            uniq(cities.map(value => value.name)).length !== cities.length;
+        if (hasDuplicateName) {
+            throw new Error("City names must be unique.");
         }
 
         this.cities = new Map(cities.map(value => [value.name, value]));
