@@ -8,5 +8,7 @@
         "noUnusedParameters": true,
         "forceConsistentCasingInFileNames": true
     },
-    "exclude": ["node_modules", "build", "scripts", "webpack"]
+    "exclude": ["node_modules", "build", "scripts", "webpack"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/phaser/types"],
+    "types": ["phaser"]
 }
