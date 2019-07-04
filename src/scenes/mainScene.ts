@@ -32,6 +32,7 @@ export class MainScene extends Scene {
         this.load.audio("buy", "./assets/sounds/buy.wav");
         this.load.audio("sell", "./assets/sounds/sell.wav");
         this.load.audio("background", "./assets/sounds/bgm.mp3");
+        this.load.image("test", "./assets/images/test.png");
     }
 
     public create(): void {
@@ -56,6 +57,10 @@ export class MainScene extends Scene {
         this.playerMoneyText.update();
         this.textBuyPrices.forEach(update);
         this.textSellPrices.forEach(update);
+        if (this.logic.gameOver()) {
+            this.sound.removeByKey("background");
+            this.scene.start("EndScene");
+        }
     }
 
     private addBackgroundMusic() {
@@ -115,7 +120,7 @@ export class MainScene extends Scene {
         this.children.add(text);
         text.init(this.city, ware);
     }
-
+    /*interessant*/
     private addBuyButton(ware: WareType, y: number) {
         this.addButton("buy", { x: 400, y }, () => this.logic.buy(ware));
     }
