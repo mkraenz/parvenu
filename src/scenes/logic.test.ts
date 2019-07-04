@@ -175,6 +175,31 @@ describe("Logic", () => {
             expect(player.sell).to.have.not.been.called;
         });
     });
+
+    describe("gameOver()", () => {
+        it("returns false if player has wares but is broke", () => {
+            player.hasMoney = stubReturningFalse();
+
+            const result = logic.gameOver();
+
+            expect(result).to.be.false;
+        });
+        it("returns false if player is not broke but no wares", () => {
+            player.isValidSell = stubReturningFalse();
+
+            const result = logic.gameOver();
+
+            expect(result).to.be.false;
+        });
+        it("returns true if player is broke and has no wares", () => {
+            player.isValidSell = stubReturningFalse();
+            player.hasMoney = stubReturningFalse();
+
+            const result = logic.gameOver();
+
+            expect(result).to.be.true;
+        });
+    });
 });
 
 function stubReturningFalse() {
