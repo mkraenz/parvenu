@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
 import { KEYS } from "./keys";
-export class EndScene extends Scene {
+export class GameOverScene extends Scene {
     constructor() {
         super({
             key: KEYS.scenes.gameOver,
