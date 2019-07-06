@@ -51,6 +51,7 @@ export class Logic implements ILogic {
         const totalPrice = this.city.getSellPrice(ware, this.tradedQuantity);
         this.trade(this.city, this.player, ware, totalPrice);
     }
+
     public gameOver(): boolean {
         const waretypes = Object.values(WareType).map(type => type);
         for (const waretype of waretypes) {
@@ -63,6 +64,7 @@ export class Logic implements ILogic {
         }
         return true;
     }
+
     private trade(
         buyer: IInventory,
         seller: IInventory,

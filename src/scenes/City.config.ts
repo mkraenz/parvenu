@@ -6,7 +6,7 @@ interface ICityConfig {
 
 const citiesArray: ICityConfig[] = [
     { name: CityName.Mecklenburg },
-    { name: CityName.Holstein }
+    { name: CityName.Holstein },
 ];
 
 const cities = new Map<CityName, ICityConfig>(

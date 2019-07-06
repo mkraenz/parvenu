@@ -2,14 +2,15 @@ const scenify = (str: string) => `${str}-scene`;
 
 export const KEYS = {
     scenes: {
-        main: scenify("main"),
+        end: scenify("end"),
         citySelection: scenify("city-selection"),
+        main: scenify("main"),
         table: scenify("table"),
     },
     // key of the corresponding objects inside the global data registry
     registry: {
-        logic: "logic",
         cities: "cities",
+        logic: "logic",
         player: "player",
     },
 };

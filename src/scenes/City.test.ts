@@ -5,6 +5,7 @@ import * as sinonChai from "sinon-chai";
 import { City } from "./City";
 import { cityConfig } from "./City.config";
 import { CityName } from "./CityName";
+import { doNothing } from "./doNothing";
 import { IWareForCity } from "./IWareForCity";
 import { WareType } from "./wareType";
 
@@ -16,7 +17,7 @@ describe("City", () => {
 
     beforeEach(() => {
         ware = {
-            add: () => undefined,
+            add: doNothing,
             getQuantity: () => 0,
             getStream: undefined as any,
             maxPrice: 355,

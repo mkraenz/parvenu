@@ -215,7 +215,7 @@ describe("Logic", () => {
         });
     });
 
-    describe("city", () => {
+    describe("city (getter)", () => {
         it("initially returns the startCity", () => {
             const anotherCity = getMockCity(CityName.Holstein);
             logic = new Logic(
@@ -246,6 +246,18 @@ describe("Logic", () => {
             const resultFn = () => logic.city; // getter function
 
             expect(resultFn).to.throw(/City not found Holstein/);
+        });
+    });
+
+    describe("setCity()", () => {
+        it("sets the city", () => {
+            const holstein = getMockCity(CityName.Holstein);
+            logic = new Logic(player, [city, holstein], CityName.Mecklenburg);
+            expect(logic.city.name).to.equal(CityName.Mecklenburg);
+
+            logic.setCity(CityName.Holstein);
+
+            expect(logic.city.name).to.equal(CityName.Holstein);
         });
     });
 });

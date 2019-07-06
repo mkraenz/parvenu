@@ -4,7 +4,7 @@ import { wareConfig } from "./Ware.config";
 import { WareType } from "./wareType";
 
 export class Ware implements IWare {
-    public static getWaresOfEachType(): Ware[] {
+    public static makeWaresOfEachType(): Ware[] {
         return Object.values(WareType).map(type => new Ware(type, 10));
     }
     public price = 10;

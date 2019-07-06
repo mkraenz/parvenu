@@ -1,9 +1,10 @@
 import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
+import { KEYS } from "./keys";
 export class EndScene extends Scene {
     constructor() {
         super({
-            key: "EndScene"
+            key: KEYS.scenes.end,
         });
     }
 

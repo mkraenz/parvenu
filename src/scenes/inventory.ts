@@ -10,6 +10,7 @@ export abstract class Inventory implements IInventory {
         this.wares = new Map<WareType, IWare>();
         wares.map(ware => this.wares.set(ware.type, ware));
     }
+
     public abstract hasMoney(totalPrice: number): boolean;
 
     /** Assumes existing ware for each type */
@@ -20,7 +21,6 @@ export abstract class Inventory implements IInventory {
         return this.wares.get(type)!;
     }
 
-    // TODO #44 rename to something like hasEnoughWares
     public isValidSell(type: WareType, quantity: number) {
         return this.get(type).getQuantity() - quantity >= 0;
     }
