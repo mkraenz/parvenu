@@ -30,16 +30,21 @@ export class CitySelectionScene extends Scene {
         graphics.fillRect(800, 200, 300, 200);
         this.cities.forEach((city, i) =>
             this.add
-                .text(820, 250 + i * 50, city.name)
+                .text(850, 250 + i * 50, city.name)
                 .setFontFamily("Arial")
                 .setFontSize(32)
                 .setColor(Color.Black)
         );
+        const selectedMarker = this.add
+            .graphics()
+            .fillStyle(Color.BlackAsNumber)
+            .fillCircle(820, 265, 10);
 
         this.input.addListener("pointerdown", () => {
-            this.logic.setCity(
-                this.cities[this.clickCount % this.cities.length].name
-            );
+            const index = this.clickCount % this.cities.length;
+            this.logic.setCity(this.cities[index].name);
+            // for some reason, the new y is relativ to the y position provided on construction
+            selectedMarker.setY(index * 50);
             this.clickCount++;
         });
     }

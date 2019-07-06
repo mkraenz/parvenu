@@ -3,21 +3,21 @@ import { Color } from "../Color";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
 import { ILogic } from "./i-logic";
-import { ICity } from "./ICity";
 import { IPlayer } from "./IPlayer";
 import { KEYS } from "./keys";
 import { TextBuyPrice } from "./TextBuyPrice";
+import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
 import { WareType } from "./wareType";
 
 export class TableScene extends Scene {
     private logic!: ILogic;
-    private city!: ICity;
     private player!: IPlayer;
     private playerMoneyText!: TextPlayerMoney;
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
+    private textCityWareQuantities: TextCityWareQuantity[] = [];
 
     constructor() {
         super({
@@ -27,7 +27,6 @@ export class TableScene extends Scene {
 
     public create(): void {
         this.logic = getLogic(this);
-        this.city = this.logic.city;
         this.player = getPlayer(this);
 
         this.addPlayerMoneyText(this.player);
@@ -39,6 +38,7 @@ export class TableScene extends Scene {
         this.playerMoneyText.update();
         this.textBuyPrices.forEach(update);
         this.textSellPrices.forEach(update);
+        this.textCityWareQuantities.forEach(update);
     }
 
     private addPlayerMoneyText(player: IPlayer) {
@@ -67,7 +67,7 @@ export class TableScene extends Scene {
         this.addSellButton(ware, y);
         const addTextAtY = this.addTableText(y);
         addTextAtY(50, ware);
-        this.addCityQuantityText(addTextAtY, ware);
+        this.addCityQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addBuyPrice(y, ware);
         this.addSellPrice(y, ware);
@@ -95,23 +95,11 @@ export class TableScene extends Scene {
         this.addButton("sell", { x: 500, y }, () => this.logic.sell(ware));
     }
 
-    private addCityQuantityText(
-        addTextAtY: (x: number, text: string) => Phaser.GameObjects.Text,
-        ware: WareType
-    ) {
-        const cityQuantityText = addTextAtY(
-            200,
-            this.logic.city
-                .get(ware)
-                .getQuantity()
-                .toString()
-        );
-        this.city
-            .get(ware)
-            .getStream()
-            .subscribe(quantity =>
-                cityQuantityText.setText(quantity.toString())
-            );
+    private addCityQuantityText(y: number, ware: WareType) {
+        const text = new TextCityWareQuantity(this, 200, y, "", {});
+        this.textCityWareQuantities.push(text);
+        this.children.add(text);
+        text.init(this.logic, ware);
     }
 
     private addPlayerQuantityText(
