@@ -16,7 +16,8 @@
         "test": "mocha",
         "test:coverage": "nyc mocha",
         "test:watch": "mocha --watch --watch-extensions ts",
-        "test:debug": "mocha --inspect-brk"
+        "test:debug": "mocha --inspect-brk",
+        "sanity-check": "npm install && yarn test && yarn dev"
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",
