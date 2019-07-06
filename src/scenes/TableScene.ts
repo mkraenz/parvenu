@@ -53,6 +53,7 @@ export class TableScene extends Scene {
             this.addRow(ware, 200 + i * 150);
         });
     }
+
     private addHeader() {
         const addTextAtY = this.addTableText(150);
         addTextAtY(200, "City");
@@ -76,13 +77,14 @@ export class TableScene extends Scene {
         const text = new TextBuyPrice(this, 600, y, "", {});
         this.textBuyPrices.push(text);
         this.children.add(text);
-        text.init(this.city, ware);
+        text.init(this.logic, ware);
     }
+
     private addSellPrice(y: number, ware: WareType) {
         const text = new TextSellPrice(this, 700, y, "", {});
         this.textSellPrices.push(text);
         this.children.add(text);
-        text.init(this.city, ware);
+        text.init(this.logic, ware);
     }
 
     private addBuyButton(ware: WareType, y: number) {
@@ -99,7 +101,7 @@ export class TableScene extends Scene {
     ) {
         const cityQuantityText = addTextAtY(
             200,
-            this.city
+            this.logic.city
                 .get(ware)
                 .getQuantity()
                 .toString()

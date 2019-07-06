@@ -2,12 +2,16 @@ import { GameObjects } from "phaser";
 import { Color } from "../Color";
 import { ICity } from "./ICity";
 import { WareType } from "./wareType";
+interface ILogic {
+    city: Pick<ICity, "getBuyPrice" | "name">;
+}
 
 export class TextBuyPrice extends GameObjects.Text {
-    private city!: Pick<ICity, "getBuyPrice">;
+    private logic!: ILogic;
     private wareType!: WareType;
-    public init(city: Pick<ICity, "getBuyPrice">, type: WareType) {
-        this.city = city;
+
+    public init(logic: ILogic, type: WareType) {
+        this.logic = logic;
         this.wareType = type;
         this.setFontFamily("Arial")
             .setFontSize(32)
@@ -15,6 +19,6 @@ export class TextBuyPrice extends GameObjects.Text {
     }
 
     public update() {
-        this.setText(`${this.city.getBuyPrice(this.wareType, 1)}`);
+        this.setText(`${this.logic.city.getBuyPrice(this.wareType, 1)}`);
     }
 }

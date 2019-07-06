@@ -44,7 +44,7 @@ export class MainScene extends Scene {
         this.scene.add(KEYS.scenes.table, TableScene, true);
 
         this.time.addEvent({
-            // TODO #44 adapt to multi city
+            // TODO currently only mecklenburg consumes
             callback: () => this.city.consume(),
             delay: logicConfig.cityConsumeTime,
             loop: true,
