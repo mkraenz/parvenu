@@ -20,11 +20,11 @@ describe("Inventory", () => {
                 add: stub(),
                 getQuantity: () => quantity,
                 getStream: null as any,
-                price: 1234,
                 type,
             },
         ]);
     }
+
     it("buy() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
@@ -33,6 +33,7 @@ describe("Inventory", () => {
         expect(inventory.get(type)
             .add as SinonStub).to.have.been.calledOnceWithExactly(100);
     });
+
     it("sell() relays to wares.add with correct quantity", () => {
         const inventory = getMockInventory(200);
 
@@ -41,6 +42,7 @@ describe("Inventory", () => {
         expect(inventory.get(type)
             .add as SinonStub).to.have.been.calledOnceWithExactly(-50);
     });
+
     describe("isValidSell()", () => {
         it("returns true for valid sell", () => {
             const inventory = getMockInventory(200);
@@ -49,6 +51,7 @@ describe("Inventory", () => {
 
             expect(result).to.be.true;
         });
+
         it("returns false for invalid sell", () => {
             const inventory = getMockInventory(0);
 
@@ -56,6 +59,7 @@ describe("Inventory", () => {
 
             expect(result).to.be.false;
         });
+
         it("returns true for remainder 0", () => {
             const inventory = getMockInventory(50);
 

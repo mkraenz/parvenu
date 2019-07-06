@@ -1,6 +1,9 @@
 {
     "extends": ["tslint:recommended", "tslint-config-prettier"],
-    "rulesDirectory": ["tslint-plugin-prettier"],
+    "rulesDirectory": [
+        "tslint-plugin-prettier",
+        "node_modules/tslint-lines-between-class-members"
+    ],
     "linterOptions": {
         "exclude": [
             "node_modules/**",
@@ -10,6 +13,7 @@
         ]
     },
     "rules": {
+        "lines-between-class-members": [true, 1],
         "prefer-template": true,
         "prettier": true,
         "object-literal-sort-keys": false

@@ -10,6 +10,7 @@ export abstract class Inventory implements IInventory {
         this.wares = new Map<WareType, IWare>();
         wares.map(ware => this.wares.set(ware.type, ware));
     }
+
     public abstract hasMoney(totalPrice: number): boolean;
 
     /** Assumes existing ware for each type */

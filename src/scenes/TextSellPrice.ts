@@ -3,18 +3,23 @@ import { Color } from "../Color";
 import { ICity } from "./ICity";
 import { WareType } from "./wareType";
 
+interface ILogic {
+    city: Pick<ICity, "getSellPrice">;
+}
+
 export class TextSellPrice extends GameObjects.Text {
-    private city!: Pick<ICity, "getSellPrice">;
+    private logic!: ILogic;
     private wareType!: WareType;
-    public init(city: Pick<ICity, "getSellPrice">, type: WareType) {
-        this.city = city;
+
+    public init(logic: ILogic, type: WareType) {
+        this.logic = logic;
         this.wareType = type;
         this.setFontFamily("Arial")
             .setFontSize(32)
-            .setColor(Color.black);
+            .setColor(Color.Black);
     }
 
     public update() {
-        this.setText(`${this.city.getSellPrice(this.wareType, 1)}`);
+        this.setText(`${this.logic.city.getSellPrice(this.wareType, 1)}`);
     }
 }

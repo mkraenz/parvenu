@@ -10,6 +10,7 @@ describe("Logic integration", () => {
 
         expect(resultFn).to.not.throw();
     });
+
     it("sell() does not throw", () => {
         const logic = LogicBuilder.create().logic;
 
