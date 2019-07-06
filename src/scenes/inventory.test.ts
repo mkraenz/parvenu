@@ -20,7 +20,6 @@ describe("Inventory", () => {
                 add: stub(),
                 getQuantity: () => quantity,
                 getStream: null as any,
-                price: 1234,
                 type,
             },
         ]);
