@@ -1,10 +1,9 @@
 import { Scene } from "phaser";
-import { gameConfig } from "../game-config";
 import { KEYS } from "./keys";
 export class EndScene extends Scene {
     constructor() {
         super({
-            key: KEYS.scenes.end,
+            key: KEYS.scenes.gameOver,
         });
     }
 
@@ -16,9 +15,6 @@ export class EndScene extends Scene {
         this.add
             .image(0, 0, "gameOver")
             .setOrigin(0)
-            .setScale(
-                (gameConfig.width as number) / 500,
-                (gameConfig.height as number) / 300
-            );
+            .setScale(this.scale.width / 500, this.scale.height / 300);
     }
 }

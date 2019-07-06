@@ -54,7 +54,9 @@ export class MainScene extends Scene {
     public update() {
         if (this.logic.gameOver()) {
             this.sound.removeByKey("background");
-            this.scene.start("EndScene");
+            this.scene.remove(KEYS.scenes.citySelection);
+            this.scene.remove(KEYS.scenes.table);
+            this.scene.start(KEYS.scenes.gameOver);
         }
     }
 

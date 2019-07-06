@@ -2,7 +2,7 @@ const scenify = (str: string) => `${str}-scene`;
 
 export const KEYS = {
     scenes: {
-        end: scenify("end"),
+        gameOver: scenify("game-over"),
         citySelection: scenify("city-selection"),
         main: scenify("main"),
         table: scenify("table"),
