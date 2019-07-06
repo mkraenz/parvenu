@@ -1,15 +1,17 @@
 import { expect } from "chai";
+import { uniq } from "lodash";
 import { Ware } from "./ware";
 import { WareType } from "./wareType";
 
 describe("Ware", () => {
     it("getWaresOfEachType() has correct length", () => {
-        const wares = Ware.getWaresOfEachType();
+        const wares = Ware.makeWaresOfEachType();
         expect(wares.length).to.equal(Object.keys(WareType).length);
     });
+
     it("getWaresOfEachType() has no duplicates", () => {
-        const wares = Ware.getWaresOfEachType();
-        const wareSet = new Set(wares);
-        expect(wareSet.size).to.equal(wares.length);
+        const wares = Ware.makeWaresOfEachType();
+        const uniqWareTypes = uniq(wares.map(ware => ware.type));
+        expect(uniqWareTypes.length).to.equal(wares.length);
     });
 });

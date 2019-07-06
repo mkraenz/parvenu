@@ -4,6 +4,8 @@
 import { expect, use } from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
+import { CityName } from "./CityName";
+import { doNothing } from "./doNothing";
 import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
 import { Logic } from "./logic";
@@ -11,10 +13,10 @@ import { WareType } from "./wareType";
 
 use(sinonChai);
 
-describe("Logic", () => {
-    const buyPrice = 1234;
-    const sellPrice = 2345;
+const buyPrice = 1234;
+const sellPrice = 2345;
 
+describe("Logic", () => {
     let player: IInventory;
     let city: ICity;
     let stub: sinon.SinonStub;
@@ -22,7 +24,6 @@ describe("Logic", () => {
 
     beforeEach(() => {
         stub = sinon.stub();
-        const doNothing = () => undefined;
         player = {
             buy: doNothing,
             get: null as any,
@@ -30,17 +31,8 @@ describe("Logic", () => {
             isValidSell: () => true,
             sell: doNothing,
         };
-        city = {
-            buy: doNothing,
-            consume: doNothing,
-            get: null as any,
-            getBuyPrice: () => buyPrice,
-            getSellPrice: () => sellPrice,
-            hasMoney: () => true,
-            isValidSell: () => true,
-            sell: doNothing,
-        };
-        logic = new Logic(player, city);
+        city = getMockCity(CityName.Mecklenburg);
+        logic = new Logic(player, [city], CityName.Mecklenburg);
     });
 
     const type = WareType.Furs;
@@ -200,8 +192,90 @@ describe("Logic", () => {
             expect(result).to.be.true;
         });
     });
+
+    describe("new", () => {
+        it("throws on empty cities array", () => {
+            const resultFn = () =>
+                new Logic(null as any, [], CityName.Mecklenburg);
+
+            expect(resultFn).to.throw(/Must provide at least one city/i);
+        });
+
+        it("throws on duplicate city name", () => {
+            const anotherMecklenburg = getMockCity(CityName.Mecklenburg);
+
+            const resultFn = () =>
+                new Logic(
+                    player,
+                    [city, anotherMecklenburg],
+                    CityName.Mecklenburg
+                );
+
+            expect(resultFn).to.throw(/City names must be unique./);
+        });
+    });
+
+    describe("city (getter)", () => {
+        it("initially returns the startCity", () => {
+            const anotherCity = getMockCity(CityName.Holstein);
+            logic = new Logic(
+                player,
+                [city, anotherCity],
+                CityName.Mecklenburg
+            );
+
+            const result = logic.city; // getter function
+
+            expect(result).to.equal(city);
+        });
+
+        it("can return the selected city", () => {
+            const holstein = getMockCity(CityName.Holstein);
+            logic = new Logic(player, [city, holstein], CityName.Mecklenburg);
+
+            logic.selectedCity = CityName.Holstein;
+            const result = logic.city; // getter function
+
+            expect(result).to.equal(holstein);
+        });
+
+        it("throws if selected city does not exist", () => {
+            logic = new Logic(player, [city], CityName.Mecklenburg);
+
+            logic.selectedCity = CityName.Holstein;
+            const resultFn = () => logic.city; // getter function
+
+            expect(resultFn).to.throw(/City not found Holstein/);
+        });
+    });
+
+    describe("setCity()", () => {
+        it("sets the city", () => {
+            const holstein = getMockCity(CityName.Holstein);
+            logic = new Logic(player, [city, holstein], CityName.Mecklenburg);
+            expect(logic.city.name).to.equal(CityName.Mecklenburg);
+
+            logic.setCity(CityName.Holstein);
+
+            expect(logic.city.name).to.equal(CityName.Holstein);
+        });
+    });
 });
 
 function stubReturningFalse() {
     return sinon.stub().returns(false);
+}
+
+function getMockCity(name: CityName): ICity {
+    return {
+        buy: doNothing,
+        consume: doNothing,
+        get: null as any,
+        getBuyPrice: () => buyPrice,
+        getSellPrice: () => sellPrice,
+        hasMoney: () => true,
+        isValidSell: () => true,
+        name,
+        sell: doNothing,
+    };
 }

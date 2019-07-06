@@ -1,12 +1,44 @@
+import { uniq } from "lodash";
+import { CityName } from "./CityName";
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
 import { WareType } from "./wareType";
 
 export class Logic implements ILogic {
+    public selectedCity: CityName;
+    private cities: Map<CityName, ICity>;
     private tradedQuantity = 1;
 
-    constructor(private player: IInventory, private city: ICity) {}
+    constructor(
+        private player: IInventory,
+        cities: ICity[],
+        startCity: CityName
+    ) {
+        if (!cities.length) {
+            throw new Error("Must provide at least one city");
+        }
+
+        const hasDuplicateName =
+            uniq(cities.map(value => value.name)).length !== cities.length;
+        if (hasDuplicateName) {
+            throw new Error("City names must be unique.");
+        }
+
+        this.cities = new Map(cities.map(value => [value.name, value]));
+        this.selectedCity = startCity;
+    }
+
+    get city(): ICity {
+        if (!this.cities.has(this.selectedCity)) {
+            throw new Error(`City not found ${this.selectedCity}`);
+        }
+        return this.cities.get(this.selectedCity)!;
+    }
+
+    public setCity(selected: CityName) {
+        this.selectedCity = selected;
+    }
 
     /** player buys */
     public buy(ware: WareType): void {
@@ -19,11 +51,13 @@ export class Logic implements ILogic {
         const totalPrice = this.city.getSellPrice(ware, this.tradedQuantity);
         this.trade(this.city, this.player, ware, totalPrice);
     }
+
     public gameOver(): boolean {
         const waretypes = Object.values(WareType).map(type => type);
         for (const waretype of waretypes) {
             if (
                 this.player.isValidSell(waretype, 1) ||
+                // TODO not ready for multi city
                 this.player.hasMoney(this.city.getBuyPrice(waretype, 1))
             ) {
                 return false;
@@ -31,6 +65,7 @@ export class Logic implements ILogic {
         }
         return true;
     }
+
     private trade(
         buyer: IInventory,
         seller: IInventory,

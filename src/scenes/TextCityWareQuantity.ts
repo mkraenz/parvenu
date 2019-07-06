@@ -2,11 +2,12 @@ import { GameObjects } from "phaser";
 import { Color } from "../Color";
 import { ICity } from "./ICity";
 import { WareType } from "./wareType";
+
 interface ILogic {
-    city: Pick<ICity, "getBuyPrice" | "name">;
+    city: Pick<ICity, "get">;
 }
 
-export class TextBuyPrice extends GameObjects.Text {
+export class TextCityWareQuantity extends GameObjects.Text {
     private logic!: ILogic;
     private wareType!: WareType;
 
@@ -19,6 +20,6 @@ export class TextBuyPrice extends GameObjects.Text {
     }
 
     public update() {
-        this.setText(`${this.logic.city.getBuyPrice(this.wareType, 1)}`);
+        this.setText(`${this.logic.city.get(this.wareType).getQuantity()}`);
     }
 }

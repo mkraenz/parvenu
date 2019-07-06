@@ -1,8 +1,11 @@
+// tslint:disable:no-unused-expression
 import { expect, use } from "chai";
 import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { City } from "./City";
 import { cityConfig } from "./City.config";
+import { CityName } from "./CityName";
+import { doNothing } from "./doNothing";
 import { IWareForCity } from "./IWareForCity";
 import { WareType } from "./wareType";
 
@@ -14,15 +17,14 @@ describe("City", () => {
 
     beforeEach(() => {
         ware = {
-            add: () => undefined,
+            add: doNothing,
             getQuantity: () => 0,
             getStream: undefined as any,
             maxPrice: 355,
             minPrice: 130,
-            price: 123,
             type: WareType.Furs,
         };
-        city = new City([ware]);
+        city = new City([ware], CityName.Mecklenburg);
     });
 
     describe("getSellPrice()", () => {
@@ -79,7 +81,16 @@ describe("City", () => {
     });
 
     describe("consume()", () => {
-        it("reduces ware quantity by 1", () => {
+        it("does not reduce quantity when quantity = 0", () => {
+            ware.add = spy();
+
+            city.consume();
+
+            expect(ware.add).to.have.not.been.called;
+        });
+
+        it("reduces ware quantity by 1 when quantity > 1", () => {
+            ware.getQuantity = () => 1;
             ware.add = spy();
 
             city.consume();

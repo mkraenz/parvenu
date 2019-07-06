@@ -9,7 +9,7 @@ export class TextPlayerMoney extends GameObjects.Text {
         this.player = player;
         this.setFontFamily("Arial")
             .setFontSize(32)
-            .setColor(Color.black);
+            .setColor(Color.Black);
     }
 
     public update() {

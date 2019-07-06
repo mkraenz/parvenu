@@ -1,10 +1,11 @@
 import { Types } from "phaser";
-import { EndScene } from "./scenes/EndScene";
+import { GameOverScene } from "./scenes/GameOverScene";
 import { MainScene } from "./scenes/mainScene";
+
 export const gameConfig: Types.Core.GameConfig = {
-    height: 600,
+    height: window.innerHeight,
+    width: window.innerWidth,
     parent: "game",
-    scene: [MainScene, EndScene],
+    scene: [MainScene, GameOverScene],
     type: Phaser.AUTO,
-    width: 800,
 };
