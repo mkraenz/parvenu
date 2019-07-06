@@ -3,7 +3,7 @@ import { IPlayer } from "./IPlayer";
 import { WareType } from "./wareType";
 
 export class Player extends Inventory implements IPlayer {
-    private money = -4000;
+    private money = 200;
 
     public hasMoney(totalPrice: number): boolean {
         return totalPrice <= this.money;
