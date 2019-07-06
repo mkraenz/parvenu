@@ -11,7 +11,7 @@ export class TextBuyPrice extends GameObjects.Text {
         this.wareType = type;
         this.setFontFamily("Arial")
             .setFontSize(32)
-            .setColor(Color.black);
+            .setColor(Color.Black);
     }
 
     public update() {

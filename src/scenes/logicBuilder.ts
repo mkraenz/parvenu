@@ -15,6 +15,7 @@ export class LogicBuilder {
             city: cities[0],
             logic: new Logic(player, cities, CityName.Mecklenburg),
             player,
+            cities,
         };
     }
 }

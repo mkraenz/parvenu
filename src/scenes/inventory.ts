@@ -20,6 +20,7 @@ export abstract class Inventory implements IInventory {
         return this.wares.get(type)!;
     }
 
+    // TODO #44 rename to something like hasEnoughWares
     public isValidSell(type: WareType, quantity: number) {
         return this.get(type).getQuantity() - quantity >= 0;
     }

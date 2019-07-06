@@ -36,6 +36,10 @@ export class Logic implements ILogic {
         return this.cities.get(this.selectedCity)!;
     }
 
+    public setCity(selected: CityName) {
+        this.selectedCity = selected;
+    }
+
     /** player buys */
     public buy(ware: WareType): void {
         const totalPrice = this.city.getBuyPrice(ware, this.tradedQuantity);

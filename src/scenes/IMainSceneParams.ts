@@ -6,4 +6,5 @@ export interface IMainSceneParams {
     logic: ILogic;
     player: IPlayer;
     city: ICity;
+    cities: ICity[];
 }
