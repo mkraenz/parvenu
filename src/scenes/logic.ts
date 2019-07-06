@@ -1,12 +1,13 @@
 import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
+import { IPlayer } from "./IPlayer";
 import { WareType } from "./wareType";
 
 export class Logic implements ILogic {
     private tradedQuantity = 1;
 
-    constructor(private player: IInventory, private city: ICity) {}
+    constructor(private player: IPlayer, private city: ICity) {}
 
     /** player buys */
     public buy(ware: WareType): void {
@@ -31,6 +32,57 @@ export class Logic implements ILogic {
         }
         return true;
     }
+
+    public randomEvent() {
+        const eventNumber = Math.floor(Math.random() * 10);
+        switch (eventNumber) {
+            case 1: {
+                this.player.setMoney(this.player.getMoney() + 500);
+                break;
+            }
+            case 2: {
+                this.player.setMoney(this.player.getMoney() - 500);
+                break;
+            }
+            case 3: {
+                this.player.setMoney(0);
+                break;
+            }
+            case 4: {
+                this.player.setMoney(this.player.getMoney() - 500);
+                break;
+            }
+            case 5: {
+                this.player.setWare(WareType.Salt, 0);
+                break;
+            }
+            case 6: {
+                this.city.setWare(WareType.Salt, 0);
+                break;
+            }
+            case 7: {
+                this.player.setWare(WareType.Juwelry, 0);
+                break;
+            }
+            case 8: {
+                this.city.setWare(WareType.Juwelry, 0);
+                break;
+            }
+            case 9: {
+                this.player.setWare(WareType.Furs, 0);
+                break;
+            }
+            case 0: {
+                this.city.setWare(WareType.Furs, 0);
+                break;
+            }
+            default: {
+                // statements;
+                break;
+            }
+        }
+    }
+
     private trade(
         buyer: IInventory,
         seller: IInventory,

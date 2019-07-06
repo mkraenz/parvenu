@@ -13,6 +13,10 @@ export class Player extends Inventory implements IPlayer {
         return this.money;
     }
 
+    public setMoney(money: number) {
+        this.money = money;
+    }
+
     public buy(type: WareType, quantity: number, totalPrice: number) {
         super.buy(type, quantity, totalPrice);
         this.money -= totalPrice;

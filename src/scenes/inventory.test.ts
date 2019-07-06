@@ -21,6 +21,7 @@ describe("Inventory", () => {
                 getQuantity: () => quantity,
                 getStream: null as any,
                 price: 1234,
+                setQuantity: () => undefined,
                 type,
             },
         ]);

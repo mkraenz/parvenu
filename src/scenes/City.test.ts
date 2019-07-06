@@ -20,6 +20,7 @@ describe("City", () => {
             maxPrice: 355,
             minPrice: 130,
             price: 123,
+            setQuantity: () => undefined,
             type: WareType.Furs,
         };
         city = new City([ware]);

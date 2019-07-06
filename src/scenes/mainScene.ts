@@ -18,6 +18,7 @@ export class MainScene extends Scene {
     private playerMoneyText!: TextPlayerMoney;
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
+    private framePerSec = 30;
 
     constructor() {
         super({
@@ -61,6 +62,16 @@ export class MainScene extends Scene {
             this.sound.removeByKey("background");
             this.scene.start("EndScene");
         }
+        if (this.randomCond()) {
+            this.logic.randomEvent();
+        }
+    }
+
+    private randomCond() {
+        if (Math.floor(Math.random() * 100) % (10 * this.framePerSec) === 0) {
+            return true;
+        }
+        return false;
     }
 
     private addBackgroundMusic() {

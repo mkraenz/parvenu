@@ -4,8 +4,8 @@
 import { expect, use } from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
-import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
+import { IPlayer } from "./IPlayer";
 import { Logic } from "./logic";
 import { WareType } from "./wareType";
 
@@ -15,7 +15,7 @@ describe("Logic", () => {
     const buyPrice = 1234;
     const sellPrice = 2345;
 
-    let player: IInventory;
+    let player: IPlayer;
     let city: ICity;
     let stub: sinon.SinonStub;
     let logic: Logic;
@@ -26,9 +26,12 @@ describe("Logic", () => {
         player = {
             buy: doNothing,
             get: null as any,
+            getMoney: () => 10,
             hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing,
+            setMoney: doNothing,
+            setWare: doNothing,
         };
         city = {
             buy: doNothing,
@@ -39,6 +42,7 @@ describe("Logic", () => {
             hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing,
+            setWare: doNothing,
         };
         logic = new Logic(player, city);
     });
