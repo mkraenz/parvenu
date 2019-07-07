@@ -1,6 +1,6 @@
 import { Types } from "phaser";
 import { GameOverScene } from "./scenes/GameOverScene";
-import { MainScene } from "./scenes/mainScene";
+import { MainScene } from "./scenes/MainScene";
 
 export const gameConfig: Types.Core.GameConfig = {
     height: window.innerHeight,
