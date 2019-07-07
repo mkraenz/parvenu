@@ -8,7 +8,7 @@ import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
-import { Logic } from "./logic";
+import { Logic } from "./Logic";
 import { WareType } from "./wareType";
 
 use(sinonChai);
