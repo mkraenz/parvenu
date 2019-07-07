@@ -1,5 +1,5 @@
-import { IWare } from "./i-ware";
 import { IInventory } from "./IInventory";
+import { IWare } from "./IWare";
 import { WareType } from "./wareType";
 
 export abstract class Inventory implements IInventory {

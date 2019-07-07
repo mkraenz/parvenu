@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { IWare } from "./i-ware";
+import { IWare } from "./IWare";
 import { wareConfig } from "./Ware.config";
 import { WareType } from "./wareType";
 

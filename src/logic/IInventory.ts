@@ -1,4 +1,4 @@
-import { IWare } from "./i-ware";
+import { IWare } from "./IWare";
 import { WareType } from "./wareType";
 
 export interface IInventory {
