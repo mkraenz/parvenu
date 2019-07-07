@@ -2,7 +2,7 @@
 
 import { expect } from "chai";
 import { SinonStub, stub } from "sinon";
-import { Inventory } from "./inventory";
+import { Inventory } from "./Inventory";
 import { WareType } from "./wareType";
 
 class MockInventory extends Inventory {

@@ -1,4 +1,4 @@
-import { Inventory } from "./inventory";
+import { Inventory } from "./Inventory";
 import { IPlayer } from "./IPlayer";
 import { WareType } from "./wareType";
 
