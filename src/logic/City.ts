@@ -3,7 +3,7 @@ import { CityName } from "./CityName";
 import { ICity } from "./ICity";
 import { Inventory } from "./Inventory";
 import { IWareForCity } from "./IWareForCity";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export class City extends Inventory implements ICity {
     constructor(wares: IWareForCity[], public readonly name: CityName) {

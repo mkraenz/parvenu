@@ -1,6 +1,6 @@
 import { CityName } from "./CityName";
 import { ICity } from "./ICity";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export interface ILogic {
     city: ICity;

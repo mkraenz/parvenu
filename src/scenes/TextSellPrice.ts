@@ -1,6 +1,6 @@
 import { GameObjects } from "phaser";
 import { Color } from "../Color";
-import { WareType } from "../logic//wareType";
+import { WareType } from "../logic//WareType";
 import { ICity } from "../logic/ICity";
 
 interface ILogic {

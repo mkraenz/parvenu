@@ -1,6 +1,6 @@
 import { Inventory } from "./Inventory";
 import { IPlayer } from "./IPlayer";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export class Player extends Inventory implements IPlayer {
     private money = 200;

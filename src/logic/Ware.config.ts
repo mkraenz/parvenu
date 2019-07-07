@@ -1,4 +1,4 @@
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export const wareConfig = {
     maxPrice: {

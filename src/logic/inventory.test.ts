@@ -3,7 +3,7 @@
 import { expect } from "chai";
 import { SinonStub, stub } from "sinon";
 import { Inventory } from "./Inventory";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 class MockInventory extends Inventory {
     public hasMoney(): boolean {

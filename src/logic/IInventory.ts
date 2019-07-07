@@ -1,5 +1,5 @@
 import { IWare } from "./IWare";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export interface IInventory {
     hasMoney(totalPrice: number): boolean;

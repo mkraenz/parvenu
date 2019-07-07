@@ -3,7 +3,7 @@ import { CityName } from "./CityName";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { ILogic } from "./ILogic";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export class Logic implements ILogic {
     public selectedCity: CityName;

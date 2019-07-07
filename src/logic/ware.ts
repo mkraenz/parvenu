@@ -1,7 +1,7 @@
 import { Subject } from "rxjs";
 import { IWare } from "./IWare";
 import { wareConfig } from "./Ware.config";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export class Ware implements IWare {
     public static makeWaresOfEachType(): Ware[] {

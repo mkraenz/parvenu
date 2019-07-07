@@ -1,7 +1,7 @@
 import { CityName } from "./CityName";
 import { IInventory } from "./IInventory";
 import { IWare } from "./IWare";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export interface ICity extends IInventory {
     name: CityName;

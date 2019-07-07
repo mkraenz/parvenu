@@ -9,7 +9,7 @@ import { doNothing } from "./doNothing";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { Logic } from "./Logic";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 use(sinonChai);
 
