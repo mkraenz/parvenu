@@ -1,15 +1,15 @@
 import { Scene } from "phaser";
 import { Color } from "../Color";
+import { ILogic } from "../logic/i-logic";
+import { IPlayer } from "../logic/IPlayer";
+import { WareType } from "../logic/wareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
-import { ILogic } from "./i-logic";
-import { IPlayer } from "./IPlayer";
 import { KEYS } from "./keys";
 import { TextBuyPrice } from "./TextBuyPrice";
 import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
-import { WareType } from "./wareType";
 
 export class TableScene extends Scene {
     private logic!: ILogic;
