@@ -1,5 +1,5 @@
-import { Game } from "./game";
-import { gameConfig } from "./game-config";
+import { Game } from "./Game";
+import { gameConfig } from "./Game.config";
 
 main();
 

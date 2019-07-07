@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { gameConfig } from "../game-config";
+import { gameConfig } from "../Game.config";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
 import { logicConfig } from "../logic/logic.config";
