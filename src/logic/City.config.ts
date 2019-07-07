@@ -1,17 +1,17 @@
 import { CityName } from "./CityName";
+import { WareType } from "./WareType";
 
-interface ICityConfig {
-    name: CityName;
-}
-
-const citiesArray: ICityConfig[] = [
-    { name: CityName.Mecklenburg },
-    { name: CityName.Holstein },
-];
-
-const cities = new Map<CityName, ICityConfig>(
-    citiesArray.map(value => [value.name, value])
-);
+const cities = {
+    // NOTE: Mecklenburg is used in lots of test
+    [CityName.Mecklenburg]: {
+        name: CityName.Mecklenburg,
+        producedWares: [WareType.Salt],
+    },
+    [CityName.Holstein]: {
+        name: CityName.Holstein,
+        producedWares: [WareType.Furs],
+    },
+};
 
 export const cityConfig = {
     cities,

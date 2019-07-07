@@ -269,7 +269,7 @@ function stubReturningFalse() {
 function getMockCity(name: CityName): ICity {
     return {
         buy: doNothing,
-        consume: doNothing,
+        consumeAndProduce: doNothing,
         get: null as any,
         getBuyPrice: () => buyPrice,
         getSellPrice: () => sellPrice,

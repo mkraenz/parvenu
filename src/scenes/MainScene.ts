@@ -2,16 +2,18 @@ import { Scene } from "phaser";
 import { gameConfig } from "../Game.config";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
+import { IMainSceneParams } from "../logic/IMainSceneParams";
 import { logicConfig } from "../logic/Logic.config";
 import { LogicBuilder } from "../logic/LogicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
+import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
 import { KEYS } from "./keys";
 import { TableScene } from "./TableScene";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
-    private city!: ICity;
+    private cities!: ICity[];
 
     constructor() {
         super({
@@ -30,11 +32,10 @@ export class MainScene extends Scene {
 
     public create(): void {
         const logicObjects = LogicBuilder.create();
-        this.registry.set(KEYS.registry.logic, logicObjects.logic);
-        this.registry.set(KEYS.registry.cities, logicObjects.cities);
-        this.registry.set(KEYS.registry.player, logicObjects.player);
+        this.setRegistry(logicObjects);
+
         this.logic = getLogic(this);
-        this.city = this.logic.city;
+        this.cities = getCities(this);
 
         this.addBackgroundMusic();
         this.addBackground();
@@ -43,8 +44,8 @@ export class MainScene extends Scene {
         this.scene.add(KEYS.scenes.table, TableScene, true);
 
         this.time.addEvent({
-            // TODO currently only mecklenburg consumes
-            callback: () => this.city.consume(),
+            callback: () =>
+                this.cities.forEach(city => city.consumeAndProduce()),
             delay: logicConfig.cityConsumeTime,
             loop: true,
         });
@@ -57,6 +58,12 @@ export class MainScene extends Scene {
             this.scene.remove(KEYS.scenes.table);
             this.scene.start(KEYS.scenes.gameOver);
         }
+    }
+
+    private setRegistry(logicObjects: IMainSceneParams) {
+        this.registry.set(KEYS.registry.logic, logicObjects.logic);
+        this.registry.set(KEYS.registry.cities, logicObjects.cities);
+        this.registry.set(KEYS.registry.player, logicObjects.player);
     }
 
     private addBackgroundMusic() {
