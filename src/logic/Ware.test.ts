@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { uniq } from "lodash";
-import { Ware } from "./ware";
+import { Ware } from "./Ware";
 import { WareType } from "./WareType";
 
 describe("Ware", () => {
