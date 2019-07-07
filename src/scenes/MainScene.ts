@@ -2,6 +2,7 @@ import { Scene } from "phaser";
 import { gameConfig } from "../Game.config";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
+import { IMainSceneParams } from "../logic/IMainSceneParams";
 import { logicConfig } from "../logic/Logic.config";
 import { LogicBuilder } from "../logic/LogicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
@@ -59,9 +60,7 @@ export class MainScene extends Scene {
         }
     }
 
-    private setRegistry(
-        logicObjects: import("/home/mirco/programming/parvenu/src/logic/IMainSceneParams").IMainSceneParams
-    ) {
+    private setRegistry(logicObjects: IMainSceneParams) {
         this.registry.set(KEYS.registry.logic, logicObjects.logic);
         this.registry.set(KEYS.registry.cities, logicObjects.cities);
         this.registry.set(KEYS.registry.player, logicObjects.player);
