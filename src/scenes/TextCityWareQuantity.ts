@@ -1,7 +1,7 @@
 import { GameObjects } from "phaser";
 import { Color } from "../Color";
-import { ICity } from "./ICity";
-import { WareType } from "./wareType";
+import { ICity } from "../logic/ICity";
+import { WareType } from "../logic/wareType";
 
 interface ILogic {
     city: Pick<ICity, "get">;

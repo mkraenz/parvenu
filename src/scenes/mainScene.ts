@@ -1,12 +1,12 @@
 import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
-import { logicConfig } from "../logic.config";
+import { ILogic } from "../logic/i-logic";
+import { ICity } from "../logic/ICity";
+import { logicConfig } from "../logic/logic.config";
+import { LogicBuilder } from "../logic/logicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
 import { getLogic } from "./data-registry/getLogic";
-import { ILogic } from "./i-logic";
-import { ICity } from "./ICity";
 import { KEYS } from "./keys";
-import { LogicBuilder } from "./logicBuilder";
 import { TableScene } from "./TableScene";
 
 export class MainScene extends Scene {

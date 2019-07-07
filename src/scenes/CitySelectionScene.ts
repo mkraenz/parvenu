@@ -1,9 +1,9 @@
 import { Scene } from "phaser";
 import { Color } from "../Color";
-import { CityName } from "./CityName";
+import { CityName } from "../logic/CityName";
+import { ICity } from "../logic/ICity";
 import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
-import { ICity } from "./ICity";
 import { KEYS } from "./keys";
 
 export class CitySelectionScene extends Scene {

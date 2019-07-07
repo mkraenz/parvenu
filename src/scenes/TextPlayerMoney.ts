@@ -1,6 +1,6 @@
 import { GameObjects } from "phaser";
 import { Color } from "../Color";
-import { IPlayer } from "./IPlayer";
+import { IPlayer } from "../logic/IPlayer";
 
 export class TextPlayerMoney extends GameObjects.Text {
     private player!: IPlayer;
