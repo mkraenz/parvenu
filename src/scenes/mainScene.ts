@@ -1,7 +1,7 @@
 import { Scene } from "phaser";
 import { gameConfig } from "../game-config";
-import { ILogic } from "../logic/i-logic";
 import { ICity } from "../logic/ICity";
+import { ILogic } from "../logic/ILogic";
 import { logicConfig } from "../logic/logic.config";
 import { LogicBuilder } from "../logic/logicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";

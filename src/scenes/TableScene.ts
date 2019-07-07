@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
 import { Color } from "../Color";
-import { ILogic } from "../logic/i-logic";
+import { ILogic } from "../logic/ILogic";
 import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/wareType";
 import { getLogic } from "./data-registry/getLogic";
