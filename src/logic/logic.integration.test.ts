@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { LogicBuilder } from "./logicBuilder";
+import { LogicBuilder } from "./LogicBuilder";
 import { WareType } from "./wareType";
 
 describe("Logic integration", () => {

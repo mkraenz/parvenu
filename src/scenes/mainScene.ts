@@ -3,7 +3,7 @@ import { gameConfig } from "../game-config";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
 import { logicConfig } from "../logic/logic.config";
-import { LogicBuilder } from "../logic/logicBuilder";
+import { LogicBuilder } from "../logic/LogicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
 import { getLogic } from "./data-registry/getLogic";
 import { KEYS } from "./keys";
