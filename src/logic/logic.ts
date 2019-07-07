@@ -1,8 +1,8 @@
 import { uniq } from "lodash";
 import { CityName } from "./CityName";
-import { IInventory } from "./i-inventory";
 import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
+import { IInventory } from "./IInventory";
 import { WareType } from "./wareType";
 
 export class Logic implements ILogic {
