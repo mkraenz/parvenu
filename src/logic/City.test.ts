@@ -7,7 +7,7 @@ import { cityConfig } from "./City.config";
 import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
 import { IWareForCity } from "./IWareForCity";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 use(sinonChai);
 

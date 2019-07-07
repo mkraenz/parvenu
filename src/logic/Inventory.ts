@@ -1,6 +1,6 @@
-import { IInventory } from "./i-inventory";
-import { IWare } from "./i-ware";
-import { WareType } from "./wareType";
+import { IInventory } from "./IInventory";
+import { IWare } from "./IWare";
+import { WareType } from "./WareType";
 
 export abstract class Inventory implements IInventory {
     protected wares: Map<WareType, IWare>;

@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { LogicBuilder } from "./logicBuilder";
-import { WareType } from "./wareType";
+import { LogicBuilder } from "./LogicBuilder";
+import { WareType } from "./WareType";
 
 describe("Logic integration", () => {
     it("buy() does not throw", () => {

@@ -1,5 +1,5 @@
-import { IWare } from "./i-ware";
-import { WareType } from "./wareType";
+import { IWare } from "./IWare";
+import { WareType } from "./WareType";
 
 export interface IPlayer {
     getMoney(): number;
