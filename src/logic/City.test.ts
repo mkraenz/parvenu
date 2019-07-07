@@ -85,7 +85,7 @@ describe("City", () => {
             ware.add = spy();
 
             // test city Mecklenburg consumes Furs
-            city.consumeOrProduce();
+            city.consumeAndProduce();
 
             expect(ware.add).to.have.not.been.called;
         });
@@ -95,7 +95,7 @@ describe("City", () => {
             ware.add = spy();
 
             // test city Mecklenburg consumes Furs
-            city.consumeOrProduce();
+            city.consumeAndProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(-1);
         });
@@ -105,7 +105,7 @@ describe("City", () => {
             ware.add = spy();
 
             // test city Mecklenburg consumes Furs
-            producerCity.consumeOrProduce();
+            producerCity.consumeAndProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(1);
         });

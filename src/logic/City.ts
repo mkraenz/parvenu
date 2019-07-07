@@ -49,7 +49,7 @@ export class City extends Inventory implements ICity {
         return true;
     }
 
-    public consumeOrProduce() {
+    public consumeAndProduce() {
         this.wares.forEach(ware => {
             if (this.isProduced(ware.type)) {
                 ware.add(1);

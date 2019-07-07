@@ -44,7 +44,7 @@ export class MainScene extends Scene {
 
         this.time.addEvent({
             callback: () =>
-                this.cities.forEach(city => city.consumeOrProduce()),
+                this.cities.forEach(city => city.consumeAndProduce()),
             delay: logicConfig.cityConsumeTime,
             loop: true,
         });
