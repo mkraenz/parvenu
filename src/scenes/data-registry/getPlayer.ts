@@ -1,5 +1,5 @@
 import { Data } from "phaser";
-import { IPlayer } from "../IPlayer";
+import { IPlayer } from "../../logic/IPlayer";
 import { KEYS } from "../keys";
 
 export const getPlayer = (registryHolder: {

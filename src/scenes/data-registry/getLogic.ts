@@ -1,5 +1,5 @@
 import { Data } from "phaser";
-import { ILogic } from "../i-logic";
+import { ILogic } from "../../logic/i-logic";
 import { KEYS } from "../keys";
 
 export const getLogic = (registryHolder: {
