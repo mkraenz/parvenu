@@ -1,9 +1,9 @@
 import { City } from "./City";
 import { CityName } from "./CityName";
 import { IMainSceneParams } from "./IMainSceneParams";
-import { Logic } from "./logic";
+import { Logic } from "./Logic";
 import { Player } from "./Player";
-import { Ware } from "./ware";
+import { Ware } from "./Ware";
 
 export class LogicBuilder {
     public static create(): IMainSceneParams {

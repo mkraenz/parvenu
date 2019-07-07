@@ -6,10 +6,10 @@ import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
 import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
-import { IInventory } from "./i-inventory";
 import { ICity } from "./ICity";
-import { Logic } from "./logic";
-import { WareType } from "./wareType";
+import { IInventory } from "./IInventory";
+import { Logic } from "./Logic";
+import { WareType } from "./WareType";
 
 use(sinonChai);
 

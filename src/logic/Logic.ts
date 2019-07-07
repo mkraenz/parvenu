@@ -1,9 +1,9 @@
 import { uniq } from "lodash";
 import { CityName } from "./CityName";
-import { IInventory } from "./i-inventory";
-import { ILogic } from "./i-logic";
 import { ICity } from "./ICity";
-import { WareType } from "./wareType";
+import { IInventory } from "./IInventory";
+import { ILogic } from "./ILogic";
+import { WareType } from "./WareType";
 
 export class Logic implements ILogic {
     public selectedCity: CityName;

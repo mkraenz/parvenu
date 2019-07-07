@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { Ware } from "./ware";
-import { WareType } from "./wareType";
+import { Ware } from "./Ware";
+import { WareType } from "./WareType";
 
 describe("Ware config - every WareType has set a value", () => {
     Object.values(WareType).forEach((type: WareType) => {

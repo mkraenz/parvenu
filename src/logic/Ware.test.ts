@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { uniq } from "lodash";
-import { Ware } from "./ware";
-import { WareType } from "./wareType";
+import { Ware } from "./Ware";
+import { WareType } from "./WareType";
 
 describe("Ware", () => {
     it("getWaresOfEachType() has correct length", () => {

@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { WareType } from "./wareType";
+import { WareType } from "./WareType";
 
 export interface IWare {
     readonly type: WareType;
