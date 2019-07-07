@@ -80,22 +80,34 @@ describe("City", () => {
         });
     });
 
-    describe("consume()", () => {
-        it("does not reduce quantity when quantity = 0", () => {
+    describe("consumeOrProduce()", () => {
+        it("consuming city does not reduce quantity when quantity = 0", () => {
             ware.add = spy();
 
-            city.consume();
+            // test city Mecklenburg consumes Furs
+            city.consumeOrProduce();
 
             expect(ware.add).to.have.not.been.called;
         });
 
-        it("reduces ware quantity by 1 when quantity > 1", () => {
+        it("consuming city reduces ware quantity by 1 when quantity >= 1", () => {
             ware.getQuantity = () => 1;
             ware.add = spy();
 
-            city.consume();
+            // test city Mecklenburg consumes Furs
+            city.consumeOrProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(-1);
+        });
+
+        it("producing city increases ware quantity by 1", () => {
+            const producerCity = new City([ware], CityName.Holstein);
+            ware.add = spy();
+
+            // test city Mecklenburg consumes Furs
+            producerCity.consumeOrProduce();
+
+            expect(ware.add).to.have.been.calledWithExactly(1);
         });
     });
 });

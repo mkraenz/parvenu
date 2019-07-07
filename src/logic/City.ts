@@ -49,18 +49,27 @@ export class City extends Inventory implements ICity {
         return true;
     }
 
-    public consume() {
+    public consumeOrProduce() {
         this.wares.forEach(ware => {
+            if (this.isProduced(ware.type)) {
+                ware.add(1);
+                return;
+            }
             if (ware.getQuantity() > 0) {
                 ware.add(-1);
+                return;
             }
         });
     }
 
-    private getPrice(ware: IWareForCity, quantity: number) {
+    private getPrice(ware: IWareForCity, quantity: number): number {
         if (quantity === 0) {
             return ware.maxPrice;
         }
         return (ware.maxPrice - ware.minPrice) / quantity + ware.minPrice;
+    }
+
+    private isProduced(type: WareType): boolean {
+        return cityConfig.cities[this.name].producedWares.includes(type);
     }
 }

@@ -43,8 +43,8 @@ export class MainScene extends Scene {
         this.scene.add(KEYS.scenes.table, TableScene, true);
 
         this.time.addEvent({
-            // TODO currently only mecklenburg consumes
-            callback: () => this.city.consume(),
+            // TODO #45 currently only mecklenburg consumes
+            callback: () => this.city.consumeOrProduce(),
             delay: logicConfig.cityConsumeTime,
             loop: true,
         });
