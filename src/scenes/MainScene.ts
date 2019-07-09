@@ -25,8 +25,8 @@ export class MainScene extends Scene {
         this.load.image("buy", "./assets/images/buy.png");
         this.load.image("sell", "./assets/images/sell.png");
         this.load.image("background", "./assets/images/background500x300.png");
-        this.load.audio("buy", "./assets/sounds/buy.wav");
-        this.load.audio("sell", "./assets/sounds/sell.wav");
+        this.load.audio(KEYS.sound.buy, "./assets/sounds/buy.wav");
+        this.load.audio(KEYS.sound.sell, "./assets/sounds/sell.wav");
         this.load.audio("background", "./assets/sounds/bgm.mp3");
     }
 
