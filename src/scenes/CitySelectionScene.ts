@@ -43,7 +43,7 @@ export class CitySelectionScene extends Scene {
         this.input.addListener("pointerdown", () => {
             const index = this.clickCount % this.cities.length;
             this.logic.setCity(this.cities[index].name);
-            // for some reason, the new y is relativ to the y position provided on construction
+            // for some reason, the new y is relative to the y position provided on construction
             selectedMarker.setY(index * 50);
             this.clickCount++;
         });

@@ -58,13 +58,11 @@ export class TableScene extends Scene {
         const addTextAtY = this.addTableText(150);
         addTextAtY(200, "City");
         addTextAtY(300, "You");
-        addTextAtY(600, "Buy");
-        addTextAtY(700, "Sell");
+        addTextAtY(400, "Buy");
+        addTextAtY(500, "Sell");
     }
 
     private addRow(ware: WareType, y: number) {
-        this.addBuyButton(ware, y);
-        this.addSellButton(ware, y);
         const addTextAtY = this.addTableText(y);
         addTextAtY(50, ware);
         this.addCityQuantityText(y, ware);
@@ -74,25 +72,17 @@ export class TableScene extends Scene {
     }
 
     private addBuyPrice(y: number, ware: WareType) {
-        const text = new TextBuyPrice(this, 600, y, "", {});
+        const text = new TextBuyPrice(this, 400, y, "", {});
         this.textBuyPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
     }
 
     private addSellPrice(y: number, ware: WareType) {
-        const text = new TextSellPrice(this, 700, y, "", {});
+        const text = new TextSellPrice(this, 500, y, "", {});
         this.textSellPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
-    }
-
-    private addBuyButton(ware: WareType, y: number) {
-        this.addButton("buy", { x: 400, y }, () => this.logic.buy(ware));
-    }
-
-    private addSellButton(ware: WareType, y: number) {
-        this.addButton("sell", { x: 500, y }, () => this.logic.sell(ware));
     }
 
     private addCityQuantityText(y: number, ware: WareType) {
@@ -129,19 +119,4 @@ export class TableScene extends Scene {
                 .setFontSize(32)
                 .setColor(Color.Black);
     }
-
-    private addButton(key: string, pos: IPoint, logicCallback: () => void) {
-        const button = this.add.sprite(pos.x, pos.y, key);
-        button.setInteractive();
-        const callBackWithSound = () => {
-            logicCallback();
-            this.sound.play(key);
-        };
-        button.on("pointerdown", callBackWithSound);
-    }
-}
-
-interface IPoint {
-    x: number;
-    y: number;
 }
