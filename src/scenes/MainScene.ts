@@ -24,10 +24,13 @@ export class MainScene extends Scene {
     public preload(): void {
         this.load.image("buy", "./assets/images/buy.png");
         this.load.image("sell", "./assets/images/sell.png");
-        this.load.image("background", "./assets/images/background500x300.png");
+        this.load.image(
+            KEYS.images.background,
+            "./assets/images/background500x300.png"
+        );
         this.load.audio(KEYS.sound.buy, "./assets/sounds/buy.wav");
         this.load.audio(KEYS.sound.sell, "./assets/sounds/sell.wav");
-        this.load.audio("background", "./assets/sounds/bgm.mp3");
+        this.load.audio(KEYS.sound.backgroundMusic, "./assets/sounds/bgm.mp3");
     }
 
     public create(): void {
@@ -53,7 +56,7 @@ export class MainScene extends Scene {
 
     public update() {
         if (this.logic.gameOver()) {
-            this.sound.removeByKey("background");
+            this.sound.removeByKey(KEYS.sound.backgroundMusic);
             this.scene.remove(KEYS.scenes.citySelection);
             this.scene.remove(KEYS.scenes.table);
             this.scene.start(KEYS.scenes.gameOver);
@@ -67,12 +70,12 @@ export class MainScene extends Scene {
     }
 
     private addBackgroundMusic() {
-        this.sound.add("background").play("", { loop: true });
+        this.sound.add(KEYS.sound.backgroundMusic).play("", { loop: true });
     }
 
     private addBackground() {
         this.add
-            .image(0, 0, "background")
+            .image(0, 0, KEYS.images.background)
             .setOrigin(0)
             .setScale(
                 (gameConfig.width as number) / 500,

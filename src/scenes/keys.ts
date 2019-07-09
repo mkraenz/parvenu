@@ -16,5 +16,9 @@ export const KEYS = {
     sound: {
         sell: "sell-sfx",
         buy: "buy-sfx",
+        backgroundMusic: "background-music",
+    },
+    images: {
+        background: "background-img",
     },
 };
