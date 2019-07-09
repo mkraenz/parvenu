@@ -22,8 +22,6 @@ export class MainScene extends Scene {
     }
 
     public preload(): void {
-        this.load.image("buy", "./assets/images/buy.png");
-        this.load.image("sell", "./assets/images/sell.png");
         this.load.image(
             KEYS.images.background,
             "./assets/images/background500x300.png"
