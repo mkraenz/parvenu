@@ -2,14 +2,33 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="author" content="Parvenu" />
+        <meta name="author" content="Mirco Kraenz & M.M." />
+        <meta
+            name="description"
+            content="Parvenu - Build, Trade, Automate - A phaser 3 game"
+        />
+        <meta
+            name="keywords"
+            content="Game,Phaser3,Trading,MiddleAges,Build,Trade,Automate"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Parvenu</title>
         <link rel="stylesheet" type="text/css" href="styles/css/styles.css" />
+
+        <script
+            src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            Sentry.init({
+                dsn:
+                    "https://fa49500b72c04dfeadcb064a47c60938@sentry.io/1502475",
+            });
+        </script>
         <script src="build/bundle.js"></script>
     </head>
     <body>
         <div class="container">
-            <h1>Parvenu</h1>
             <div id="game"></div>
         </div>
     </body>
