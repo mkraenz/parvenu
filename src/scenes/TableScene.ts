@@ -29,6 +29,7 @@ export class TableScene extends Scene {
         this.logic = getLogic(this);
         this.player = getPlayer(this);
 
+        this.addBackground();
         this.addPlayerMoneyText(this.player);
         this.addTable();
     }
@@ -50,7 +51,7 @@ export class TableScene extends Scene {
     private addTable() {
         this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
-            this.addRow(ware, 200 + i * 150);
+            this.addRow(ware, 200 + i * 60);
         });
     }
 
@@ -114,5 +115,13 @@ export class TableScene extends Scene {
     private addTableText(y: number) {
         return (x: number, text: string) =>
             setDefaultTextStyle(this.add.text(x, y, text));
+    }
+
+    private addBackground() {
+        this.add
+            .image(0, 50, KEYS.images.parchment.key)
+            .setOrigin(0)
+            .setScale(1, 0.25 * Object.keys(WareType).length)
+            .setAlpha(0.7);
     }
 }

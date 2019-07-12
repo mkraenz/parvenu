@@ -49,7 +49,7 @@ export class CitySelectionScene extends Scene {
         this.add
             .image(750, 200, KEYS.images.parchment.key)
             .setOrigin(0)
-            .setScale(0.6, 0.25 * this.cities.length)
+            .setScale(0.6, 0.18 * this.cities.length)
             .setAlpha(0.7);
     }
 }
