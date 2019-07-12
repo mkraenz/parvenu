@@ -1,11 +1,11 @@
 import { Scene } from "phaser";
-import { Color } from "../Color";
 import { ILogic } from "../logic/ILogic";
 import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
 import { KEYS } from "./keys";
+import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { TextBuyPrice } from "./TextBuyPrice";
 import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
@@ -29,6 +29,7 @@ export class TableScene extends Scene {
         this.logic = getLogic(this);
         this.player = getPlayer(this);
 
+        this.addBackground();
         this.addPlayerMoneyText(this.player);
         this.addTable();
     }
@@ -50,7 +51,7 @@ export class TableScene extends Scene {
     private addTable() {
         this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
-            this.addRow(ware, 200 + i * 150);
+            this.addRow(ware, 200 + i * 60);
         });
     }
 
@@ -113,10 +114,14 @@ export class TableScene extends Scene {
 
     private addTableText(y: number) {
         return (x: number, text: string) =>
-            this.add
-                .text(x, y, text)
-                .setFontFamily("Arial")
-                .setFontSize(32)
-                .setColor(Color.Black);
+            setDefaultTextStyle(this.add.text(x, y, text));
+    }
+
+    private addBackground() {
+        this.add
+            .image(0, 50, KEYS.images.parchment.key)
+            .setOrigin(0)
+            .setScale(1, 0.25 * Object.keys(WareType).length)
+            .setAlpha(0.7);
     }
 }
