@@ -25,9 +25,7 @@ export class CitySelectionScene extends Scene {
         this.cities = getCities(this);
         this.logic = getLogic(this);
 
-        const graphics = this.add.graphics();
-        graphics.fillStyle(Color.White, 0.5);
-        graphics.fillRect(800, 200, 300, 200);
+        this.addBackground();
         this.cities.forEach((city, i) =>
             this.add
                 .text(850, 250 + i * 50, city.name)
@@ -47,5 +45,13 @@ export class CitySelectionScene extends Scene {
             selectedMarker.setY(index * 50);
             this.clickCount++;
         });
+    }
+
+    private addBackground() {
+        this.add
+            .image(750, 200, KEYS.images.parchment.key)
+            .setOrigin(0)
+            .setScale(0.6, 0.25 * this.cities.length)
+            .setAlpha(0.7);
     }
 }
