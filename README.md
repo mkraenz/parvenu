@@ -5,8 +5,6 @@
 
 Play now at [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/).
 
-Or on [Google Cloud Engine](34.90.37.206:80)
-
 A phaser3 trading simulation game in TypeScript.
 
 ## Getting started
@@ -42,18 +40,38 @@ npm run dev
 
 ```
 # Assumes local installation of Docker.
-npm run build && docker-compose up
+docker-compose up
 ```
 
 In your browser, navigate to [localhost:8080](http://localhost:8080).
 
 ## Deployment
 
-Continuous deployment to github pages [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/) is performed on each push to `master`.
+Continuous deployment is performed on each push to `master` via github pages to
 
-At the same time, a new Docker image is published to [Parvenu's Docker Hub repository](https://cloud.docker.com/u/nonbiri/repository/docker/nonbiri/parvenu).
+- [prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/) .
+
+At the same time, a new Docker image is published to
+
+- [Parvenu's Docker Hub repository](https://cloud.docker.com/u/nonbiri/repository/docker/nonbiri/parvenu).
+
+Note: The image with tag `latest` is the newest `master`.
 
 See [.travis.yml](.travis.yml).
+
+### Dev deployments and other tools
+
+The latest updated branch gets continuously deployed at
+
+- [parvenu-game.herokuapp.com](https://parvenu-game.herokuapp.com/)
+
+All exceptions in the game are automatically send to Sentry at
+
+- [sentry.io](https://sentry.io/)
+
+Deployments can also be made with [Google Cloud Engine](https://console.cloud.google.com/kubernetes) in conjunction with Dockerhub. See
+
+- [deployment/parvenu.k8s.yaml](deployment/parvenu.k8s.yaml)
 
 ## External Resources
 
