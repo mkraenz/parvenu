@@ -8,13 +8,17 @@ export class GameOverScene extends Scene {
     }
 
     public preload() {
-        this.load.image("gameOver", "./assets/images/gameOver.png");
+        this.load.image(KEYS.images.gameOver.key, KEYS.images.gameOver.path);
     }
 
     public create() {
+        const image = KEYS.images.gameOver;
         this.add
-            .image(0, 0, "gameOver")
+            .image(0, 0, image.key)
             .setOrigin(0)
-            .setScale(this.scale.width / 500, this.scale.height / 300);
+            .setScale(
+                this.scale.width / image.width,
+                this.scale.height / image.height
+            );
     }
 }

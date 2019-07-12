@@ -1,4 +1,8 @@
+import { CityName } from "../logic/CityName";
+
 const scenify = (str: string) => `${str}-scene`;
+const imgify = (str: string) => `${str}-img`;
+const sfxify = (str: string) => `${str}-sfx`;
 
 export const KEYS = {
     scenes: {
@@ -14,11 +18,52 @@ export const KEYS = {
         player: "player",
     },
     sound: {
-        sell: "sell-sfx",
-        buy: "buy-sfx",
-        backgroundMusic: "background-music",
+        sell: {
+            key: sfxify("sell"),
+            path: "./assets/sounds/sell.wav",
+        },
+        buy: {
+            key: sfxify("buy"),
+            path: "./assets/sounds/buy.wav",
+        },
+        backgroundMusic: {
+            key: "background-music",
+            path: "./assets/sounds/bgm.mp3",
+        },
     },
     images: {
-        background: "background-img",
+        culemborgCastle: {
+            key: imgify("culemborg-castle"),
+            path: "./assets/images/culemborg-castle800x524.png",
+            width: 800,
+            height: 524,
+        },
+        heltishCastle: {
+            key: imgify("heltish-castle"),
+            path: "./assets/images/background500x300.png",
+            width: 500,
+            height: 300,
+        },
+        gameOver: {
+            key: imgify("game-over"),
+            path: "./assets/images/game-over501x301.png",
+            width: 501,
+            height: 301,
+        },
+        parchment: {
+            key: imgify("parchment"),
+            path: "./assets/images/parchment640x480.png",
+            width: 501,
+            height: 301,
+        },
+    },
+};
+
+export const cityViewConfig = {
+    [CityName.Mecklenburg]: {
+        backgroundImage: KEYS.images.culemborgCastle,
+    },
+    [CityName.Holstein]: {
+        backgroundImage: KEYS.images.heltishCastle,
     },
 };

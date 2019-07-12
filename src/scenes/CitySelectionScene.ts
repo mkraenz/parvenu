@@ -5,6 +5,7 @@ import { ICity } from "../logic/ICity";
 import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
 import { KEYS } from "./keys";
+import { setDefaultTextStyle } from "./setDefaultTextStyle";
 
 export class CitySelectionScene extends Scene {
     // call create() with args after adding the scene
@@ -25,16 +26,11 @@ export class CitySelectionScene extends Scene {
         this.cities = getCities(this);
         this.logic = getLogic(this);
 
-        const graphics = this.add.graphics();
-        graphics.fillStyle(Color.White, 0.5);
-        graphics.fillRect(800, 200, 300, 200);
-        this.cities.forEach((city, i) =>
-            this.add
-                .text(850, 250 + i * 50, city.name)
-                .setFontFamily("Arial")
-                .setFontSize(32)
-                .setColor(Color.Black)
-        );
+        this.addBackground();
+        this.cities.forEach((city, i) => {
+            const text = this.add.text(850, 250 + i * 50, city.name);
+            setDefaultTextStyle(text);
+        });
         const selectedMarker = this.add
             .graphics()
             .fillStyle(Color.BlackAsNumber)
@@ -47,5 +43,13 @@ export class CitySelectionScene extends Scene {
             selectedMarker.setY(index * 50);
             this.clickCount++;
         });
+    }
+
+    private addBackground() {
+        this.add
+            .image(750, 200, KEYS.images.parchment.key)
+            .setOrigin(0)
+            .setScale(0.6, 0.18 * this.cities.length)
+            .setAlpha(0.7);
     }
 }

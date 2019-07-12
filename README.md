@@ -65,6 +65,10 @@ The latest updated branch gets continuously deployed at
 
 - [parvenu-game.herokuapp.com](https://parvenu-game.herokuapp.com/)
 
+Dashboard for heroku at
+
+- [dashboard.heroku.com/apps/parvenu-game](https://dashboard.heroku.com/apps/parvenu-game)
+
 All exceptions in the game are automatically send to Sentry at
 
 - [sentry.io](https://sentry.io/)

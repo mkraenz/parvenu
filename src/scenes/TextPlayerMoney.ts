@@ -1,15 +1,13 @@
 import { GameObjects } from "phaser";
-import { Color } from "../Color";
 import { IPlayer } from "../logic/IPlayer";
+import { setDefaultTextStyle } from "./setDefaultTextStyle";
 
 export class TextPlayerMoney extends GameObjects.Text {
     private player!: IPlayer;
 
     public init(player: IPlayer) {
         this.player = player;
-        this.setFontFamily("Arial")
-            .setFontSize(32)
-            .setColor(Color.Black);
+        setDefaultTextStyle(this);
     }
 
     public update() {

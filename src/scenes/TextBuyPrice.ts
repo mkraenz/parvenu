@@ -28,7 +28,7 @@ export class TextBuyPrice extends BaseText {
         clickZone.setInteractive();
         clickZone.on("pointerdown", () => {
             this.logic.buy(this.wareType);
-            this.scene.sound.play(KEYS.sound.buy);
+            this.scene.sound.play(KEYS.sound.buy.key);
         });
     }
 
