@@ -5,6 +5,7 @@ import { ICity } from "../logic/ICity";
 import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
 import { KEYS } from "./keys";
+import { setDefaultTextStyle } from "./setDefaultTextStyle";
 
 export class CitySelectionScene extends Scene {
     // call create() with args after adding the scene
@@ -26,13 +27,10 @@ export class CitySelectionScene extends Scene {
         this.logic = getLogic(this);
 
         this.addBackground();
-        this.cities.forEach((city, i) =>
-            this.add
-                .text(850, 250 + i * 50, city.name)
-                .setFontFamily("Arial")
-                .setFontSize(32)
-                .setColor(Color.Black)
-        );
+        this.cities.forEach((city, i) => {
+            const text = this.add.text(850, 250 + i * 50, city.name);
+            setDefaultTextStyle(text);
+        });
         const selectedMarker = this.add
             .graphics()
             .fillStyle(Color.BlackAsNumber)

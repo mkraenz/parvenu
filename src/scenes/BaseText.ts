@@ -1,5 +1,5 @@
 import { GameObjects } from "phaser";
-import { Color } from "../Color";
+import { setDefaultTextStyle } from "./setDefaultTextStyle";
 
 export class BaseText extends GameObjects.Text {
     constructor(
@@ -10,8 +10,6 @@ export class BaseText extends GameObjects.Text {
         style: Phaser.Types.GameObjects.Text.TextSyle
     ) {
         super(scene, x, y, text, style);
-        this.setFontFamily("Arial")
-            .setFontSize(32)
-            .setColor(Color.Black);
+        setDefaultTextStyle(this);
     }
 }
