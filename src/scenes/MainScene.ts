@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { gameConfig } from "../Game.config";
+import { CityName } from "../logic/CityName";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
 import { IMainSceneParams } from "../logic/IMainSceneParams";
@@ -8,12 +8,13 @@ import { LogicBuilder } from "../logic/LogicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
 import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
-import { KEYS } from "./keys";
+import { cityViewConfig, KEYS } from "./keys";
 import { TableScene } from "./TableScene";
 
 export class MainScene extends Scene {
     private logic!: ILogic;
     private cities!: ICity[];
+    private cityName!: CityName;
 
     constructor() {
         super({
@@ -22,13 +23,15 @@ export class MainScene extends Scene {
     }
 
     public preload(): void {
-        this.load.image(
-            KEYS.images.background,
-            "./assets/images/background500x300.png"
+        Object.values(KEYS.images).forEach(image =>
+            this.load.image(image.key, image.path)
         );
-        this.load.audio(KEYS.sound.buy, "./assets/sounds/buy.wav");
-        this.load.audio(KEYS.sound.sell, "./assets/sounds/sell.wav");
-        this.load.audio(KEYS.sound.backgroundMusic, "./assets/sounds/bgm.mp3");
+        this.load.audio(KEYS.sound.buy.key, KEYS.sound.buy.path);
+        this.load.audio(KEYS.sound.sell.key, KEYS.sound.sell.path);
+        this.load.audio(
+            KEYS.sound.backgroundMusic.key,
+            KEYS.sound.backgroundMusic.path
+        );
     }
 
     public create(): void {
@@ -37,9 +40,10 @@ export class MainScene extends Scene {
 
         this.logic = getLogic(this);
         this.cities = getCities(this);
+        this.cityName = this.logic.city.name;
 
         this.addBackgroundMusic();
-        this.addBackground();
+        this.addBackground(this.cityName);
 
         this.scene.add(KEYS.scenes.citySelection, CitySelectionScene, true);
         this.scene.add(KEYS.scenes.table, TableScene, true);
@@ -50,15 +54,31 @@ export class MainScene extends Scene {
             delay: logicConfig.cityConsumeTime,
             loop: true,
         });
+
+        // TODO REMOVE debug shortcut
+        this.input.keyboard.on("keydown-G", () => this.gotoGameOver());
     }
 
     public update() {
         if (this.logic.gameOver()) {
-            this.sound.removeByKey(KEYS.sound.backgroundMusic);
-            this.scene.remove(KEYS.scenes.citySelection);
-            this.scene.remove(KEYS.scenes.table);
-            this.scene.start(KEYS.scenes.gameOver);
+            this.gotoGameOver();
         }
+        if (this.logic.city.name !== this.cityName) {
+            this.switchCity();
+        }
+    }
+
+    private switchCity() {
+        // TODO make selected city changes a phaser event
+        this.cityName = this.logic.city.name;
+        this.addBackground(this.logic.city.name);
+    }
+
+    private gotoGameOver() {
+        this.sound.removeByKey(KEYS.sound.backgroundMusic.key);
+        this.scene.remove(KEYS.scenes.citySelection);
+        this.scene.remove(KEYS.scenes.table);
+        this.scene.start(KEYS.scenes.gameOver);
     }
 
     private setRegistry(logicObjects: IMainSceneParams) {
@@ -68,16 +88,17 @@ export class MainScene extends Scene {
     }
 
     private addBackgroundMusic() {
-        this.sound.add(KEYS.sound.backgroundMusic).play("", { loop: true });
+        this.sound.add(KEYS.sound.backgroundMusic.key).play("", { loop: true });
     }
 
-    private addBackground() {
+    private addBackground(name: CityName) {
+        const image = cityViewConfig[name].backgroundImage;
         this.add
-            .image(0, 0, KEYS.images.background)
+            .image(0, 0, image.key)
             .setOrigin(0)
             .setScale(
-                (gameConfig.width as number) / 500,
-                (gameConfig.height as number) / 300
+                this.scale.width / image.width,
+                this.scale.height / image.height
             );
     }
 }
