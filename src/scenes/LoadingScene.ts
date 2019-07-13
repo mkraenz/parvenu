@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { Color } from "../Color";
+import { Color, toHex } from "../Color";
 import { KEYS } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 
@@ -36,7 +36,7 @@ export class LoadingScene extends Scene {
 
         const progressBar = this.add.graphics();
         const progressBox = this.add.graphics();
-        progressBox.fillStyle(Color.DarkGreyAsNumber, 0.8);
+        progressBox.fillStyle(toHex(Color.DarkGrey), 0.8);
         progressBox.fillRect(
             this.halfWidth - 320 / 2,
             this.halfHeight,
@@ -96,7 +96,7 @@ export class LoadingScene extends Scene {
     ): (count: number) => void {
         return (count: number) => {
             progressBar.clear();
-            progressBar.fillStyle(Color.WhiteAsNumber);
+            progressBar.fillStyle(toHex(Color.White));
             progressBar.fillRect(
                 this.halfWidth + 10 - 320 / 2,
                 this.halfHeight + 10,
@@ -110,11 +110,8 @@ export class LoadingScene extends Scene {
         Object.values(KEYS.images).forEach(image =>
             this.load.image(image.key, image.path)
         );
-        this.load.audio(KEYS.sound.buy.key, KEYS.sound.buy.path);
-        this.load.audio(KEYS.sound.sell.key, KEYS.sound.sell.path);
-        this.load.audio(
-            KEYS.sound.backgroundMusic.key,
-            KEYS.sound.backgroundMusic.path
+        Object.values(KEYS.sound).forEach(sound =>
+            this.load.audio(sound.key, sound.path)
         );
     }
 
