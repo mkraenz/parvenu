@@ -57,7 +57,7 @@ export class Logic implements ILogic {
         for (const waretype of waretypes) {
             if (
                 this.player.isValidSell(waretype, 1) ||
-                // TODO not ready for multi city
+                // TODO #78 not ready for multi city
                 this.player.hasMoney(this.city.getBuyPrice(waretype, 1))
             ) {
                 return false;

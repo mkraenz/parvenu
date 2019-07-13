@@ -43,7 +43,7 @@ export class MainScene extends Scene {
             loop: true,
         });
 
-        // TODO REMOVE debug shortcut
+        // TODO #78 REMOVE debug shortcut
         this.input.keyboard.on("keydown-G", () => this.gotoGameOver());
     }
 
@@ -76,7 +76,9 @@ export class MainScene extends Scene {
     }
 
     private addBackgroundMusic() {
-        this.sound.add(KEYS.sound.backgroundMusic.key).play("", { loop: true });
+        this.sound
+            .add(KEYS.sound.backgroundMusic.key)
+            .play("", { volume: 0.3, loop: true });
     }
 
     private addBackground(name: CityName) {

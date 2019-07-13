@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { Color } from "../Color";
+import { Color, toHex } from "../Color";
 import { CityName } from "../logic/CityName";
 import { ICity } from "../logic/ICity";
 import { getCities } from "./data-registry/getCities";
@@ -33,7 +33,7 @@ export class CitySelectionScene extends Scene {
         });
         const selectedMarker = this.add
             .graphics()
-            .fillStyle(Color.BlackAsNumber)
+            .fillStyle(toHex(Color.Black))
             .fillCircle(820, 265, 10);
 
         this.input.addListener("pointerdown", () => {
