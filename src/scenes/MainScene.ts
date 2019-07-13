@@ -76,7 +76,9 @@ export class MainScene extends Scene {
     }
 
     private addBackgroundMusic() {
-        this.sound.add(KEYS.sound.backgroundMusic.key).play("", { loop: true });
+        this.sound
+            .add(KEYS.sound.backgroundMusic.key)
+            .play("", { volume: 0.3, loop: true });
     }
 
     private addBackground(name: CityName) {
