@@ -35,7 +35,7 @@ export class TextSellPrice extends BaseText {
     }
 
     private onButtonClick() {
-        // TODO only play sound / tween on successful sell
+        // TODO #106 only play sound / tween on successful sell
         this.logic.sell(this.wareType);
         this.scene.sound.play(KEYS.sound.sell.key);
         this.scene.add.tween(getTradeButtonTweenConfig(this.button));

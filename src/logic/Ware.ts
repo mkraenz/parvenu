@@ -25,7 +25,6 @@ export class Ware implements IWare {
         return wareConfig.minPrice[this.type];
     }
 
-    // TODO #22 add tests
     public setQuantity(quantity: number) {
         this.quantity$.next(quantity);
     }

@@ -43,7 +43,7 @@ export class MainScene extends Scene {
             loop: true,
         });
 
-        // TODO REMOVE debug shortcut
+        // TODO #78 REMOVE debug shortcut
         this.input.keyboard.on("keydown-G", () => this.gotoGameOver());
     }
 
