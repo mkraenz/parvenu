@@ -7,10 +7,6 @@ export class GameOverScene extends Scene {
         });
     }
 
-    public preload() {
-        this.load.image(KEYS.images.gameOver.key, KEYS.images.gameOver.path);
-    }
-
     public create() {
         const image = KEYS.images.gameOver;
         this.add

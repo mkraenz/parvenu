@@ -18,7 +18,7 @@ export class TextBuyPrice extends BaseText {
         this.wareType = type;
 
         const graphics = this.scene.add.graphics();
-        graphics.fillStyle(Color.White, 0.7);
+        graphics.fillStyle(Color.WhiteAsNumber, 0.7);
         graphics.fillRoundedRect(this.x - 5, this.y - 5, 70, 50);
         // draw on top of the graphics. Might make problems late when e.g. other panel is in front of this text,
         this.depth = 1;
