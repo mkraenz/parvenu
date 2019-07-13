@@ -110,11 +110,8 @@ export class LoadingScene extends Scene {
         Object.values(KEYS.images).forEach(image =>
             this.load.image(image.key, image.path)
         );
-        this.load.audio(KEYS.sound.buy.key, KEYS.sound.buy.path);
-        this.load.audio(KEYS.sound.sell.key, KEYS.sound.sell.path);
-        this.load.audio(
-            KEYS.sound.backgroundMusic.key,
-            KEYS.sound.backgroundMusic.path
+        Object.values(KEYS.sound).forEach(sound =>
+            this.load.audio(sound.key, sound.path)
         );
     }
 
