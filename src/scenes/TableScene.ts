@@ -11,6 +11,13 @@ import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
 
+const COLUMN = {
+    city: 200,
+    buy: 300,
+    sell: 400,
+    player: 500,
+};
+
 export class TableScene extends Scene {
     private logic!: ILogic;
     private player!: IPlayer;
@@ -57,10 +64,10 @@ export class TableScene extends Scene {
 
     private addHeader() {
         const addTextAtY = this.addTableText(150);
-        addTextAtY(200, "City");
-        addTextAtY(300, "You");
-        addTextAtY(400, "Buy");
-        addTextAtY(500, "Sell");
+        addTextAtY(COLUMN.city, "City");
+        addTextAtY(COLUMN.player, "You");
+        addTextAtY(COLUMN.buy, "Buy");
+        addTextAtY(COLUMN.sell, "Sell");
     }
 
     private addRow(ware: WareType, y: number) {
@@ -73,21 +80,21 @@ export class TableScene extends Scene {
     }
 
     private addBuyPrice(y: number, ware: WareType) {
-        const text = new TextBuyPrice(this, 400, y, "", {});
+        const text = new TextBuyPrice(this, COLUMN.buy, y, "", {});
         this.textBuyPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
     }
 
     private addSellPrice(y: number, ware: WareType) {
-        const text = new TextSellPrice(this, 500, y, "", {});
+        const text = new TextSellPrice(this, COLUMN.sell, y, "", {});
         this.textSellPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
     }
 
     private addCityQuantityText(y: number, ware: WareType) {
-        const text = new TextCityWareQuantity(this, 200, y, "", {});
+        const text = new TextCityWareQuantity(this, COLUMN.city, y, "", {});
         this.textCityWareQuantities.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
@@ -98,7 +105,7 @@ export class TableScene extends Scene {
         ware: WareType
     ) {
         const playerQuantityText = addTextAtY(
-            300,
+            COLUMN.player,
             this.player
                 .get(ware)
                 .getQuantity()
