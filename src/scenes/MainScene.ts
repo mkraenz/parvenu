@@ -22,18 +22,6 @@ export class MainScene extends Scene {
         });
     }
 
-    public preload(): void {
-        Object.values(KEYS.images).forEach(image =>
-            this.load.image(image.key, image.path)
-        );
-        this.load.audio(KEYS.sound.buy.key, KEYS.sound.buy.path);
-        this.load.audio(KEYS.sound.sell.key, KEYS.sound.sell.path);
-        this.load.audio(
-            KEYS.sound.backgroundMusic.key,
-            KEYS.sound.backgroundMusic.path
-        );
-    }
-
     public create(): void {
         const logicObjects = LogicBuilder.create();
         this.setRegistry(logicObjects);
@@ -75,7 +63,7 @@ export class MainScene extends Scene {
     }
 
     private gotoGameOver() {
-        this.sound.removeByKey(KEYS.sound.backgroundMusic.key);
+        this.sound.stopAll();
         this.scene.remove(KEYS.scenes.citySelection);
         this.scene.remove(KEYS.scenes.table);
         this.scene.start(KEYS.scenes.gameOver);

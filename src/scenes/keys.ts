@@ -10,6 +10,7 @@ export const KEYS = {
         citySelection: scenify("city-selection"),
         main: scenify("main"),
         table: scenify("table"),
+        loading: scenify("loading"),
     },
     // key of the corresponding objects inside the global data registry
     registry: {
@@ -32,6 +33,13 @@ export const KEYS = {
         },
     },
     images: {
+        logo: {
+            key: imgify("logo"),
+            // TODO replace placeholder by logo
+            path: "./assets/images/parchment640x480.png",
+            width: 640,
+            height: 480,
+        },
         culemborgCastle: {
             key: imgify("culemborg-castle"),
             path: "./assets/images/culemborg-castle800x524.png",
@@ -53,8 +61,8 @@ export const KEYS = {
         parchment: {
             key: imgify("parchment"),
             path: "./assets/images/parchment640x480.png",
-            width: 501,
-            height: 301,
+            width: 640,
+            height: 480,
         },
     },
 };
