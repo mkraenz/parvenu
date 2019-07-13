@@ -64,6 +64,12 @@ export const KEYS = {
             width: 640,
             height: 480,
         },
+        buttonUpRect: {
+            key: imgify("button-up-rect"),
+            path: "./assets/images/button-up-rect198x128.png",
+            width: 200,
+            height: 200,
+        },
     },
 };
 
