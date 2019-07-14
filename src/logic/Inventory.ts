@@ -22,7 +22,7 @@ export abstract class Inventory implements IInventory {
     }
 
     public isValidSell(type: WareType, quantity: number) {
-        return this.get(type).getQuantity() - quantity >= 0;
+        return this.get(type).getQuantity() >= quantity;
     }
 
     public buy(type: WareType, quantity: number, _: number) {

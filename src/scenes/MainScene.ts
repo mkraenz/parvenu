@@ -14,6 +14,7 @@ import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
 import { cityViewConfig, KEYS } from "./keys";
 import { TableScene } from "./TableScene";
+import { WarehouseScene } from "./WarehouseScene";
 
 export class MainScene extends Scene implements IObserver {
     private logic!: ILogic & IObservable;
@@ -43,8 +44,14 @@ export class MainScene extends Scene implements IObserver {
             true
         );
         this.childScenes.push(citySelection);
-        const table = this.scene.add(KEYS.scenes.table, TableScene, true);
-        this.childScenes.push(table);
+        const tradeTable = this.scene.add(KEYS.scenes.table, TableScene, true);
+        this.childScenes.push(tradeTable);
+        const warehouse = this.scene.add(
+            KEYS.scenes.warehouse,
+            WarehouseScene,
+            true
+        );
+        this.childScenes.push(warehouse);
 
         this.time.addEvent({
             callback: () =>

@@ -32,11 +32,30 @@ export class Logic implements ILogic {
         this.selectedCity = startCity;
     }
 
-    get city(): ICity {
+    public get city(): ICity {
         if (!this.cities.has(this.selectedCity)) {
             throw new Error(`City not found ${this.selectedCity}`);
         }
         return this.cities.get(this.selectedCity)!;
+    }
+
+    /** player takes from warehouse */
+    public take(wareType: WareType): void {
+        const warehouse = this.city.warehouse;
+        // TODO consider making an interface IExchangeArgs = {wareType, tradedQuantity}
+        if (warehouse.hasSufficientWares(wareType, this.tradedQuantity)) {
+            warehouse.take(wareType, this.tradedQuantity);
+            this.player.buy(wareType, this.tradedQuantity, 0);
+        }
+    }
+
+    /** player stores in warehouse */
+    public store(wareType: WareType): void {
+        const warehouse = this.city.warehouse;
+        if (this.player.isValidSell(wareType, this.tradedQuantity)) {
+            warehouse.store(wareType, this.tradedQuantity);
+            this.player.sell(wareType, this.tradedQuantity, 0);
+        }
     }
 
     public setCity(selected: CityName) {

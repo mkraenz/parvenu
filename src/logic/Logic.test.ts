@@ -4,6 +4,7 @@
 import { expect, use } from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
+import { getMockWarehouse } from "./City.test";
 import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
 import { ICity } from "./ICity";
@@ -262,9 +263,7 @@ describe("Logic", () => {
     });
 });
 
-function stubReturningFalse() {
-    return sinon.stub().returns(false);
-}
+const stubReturningFalse = () => sinon.stub().returns(false);
 
 function getMockCity(name: CityName): ICity {
     return {
@@ -277,5 +276,6 @@ function getMockCity(name: CityName): ICity {
         isValidSell: () => true,
         name,
         sell: doNothing,
+        warehouse: getMockWarehouse(),
     };
 }

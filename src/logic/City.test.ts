@@ -1,5 +1,6 @@
 // tslint:disable:no-unused-expression
 import { expect, use } from "chai";
+import { stubTrue } from "lodash";
 import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { City } from "./City";
@@ -7,6 +8,7 @@ import { cityConfig } from "./City.config";
 import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
 import { IWareForCity } from "./IWareForCity";
+import { IWarehouse } from "./IWarehouse";
 import { WareType } from "./WareType";
 
 use(sinonChai);
@@ -14,17 +16,12 @@ use(sinonChai);
 describe("City", () => {
     let ware: IWareForCity;
     let city: City;
+    let warehouse: IWarehouse;
 
     beforeEach(() => {
-        ware = {
-            add: doNothing,
-            getQuantity: () => 0,
-            getStream: undefined as any,
-            maxPrice: 355,
-            minPrice: 130,
-            type: WareType.Furs,
-        };
-        city = new City([ware], CityName.Mecklenburg);
+        ware = getMockWare();
+        warehouse = getMockWarehouse();
+        city = new City([ware], CityName.Mecklenburg, warehouse);
     });
 
     describe("getSellPrice()", () => {
@@ -101,13 +98,29 @@ describe("City", () => {
         });
 
         it("producing city increases ware quantity by 1", () => {
-            const producerCity = new City([ware], CityName.Holstein);
+            const producerCity = new City([ware], CityName.Holstein, warehouse);
             ware.add = spy();
 
-            // test city Mecklenburg consumes Furs
+            // Holstein produces Furs
             producerCity.consumeAndProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(1);
         });
     });
+});
+
+export const getMockWare = () => ({
+    add: doNothing,
+    getQuantity: () => 0,
+    getStream: undefined as any,
+    maxPrice: 355,
+    minPrice: 130,
+    type: WareType.Furs,
+});
+
+export const getMockWarehouse = (): IWarehouse => ({
+    get: () => getMockWare(),
+    hasSufficientWares: stubTrue,
+    store: doNothing,
+    take: doNothing,
 });
