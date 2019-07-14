@@ -11,11 +11,18 @@ import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
 
+const TOP = 50;
+const LEFT = 0;
+const PLAYER_MONEY = TOP + 25;
+const HEADER = TOP + 100;
+const FIRST_ROW = HEADER + 50;
+const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    city: 200,
-    buy: 300,
-    sell: 400,
-    player: 500,
+    ware: LEFT + 50,
+    city: LEFT + 200,
+    buy: LEFT + 300,
+    sell: LEFT + 400,
+    player: LEFT + 500,
 };
 
 export class TableScene extends Scene {
@@ -50,7 +57,13 @@ export class TableScene extends Scene {
     }
 
     private addPlayerMoneyText(player: IPlayer) {
-        this.playerMoneyText = new TextPlayerMoney(this, 50, 75, "", {});
+        this.playerMoneyText = new TextPlayerMoney(
+            this,
+            COLUMN.ware,
+            PLAYER_MONEY,
+            "",
+            {}
+        );
         this.children.add(this.playerMoneyText);
         this.playerMoneyText.init(player);
     }
@@ -58,12 +71,12 @@ export class TableScene extends Scene {
     private addTable() {
         this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
-            this.addRow(ware, 200 + i * 60);
+            this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
         });
     }
 
     private addHeader() {
-        const addTextAtY = this.addTableText(150);
+        const addTextAtY = this.addTableText(HEADER);
         addTextAtY(COLUMN.city, "City");
         addTextAtY(COLUMN.player, "You");
         addTextAtY(COLUMN.buy, "Buy");
@@ -72,7 +85,7 @@ export class TableScene extends Scene {
 
     private addRow(ware: WareType, y: number) {
         const addTextAtY = this.addTableText(y);
-        addTextAtY(50, ware);
+        addTextAtY(COLUMN.ware, ware);
         this.addCityQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addBuyPrice(y, ware);
@@ -126,7 +139,7 @@ export class TableScene extends Scene {
 
     private addBackground() {
         this.add
-            .image(0, 50, KEYS.images.parchment.key)
+            .image(LEFT, TOP, KEYS.images.parchment.key)
             .setOrigin(0)
             .setScale(1, 0.25 * Object.keys(WareType).length)
             .setAlpha(0.7);

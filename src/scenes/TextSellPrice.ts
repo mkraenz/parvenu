@@ -28,7 +28,6 @@ export class TextSellPrice extends BaseText {
     }
 
     private addClickZone() {
-        // super random values although they should be equal to fillRoundedRect()
         const clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
         clickZone.setInteractive();
         clickZone.on("pointerdown", () => this.onButtonClick());

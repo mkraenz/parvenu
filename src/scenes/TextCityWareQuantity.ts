@@ -1,7 +1,6 @@
 import { ICity } from "../logic/ICity";
 import { WareType } from "../logic/WareType";
 import { BaseText } from "./BaseText";
-import { KEYS } from "./keys";
 
 interface IWare {
     type: WareType;
@@ -13,14 +12,12 @@ export class TextCityWareQuantity extends BaseText {
 
     public init(ware: IWare) {
         this.ware = ware;
-        this.scene.scene
-            .get(KEYS.scenes.main)
-            .events.addListener(
-                "city-changed",
-                (event: { city: Pick<ICity, "get"> }) => {
-                    this.ware = event.city.get(this.ware.type);
-                }
-            );
+        this.scene.events.addListener(
+            "city-changed",
+            (event: { city: Pick<ICity, "get"> }) => {
+                this.ware = event.city.get(this.ware.type);
+            }
+        );
     }
 
     public update() {
