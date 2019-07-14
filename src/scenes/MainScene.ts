@@ -1,3 +1,4 @@
+import { difference } from "lodash";
 import { Scene } from "phaser";
 import { CityName } from "../logic/CityName";
 import { ILogicEvent } from "../logic/events/ILogicEvent";
@@ -90,8 +91,8 @@ export class MainScene extends Scene implements IObserver {
 
     private gotoGameOver() {
         this.sound.stopAll();
-        this.scene.remove(KEYS.scenes.citySelection);
-        this.scene.remove(KEYS.scenes.table);
+        const trueChildScenes = difference(this.childScenes, [this]);
+        trueChildScenes.forEach(scene => this.scene.remove(scene));
         this.scene.start(KEYS.scenes.gameOver);
     }
 
