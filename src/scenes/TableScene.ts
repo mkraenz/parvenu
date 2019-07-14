@@ -97,7 +97,7 @@ export class TableScene extends Scene {
         const text = new TextCityWareQuantity(this, COLUMN.city, y, "", {});
         this.textCityWareQuantities.push(text);
         this.children.add(text);
-        text.init(this.logic, ware);
+        text.init(this.logic.city.get(ware));
     }
 
     private addPlayerQuantityText(

@@ -1,5 +1,7 @@
 import { uniq } from "lodash";
 import { CityName } from "./CityName";
+import { IObserver } from "./events/IObserver";
+import { LogicEvents } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { ILogic } from "./ILogic";
@@ -9,6 +11,7 @@ export class Logic implements ILogic {
     public selectedCity: CityName;
     private cities: Map<CityName, ICity>;
     private tradedQuantity = 1;
+    private observers: IObserver[] = [];
 
     constructor(
         private player: IInventory,
@@ -38,6 +41,12 @@ export class Logic implements ILogic {
 
     public setCity(selected: CityName) {
         this.selectedCity = selected;
+        this.observers.forEach(observer =>
+            observer.onLogicEvent({
+                name: LogicEvents.CityChanged,
+                data: { city: this.city },
+            })
+        );
     }
 
     /** player buys */
@@ -64,6 +73,10 @@ export class Logic implements ILogic {
             }
         }
         return true;
+    }
+
+    public register(observer: IObserver) {
+        this.observers.push(observer);
     }
 
     private trade(

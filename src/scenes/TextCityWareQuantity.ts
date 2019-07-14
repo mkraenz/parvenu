@@ -1,21 +1,29 @@
 import { ICity } from "../logic/ICity";
 import { WareType } from "../logic/WareType";
 import { BaseText } from "./BaseText";
+import { KEYS } from "./keys";
 
-interface ILogic {
-    city: Pick<ICity, "get">;
+interface IWare {
+    type: WareType;
+    getQuantity(): number;
 }
 
 export class TextCityWareQuantity extends BaseText {
-    private logic!: ILogic;
-    private wareType!: WareType;
+    private ware!: IWare;
 
-    public init(logic: ILogic, type: WareType) {
-        this.logic = logic;
-        this.wareType = type;
+    public init(ware: IWare) {
+        this.ware = ware;
+        this.scene.scene
+            .get(KEYS.scenes.main)
+            .events.addListener(
+                "city-changed",
+                (event: { city: Pick<ICity, "get"> }) => {
+                    this.ware = event.city.get(this.ware.type);
+                }
+            );
     }
 
     public update() {
-        this.setText(`${this.logic.city.get(this.wareType).getQuantity()}`);
+        this.setText(`${this.ware.getQuantity()}`);
     }
 }

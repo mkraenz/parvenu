@@ -5,6 +5,9 @@ const imgify = (str: string) => `${str}-img`;
 const sfxify = (str: string) => `${str}-sfx`;
 
 export const KEYS = {
+    events: {
+        cityChanged: "city-changed",
+    },
     scenes: {
         gameOver: scenify("game-over"),
         citySelection: scenify("city-selection"),
