@@ -3,10 +3,13 @@
 
 import { expect, use } from "chai";
 import * as sinon from "sinon";
+import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { getMockWarehouse } from "./City.test";
 import { CityName } from "./CityName";
 import { doNothing } from "./doNothing";
+import { IObserver } from "./events/IObserver";
+import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { Logic } from "./Logic";
@@ -259,6 +262,20 @@ describe("Logic", () => {
             logic.setCity(CityName.Holstein);
 
             expect(logic.city.name).to.equal(CityName.Holstein);
+        });
+    });
+    describe("register()", () => {
+        it("with setCity() notifies observers with city-set event", () => {
+            logic = new Logic(player, [city], CityName.Mecklenburg);
+            const observer: IObserver = { onLogicEvent: spy() };
+
+            logic.register(observer);
+            logic.setCity(CityName.Mecklenburg);
+
+            expect(observer.onLogicEvent).to.have.been.calledOnceWith({
+                name: LogicEvent.CitySet,
+                data: { city },
+            });
         });
     });
 });

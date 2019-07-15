@@ -4,7 +4,7 @@ import { CityName } from "../logic/CityName";
 import { ILogicEvent } from "../logic/events/ILogicEvent";
 import { IObservable } from "../logic/events/IObservable";
 import { IObserver } from "../logic/events/IObserver";
-import { LogicEvents } from "../logic/events/LogicEvents";
+import { LogicEvent } from "../logic/events/LogicEvents";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
 import { IMainSceneParams } from "../logic/IMainSceneParams";
@@ -73,7 +73,7 @@ export class MainScene extends Scene implements IObserver {
     }
 
     public onLogicEvent(event: ILogicEvent) {
-        if (event.name === LogicEvents.CityChanged) {
+        if (event.name === LogicEvent.CitySet) {
             // transform to phaser event and notify all childs incl. itself
             this.childScenes.forEach(scene =>
                 scene.events.emit(KEYS.events.cityChanged, {

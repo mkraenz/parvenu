@@ -1,7 +1,7 @@
 import { uniq } from "lodash";
 import { CityName } from "./CityName";
 import { IObserver } from "./events/IObserver";
-import { LogicEvents } from "./events/LogicEvents";
+import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { ILogic } from "./ILogic";
@@ -62,7 +62,7 @@ export class Logic implements ILogic {
         this.selectedCity = selected;
         this.observers.forEach(observer =>
             observer.onLogicEvent({
-                name: LogicEvents.CityChanged,
+                name: LogicEvent.CitySet,
                 data: { city: this.city },
             })
         );

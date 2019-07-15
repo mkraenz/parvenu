@@ -1,3 +1,3 @@
-export enum LogicEvents {
-    CityChanged = "city-changes",
+export enum LogicEvent {
+    CitySet = "city-set",
 }
