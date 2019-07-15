@@ -1,20 +1,13 @@
 import { GameObjects } from "phaser";
 import { WareType } from "../logic//WareType";
-import { ICity } from "../logic/ICity";
-import { ILogic as ILogicBase } from "../logic/ILogic";
+import { ILogic } from "../logic/ILogic";
+import { BaseText } from "./BaseText";
 import { getTradeButtonTweenConfig } from "./getTradeButtonTweenConfig";
 import { KEYS } from "./keys";
 
-interface ILogic extends Pick<ILogicBase, "store" | "take"> {
-    city: Pick<ICity, "getBuyPrice">;
-}
-
-// TODO #102 extend a general GameObjects.GameObject?
-// TODO #102 use for TextSellPrice and TextBuyPrice?
-export abstract class WareButton extends GameObjects.Text {
+export abstract class WareButton extends BaseText {
     protected logic!: ILogic;
     protected wareType!: WareType;
-
     private button!: GameObjects.Image;
 
     public init(logic: ILogic, type: WareType) {
@@ -46,5 +39,6 @@ export abstract class WareButton extends GameObjects.Text {
         this.button = this.scene.add
             .image(this.x + 29, this.y + 19, buttonCfg.key)
             .setScale(0.36);
+        this.depth = 1;
     }
 }
