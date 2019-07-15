@@ -1,5 +1,7 @@
 import { uniq } from "lodash";
 import { CityName } from "./CityName";
+import { IObserver } from "./events/IObserver";
+import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { ILogic } from "./ILogic";
@@ -9,6 +11,7 @@ export class Logic implements ILogic {
     public selectedCity: CityName;
     private cities: Map<CityName, ICity>;
     private tradedQuantity = 1;
+    private observers: IObserver[] = [];
 
     constructor(
         private player: IInventory,
@@ -29,15 +32,40 @@ export class Logic implements ILogic {
         this.selectedCity = startCity;
     }
 
-    get city(): ICity {
+    public get city(): ICity {
         if (!this.cities.has(this.selectedCity)) {
             throw new Error(`City not found ${this.selectedCity}`);
         }
         return this.cities.get(this.selectedCity)!;
     }
 
+    /** player takes from warehouse */
+    public take(wareType: WareType): void {
+        const warehouse = this.city.warehouse;
+        // TODO consider making an interface IExchangeArgs = {wareType, tradedQuantity}
+        if (warehouse.hasSufficientWares(wareType, this.tradedQuantity)) {
+            warehouse.take(wareType, this.tradedQuantity);
+            this.player.buy(wareType, this.tradedQuantity, 0);
+        }
+    }
+
+    /** player stores in warehouse */
+    public store(wareType: WareType): void {
+        const warehouse = this.city.warehouse;
+        if (this.player.isValidSell(wareType, this.tradedQuantity)) {
+            warehouse.store(wareType, this.tradedQuantity);
+            this.player.sell(wareType, this.tradedQuantity, 0);
+        }
+    }
+
     public setCity(selected: CityName) {
         this.selectedCity = selected;
+        this.observers.forEach(observer =>
+            observer.onLogicEvent({
+                name: LogicEvent.CitySet,
+                data: { city: this.city },
+            })
+        );
     }
 
     /** player buys */
@@ -64,6 +92,10 @@ export class Logic implements ILogic {
             }
         }
         return true;
+    }
+
+    public register(observer: IObserver) {
+        this.observers.push(observer);
     }
 
     private trade(

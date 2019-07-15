@@ -1,14 +1,19 @@
 // tslint:disable:no-unused-expression
-// tslint:disable:no-empty
 
 import { expect, use } from "chai";
+import { stubFalse } from "lodash";
 import * as sinon from "sinon";
+import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { CityName } from "./CityName";
-import { doNothing } from "./doNothing";
+import { IObserver } from "./events/IObserver";
+import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
+import { IWarehouse } from "./IWarehouse";
 import { Logic } from "./Logic";
+import { doNothing } from "./test/doNothing";
+import { getMockWarehouse } from "./test/getMockWarehouse";
 import { WareType } from "./WareType";
 
 use(sinonChai);
@@ -21,6 +26,7 @@ describe("Logic", () => {
     let city: ICity;
     let stub: sinon.SinonStub;
     let logic: Logic;
+    let warehouse: IWarehouse;
 
     beforeEach(() => {
         stub = sinon.stub();
@@ -31,7 +37,8 @@ describe("Logic", () => {
             isValidSell: () => true,
             sell: doNothing,
         };
-        city = getMockCity(CityName.Mecklenburg);
+        warehouse = getMockWarehouse();
+        city = getMockCity(CityName.Mecklenburg, warehouse);
         logic = new Logic(player, [city], CityName.Mecklenburg);
     });
 
@@ -90,7 +97,7 @@ describe("Logic", () => {
             );
         });
         it("does nothing on player if city cannot sell", () => {
-            city.isValidSell = stubReturningFalse();
+            city.isValidSell = stubFalse;
             player.buy = stub;
 
             logic.buy(type);
@@ -98,7 +105,7 @@ describe("Logic", () => {
             expect(player.buy).to.have.not.been.called;
         });
         it("does nothing on city if city cannot sell", () => {
-            city.isValidSell = stubReturningFalse();
+            city.isValidSell = stubFalse;
             city.sell = stub;
 
             logic.buy(type);
@@ -151,7 +158,7 @@ describe("Logic", () => {
             );
         });
         it("does nothing on city if player cannot sell", () => {
-            player.isValidSell = stubReturningFalse();
+            player.isValidSell = stubFalse;
             city.buy = stub;
 
             logic.sell(type);
@@ -159,7 +166,7 @@ describe("Logic", () => {
             expect(city.buy).to.have.not.been.called;
         });
         it("does nothing on player if player cannot sell", () => {
-            player.isValidSell = stubReturningFalse();
+            player.isValidSell = stubFalse;
             player.sell = stub;
 
             logic.sell(type);
@@ -170,22 +177,22 @@ describe("Logic", () => {
 
     describe("gameOver()", () => {
         it("returns false if player has wares but is broke", () => {
-            player.hasMoney = stubReturningFalse();
+            player.hasMoney = stubFalse;
 
             const result = logic.gameOver();
 
             expect(result).to.be.false;
         });
         it("returns false if player is not broke but no wares", () => {
-            player.isValidSell = stubReturningFalse();
+            player.isValidSell = stubFalse;
 
             const result = logic.gameOver();
 
             expect(result).to.be.false;
         });
         it("returns true if player is broke and has no wares", () => {
-            player.isValidSell = stubReturningFalse();
-            player.hasMoney = stubReturningFalse();
+            player.isValidSell = stubFalse;
+            player.hasMoney = stubFalse;
 
             const result = logic.gameOver();
 
@@ -260,13 +267,125 @@ describe("Logic", () => {
             expect(logic.city.name).to.equal(CityName.Holstein);
         });
     });
+
+    describe("register()", () => {
+        it("with setCity() notifies observers with city-set event", () => {
+            logic = new Logic(player, [city], CityName.Mecklenburg);
+            const observer: IObserver = { onLogicEvent: spy() };
+
+            logic.register(observer);
+            logic.setCity(CityName.Mecklenburg);
+
+            expect(observer.onLogicEvent).to.have.been.calledOnceWith({
+                name: LogicEvent.CitySet,
+                data: { city },
+            });
+        });
+    });
+
+    describe("take()", () => {
+        it("checks if warehouse has enough wares of waretype", () => {
+            warehouse.hasSufficientWares = stub;
+
+            logic.take(type);
+
+            expect(
+                warehouse.hasSufficientWares
+            ).to.have.been.calledOnceWithExactly(type, quantity);
+        });
+        it("calls player.buy() with correct params", () => {
+            // we use buy as a shortcut for now. Maybe TODO #103
+            player.buy = stub;
+
+            logic.take(type);
+
+            expect(player.buy).to.have.been.calledOnceWithExactly(
+                type,
+                quantity,
+                0
+            );
+        });
+        it("calls warehouse.take() with correct params", () => {
+            warehouse.take = stub;
+
+            logic.take(type);
+
+            expect(warehouse.take).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("does nothing on player if warehouse has not enough wares", () => {
+            warehouse.hasSufficientWares = stubFalse;
+            player.buy = stub;
+
+            logic.take(type);
+
+            expect(player.buy).to.have.not.been.called;
+        });
+        it("does nothing on warehouse if warehouse has not enough wares", () => {
+            warehouse.hasSufficientWares = stubFalse;
+            warehouse.take = stub;
+
+            logic.take(type);
+
+            expect(warehouse.take).to.have.not.been.called;
+        });
+    });
+
+    describe("store()", () => {
+        it("checks if player has enough wares of waretype", () => {
+            player.isValidSell = stub;
+
+            logic.store(type);
+
+            expect(player.isValidSell).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("calls player.sell() with correct params", () => {
+            // we use sell as a shortcut for now. Maybe TODO #103
+            player.sell = stub;
+
+            logic.store(type);
+
+            expect(player.sell).to.have.been.calledOnceWithExactly(
+                type,
+                quantity,
+                0
+            );
+        });
+        it("calls warehouse.store() with correct params", () => {
+            warehouse.store = stub;
+
+            logic.store(type);
+
+            expect(warehouse.store).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("does nothing on player if player has not enough wares", () => {
+            player.isValidSell = stubFalse;
+            player.sell = stub;
+
+            logic.store(type);
+
+            expect(player.sell).to.have.not.been.called;
+        });
+        it("does nothing on warehouse if player has not enough wares", () => {
+            player.isValidSell = stubFalse;
+            warehouse.store = stub;
+
+            logic.store(type);
+
+            expect(warehouse.store).to.have.not.been.called;
+        });
+    });
 });
 
-function stubReturningFalse() {
-    return sinon.stub().returns(false);
-}
-
-function getMockCity(name: CityName): ICity {
+function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
     return {
         buy: doNothing,
         consumeAndProduce: doNothing,
@@ -277,5 +396,6 @@ function getMockCity(name: CityName): ICity {
         isValidSell: () => true,
         name,
         sell: doNothing,
+        warehouse: warehouse || getMockWarehouse(),
     };
 }

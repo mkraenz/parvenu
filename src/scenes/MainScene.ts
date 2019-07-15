@@ -1,5 +1,10 @@
+import { difference } from "lodash";
 import { Scene } from "phaser";
 import { CityName } from "../logic/CityName";
+import { ILogicEvent } from "../logic/events/ILogicEvent";
+import { IObservable } from "../logic/events/IObservable";
+import { IObserver } from "../logic/events/IObserver";
+import { LogicEvent } from "../logic/events/LogicEvents";
 import { ICity } from "../logic/ICity";
 import { ILogic } from "../logic/ILogic";
 import { IMainSceneParams } from "../logic/IMainSceneParams";
@@ -10,11 +15,12 @@ import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
 import { cityViewConfig, KEYS } from "./keys";
 import { TableScene } from "./TableScene";
+import { WarehouseScene } from "./WarehouseScene";
 
-export class MainScene extends Scene {
-    private logic!: ILogic;
+export class MainScene extends Scene implements IObserver {
+    private logic!: ILogic & IObservable;
     private cities!: ICity[];
-    private cityName!: CityName;
+    private childScenes: Scene[] = [this];
 
     constructor() {
         super({
@@ -28,13 +34,25 @@ export class MainScene extends Scene {
 
         this.logic = getLogic(this);
         this.cities = getCities(this);
-        this.cityName = this.logic.city.name;
+        this.logic.register(this);
 
         this.addBackgroundMusic();
-        this.addBackground(this.cityName);
+        this.addBackground(this.logic.city.name);
 
-        this.scene.add(KEYS.scenes.citySelection, CitySelectionScene, true);
-        this.scene.add(KEYS.scenes.table, TableScene, true);
+        const citySelection = this.scene.add(
+            KEYS.scenes.citySelection,
+            CitySelectionScene,
+            true
+        );
+        this.childScenes.push(citySelection);
+        const tradeTable = this.scene.add(KEYS.scenes.table, TableScene, true);
+        this.childScenes.push(tradeTable);
+        const warehouse = this.scene.add(
+            KEYS.scenes.warehouse,
+            WarehouseScene,
+            true
+        );
+        this.childScenes.push(warehouse);
 
         this.time.addEvent({
             callback: () =>
@@ -42,6 +60,7 @@ export class MainScene extends Scene {
             delay: logicConfig.cityConsumeTime,
             loop: true,
         });
+        this.addCityChangedListener();
 
         // TODO #78 REMOVE debug shortcut
         this.input.keyboard.on("keydown-G", () => this.gotoGameOver());
@@ -51,21 +70,29 @@ export class MainScene extends Scene {
         if (this.logic.gameOver()) {
             this.gotoGameOver();
         }
-        if (this.logic.city.name !== this.cityName) {
-            this.switchCity();
+    }
+
+    public onLogicEvent(event: ILogicEvent) {
+        if (event.name === LogicEvent.CitySet) {
+            // transform to phaser event and notify all childs incl. itself
+            this.childScenes.forEach(scene =>
+                scene.events.emit(KEYS.events.cityChanged, {
+                    city: this.logic.city,
+                })
+            );
         }
     }
 
-    private switchCity() {
-        // TODO make selected city changes a phaser event
-        this.cityName = this.logic.city.name;
-        this.addBackground(this.logic.city.name);
+    private addCityChangedListener() {
+        this.events.on(KEYS.events.cityChanged, () => {
+            this.addBackground(this.logic.city.name);
+        });
     }
 
     private gotoGameOver() {
         this.sound.stopAll();
-        this.scene.remove(KEYS.scenes.citySelection);
-        this.scene.remove(KEYS.scenes.table);
+        const trueChildScenes = difference(this.childScenes, [this]);
+        trueChildScenes.forEach(scene => this.scene.remove(scene));
         this.scene.start(KEYS.scenes.gameOver);
     }
 
