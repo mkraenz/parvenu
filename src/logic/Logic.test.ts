@@ -333,6 +333,57 @@ describe("Logic", () => {
             expect(warehouse.take).to.have.not.been.called;
         });
     });
+
+    describe("store()", () => {
+        it("checks if player has enough wares of waretype", () => {
+            player.isValidSell = stub;
+
+            logic.store(type);
+
+            expect(player.isValidSell).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("calls player.sell() with correct params", () => {
+            // we use sell as a shortcut for now. Maybe TODO #103
+            player.sell = stub;
+
+            logic.store(type);
+
+            expect(player.sell).to.have.been.calledOnceWithExactly(
+                type,
+                quantity,
+                0
+            );
+        });
+        it("calls warehouse.store() with correct params", () => {
+            warehouse.store = stub;
+
+            logic.store(type);
+
+            expect(warehouse.store).to.have.been.calledOnceWithExactly(
+                type,
+                quantity
+            );
+        });
+        it("does nothing on player if player has not enough wares", () => {
+            player.isValidSell = stubFalse;
+            player.sell = stub;
+
+            logic.store(type);
+
+            expect(player.sell).to.have.not.been.called;
+        });
+        it("does nothing on warehouse if player has not enough wares", () => {
+            player.isValidSell = stubFalse;
+            warehouse.store = stub;
+
+            logic.store(type);
+
+            expect(warehouse.store).to.have.not.been.called;
+        });
+    });
 });
 
 function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
