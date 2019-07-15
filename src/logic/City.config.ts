@@ -5,11 +5,15 @@ const cities = {
     // NOTE: Mecklenburg is used in lots of test
     [CityName.Mecklenburg]: {
         name: CityName.Mecklenburg,
-        producedWares: [WareType.Salt],
+        producedWares: [WareType.Salt, WareType.Fish],
     },
     [CityName.Holstein]: {
         name: CityName.Holstein,
         producedWares: [WareType.Furs],
+    },
+    [CityName.Wismar]: {
+        name: CityName.Wismar,
+        producedWares: [WareType.Beer],
     },
 };
 

@@ -84,4 +84,7 @@ export const cityViewConfig = {
     [CityName.Holstein]: {
         backgroundImage: KEYS.images.heltishCastle,
     },
+    [CityName.Wismar]: {
+        backgroundImage: KEYS.images.heltishCastle,
+    },
 };

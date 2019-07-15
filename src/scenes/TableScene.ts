@@ -75,9 +75,9 @@ export class TableScene extends Scene {
         Object.values(WareType).forEach((ware, i) => {
             this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
         });
-        this.addQuantityButton(50, 400, 1);
-        this.addQuantityButton(150, 400, 5);
-        this.addQuantityButton(250, 400, 10);
+        this.addQuantityButton(50, 500, 1);
+        this.addQuantityButton(150, 500, 5);
+        this.addQuantityButton(250, 500, 10);
     }
 
     private addHeader() {
