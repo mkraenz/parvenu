@@ -1,14 +1,14 @@
 // tslint:disable:no-unused-expression
 import { expect, use } from "chai";
-import { stubTrue } from "lodash";
 import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
 import { City } from "./City";
 import { cityConfig } from "./City.config";
 import { CityName } from "./CityName";
-import { doNothing } from "./doNothing";
 import { IWareForCity } from "./IWareForCity";
 import { IWarehouse } from "./IWarehouse";
+import { getMockWare } from "./test/getMockWare";
+import { getMockWarehouse } from "./test/getMockWarehouse";
 import { WareType } from "./WareType";
 
 use(sinonChai);
@@ -107,20 +107,4 @@ describe("City", () => {
             expect(ware.add).to.have.been.calledWithExactly(1);
         });
     });
-});
-
-export const getMockWare = () => ({
-    add: doNothing,
-    getQuantity: () => 0,
-    getQuantity$: undefined as any,
-    maxPrice: 355,
-    minPrice: 130,
-    type: WareType.Furs,
-});
-
-export const getMockWarehouse = (): IWarehouse => ({
-    get: () => getMockWare(),
-    hasSufficientWares: stubTrue,
-    store: doNothing,
-    take: doNothing,
 });

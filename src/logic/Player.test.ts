@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { getMockWare } from "./City.test";
 import { Player } from "./Player";
+import { getMockWare } from "./test/getMockWare";
 
 describe("Player", () => {
     it("getMoney() returns the money", () => {

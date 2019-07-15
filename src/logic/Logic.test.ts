@@ -1,20 +1,19 @@
 // tslint:disable:no-unused-expression
-// tslint:disable:no-empty
 
 import { expect, use } from "chai";
 import { stubFalse } from "lodash";
 import * as sinon from "sinon";
 import { spy } from "sinon";
 import * as sinonChai from "sinon-chai";
-import { getMockWarehouse } from "./City.test";
 import { CityName } from "./CityName";
-import { doNothing } from "./doNothing";
 import { IObserver } from "./events/IObserver";
 import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { IWarehouse } from "./IWarehouse";
 import { Logic } from "./Logic";
+import { doNothing } from "./test/doNothing";
+import { getMockWarehouse } from "./test/getMockWarehouse";
 import { WareType } from "./WareType";
 
 use(sinonChai);

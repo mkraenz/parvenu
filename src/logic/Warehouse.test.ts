@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { stub } from "sinon";
-import { getMockWare } from "./City.test";
 import { IWare } from "./IWare";
+import { getMockWare } from "./test/getMockWare";
 import { Warehouse } from "./Warehouse";
 
 describe("Warehouse", () => {
