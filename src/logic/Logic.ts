@@ -32,6 +32,10 @@ export class Logic implements ILogic {
         this.selectedCity = startCity;
     }
 
+    public setTradedQuantity(quantity: number) {
+        this.tradedQuantity = quantity;
+    }
+
     public get city(): ICity {
         if (!this.cities.has(this.selectedCity)) {
             throw new Error(`City not found ${this.selectedCity}`);

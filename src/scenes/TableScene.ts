@@ -5,6 +5,7 @@ import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
 import { KEYS } from "./keys";
+import { QuantityButton } from "./QuantityButton";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { TextBuyPrice } from "./TextBuyPrice";
 import { TextCityWareQuantity } from "./TextCityWareQuantity";
@@ -32,6 +33,7 @@ export class TableScene extends Scene {
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
     private textCityWareQuantities: TextCityWareQuantity[] = [];
+    private quantityButton!: QuantityButton;
 
     constructor() {
         super({
@@ -73,6 +75,9 @@ export class TableScene extends Scene {
         Object.values(WareType).forEach((ware, i) => {
             this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
         });
+        this.addQuantityButton(50, 400, 1);
+        this.addQuantityButton(150, 400, 5);
+        this.addQuantityButton(250, 400, 10);
     }
 
     private addHeader() {
@@ -97,6 +102,18 @@ export class TableScene extends Scene {
         this.textBuyPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
+    }
+
+    private addQuantityButton(x: number, y: number, quantity: number) {
+        this.quantityButton = new QuantityButton(
+            this,
+            x,
+            y,
+            quantity.toString(),
+            {}
+        );
+        this.children.add(this.quantityButton);
+        this.quantityButton.init(this.logic, quantity);
     }
 
     private addSellPrice(y: number, ware: WareType) {
