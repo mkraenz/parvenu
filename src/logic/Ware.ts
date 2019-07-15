@@ -33,8 +33,7 @@ export class Ware implements IWare {
         this.setQuantity(this.quantity + quantity);
     }
 
-    // TODO #102 rename to getQuantity$()
-    public getStream() {
+    public getQuantity$() {
         return this.quantity$;
     }
 

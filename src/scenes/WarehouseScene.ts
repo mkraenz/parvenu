@@ -116,7 +116,7 @@ export class WarehouseScene extends Scene {
         );
         this.player
             .get(ware)
-            .getStream()
+            .getQuantity$()
             .subscribe(quantity =>
                 playerQuantityText.setText(quantity.toString())
             );

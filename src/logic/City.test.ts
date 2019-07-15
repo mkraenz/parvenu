@@ -112,7 +112,7 @@ describe("City", () => {
 export const getMockWare = () => ({
     add: doNothing,
     getQuantity: () => 0,
-    getStream: undefined as any,
+    getQuantity$: undefined as any,
     maxPrice: 355,
     minPrice: 130,
     type: WareType.Furs,

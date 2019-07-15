@@ -19,7 +19,7 @@ describe("Inventory", () => {
             {
                 add: stub(),
                 getQuantity: () => quantity,
-                getStream: null as any,
+                getQuantity$: null as any,
                 type,
             },
         ]);

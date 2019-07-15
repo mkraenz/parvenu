@@ -19,10 +19,10 @@ describe("Ware", () => {
         expect(uniqWareTypes.length).to.equal(wares.length);
     });
 
-    it("getStream()", () => {
+    it("getQuantity$()", () => {
         const ware = new Ware(WareType.Furs, 123);
 
-        const result = ware.getStream();
+        const result = ware.getQuantity$();
 
         expect(result).to.be.instanceOf(Subject);
     });
