@@ -14,11 +14,13 @@ export class Warehouse extends Inventory implements IWarehouse {
 
     // the player takes from the warehouse
     public take(type: WareType, quantity: number): void {
-        this.get(type).add(-quantity);
+        // TODO #103 avoid messing up the average price
+        this.sell(type, quantity, 0);
     }
 
     // player stores sth. in the warehosue
     public store(type: WareType, quantity: number): void {
-        this.get(type).add(quantity);
+        // TODO #103 avoid messing up the average price
+        this.buy(type, quantity, 0);
     }
 }
