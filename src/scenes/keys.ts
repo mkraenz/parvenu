@@ -5,12 +5,16 @@ const imgify = (str: string) => `${str}-img`;
 const sfxify = (str: string) => `${str}-sfx`;
 
 export const KEYS = {
+    events: {
+        cityChanged: "city-changed",
+    },
     scenes: {
-        gameOver: scenify("game-over"),
         citySelection: scenify("city-selection"),
+        gameOver: scenify("game-over"),
+        loading: scenify("loading"),
         main: scenify("main"),
         table: scenify("table"),
-        loading: scenify("loading"),
+        warehouse: scenify("warehouse"),
     },
     // key of the corresponding objects inside the global data registry
     registry: {

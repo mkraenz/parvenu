@@ -6,36 +6,34 @@ import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
 import { KEYS } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
-import { TextBuyPrice } from "./TextBuyPrice";
-import { TextCityWareQuantity } from "./TextCityWareQuantity";
-import { TextPlayerMoney } from "./TextPlayerMoney";
-import { TextSellPrice } from "./TextSellPrice";
+import { StoreWareButton } from "./StoreWareButton";
+import { TakeWareButton } from "./TakeWareButton";
+import { TextWarehouseWareQuantity } from "./TextWarehouseWareQuantity";
+import { WareButton } from "./WareButton";
 
-const TOP = 50;
+const TOP = 500;
 const LEFT = 0;
-const PLAYER_MONEY = TOP + 25;
-const HEADER = TOP + 100;
+const HEADER = TOP + 40;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
     ware: LEFT + 50,
-    city: LEFT + 200,
-    buy: LEFT + 300,
-    sell: LEFT + 400,
+    warehouse: LEFT + 200,
+    take: LEFT + 300,
+    store: LEFT + 400,
     player: LEFT + 500,
 };
 
-export class TableScene extends Scene {
+export class WarehouseScene extends Scene {
     private logic!: ILogic;
     private player!: IPlayer;
-    private playerMoneyText!: TextPlayerMoney;
-    private textBuyPrices: TextBuyPrice[] = [];
-    private textSellPrices: TextSellPrice[] = [];
-    private textCityWareQuantities: TextCityWareQuantity[] = [];
+    private takeButtons: WareButton[] = [];
+    private storeButtons: WareButton[] = [];
+    private textWarehouseWareQuantities: TextWarehouseWareQuantity[] = [];
 
     constructor() {
         super({
-            key: KEYS.scenes.table,
+            key: KEYS.scenes.warehouse,
         });
     }
 
@@ -44,28 +42,14 @@ export class TableScene extends Scene {
         this.player = getPlayer(this);
 
         this.addBackground();
-        this.addPlayerMoneyText(this.player);
         this.addTable();
     }
 
     public update() {
         const update = (x: { update(): void }) => x.update();
-        this.playerMoneyText.update();
-        this.textBuyPrices.forEach(update);
-        this.textSellPrices.forEach(update);
-        this.textCityWareQuantities.forEach(update);
-    }
-
-    private addPlayerMoneyText(player: IPlayer) {
-        this.playerMoneyText = new TextPlayerMoney(
-            this,
-            COLUMN.ware,
-            PLAYER_MONEY,
-            "",
-            {}
-        );
-        this.children.add(this.playerMoneyText);
-        this.playerMoneyText.init(player);
+        this.takeButtons.forEach(update);
+        this.storeButtons.forEach(update);
+        this.textWarehouseWareQuantities.forEach(update);
     }
 
     private addTable() {
@@ -77,40 +61,46 @@ export class TableScene extends Scene {
 
     private addHeader() {
         const addTextAtY = this.addTableText(HEADER);
-        addTextAtY(COLUMN.city, "City");
+        addTextAtY(COLUMN.warehouse, "Warehouse");
         addTextAtY(COLUMN.player, "You");
-        addTextAtY(COLUMN.buy, "Buy");
-        addTextAtY(COLUMN.sell, "Sell");
+        addTextAtY(COLUMN.take, "Take");
+        addTextAtY(COLUMN.store, "Store");
     }
 
     private addRow(ware: WareType, y: number) {
         const addTextAtY = this.addTableText(y);
         addTextAtY(COLUMN.ware, ware);
-        this.addCityQuantityText(y, ware);
+        this.addWarehouseQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
-        this.addBuyPrice(y, ware);
-        this.addSellPrice(y, ware);
+        this.addTakePrice(y, ware);
+        this.addStorePrice(y, ware);
     }
 
-    private addBuyPrice(y: number, ware: WareType) {
-        const text = new TextBuyPrice(this, COLUMN.buy, y, "", {});
-        this.textBuyPrices.push(text);
+    private addTakePrice(y: number, ware: WareType) {
+        const text = new TakeWareButton(this, COLUMN.take, y, "", {});
+        this.takeButtons.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
     }
 
-    private addSellPrice(y: number, ware: WareType) {
-        const text = new TextSellPrice(this, COLUMN.sell, y, "", {});
-        this.textSellPrices.push(text);
+    private addStorePrice(y: number, ware: WareType) {
+        const text = new StoreWareButton(this, COLUMN.store, y, "", {});
+        this.storeButtons.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
     }
 
-    private addCityQuantityText(y: number, ware: WareType) {
-        const text = new TextCityWareQuantity(this, COLUMN.city, y, "", {});
-        this.textCityWareQuantities.push(text);
+    private addWarehouseQuantityText(y: number, ware: WareType) {
+        const text = new TextWarehouseWareQuantity(
+            this,
+            COLUMN.warehouse,
+            y,
+            "",
+            {}
+        );
+        this.textWarehouseWareQuantities.push(text);
         this.children.add(text);
-        text.init(this.logic.city.get(ware));
+        text.init(this.logic.city.warehouse.get(ware));
     }
 
     private addPlayerQuantityText(

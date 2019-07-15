@@ -8,4 +8,6 @@ export interface ILogic {
     sell(ware: WareType): void;
     gameOver(): boolean;
     setCity(selected: CityName): void;
+    store(wareType: WareType): void;
+    take(wareType: WareType): void;
 }
