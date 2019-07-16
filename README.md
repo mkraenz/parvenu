@@ -1,39 +1,36 @@
-[![Build Status](https://travis-ci.com/proSingularity/parvenu.svg?branch=master)](https://travis-ci.com/proSingularity/parvenu)
+[![Build Status](https://travis-ci.com/proSingularity/parvenu.svg?branch=master)](https://travis-ci.com/proSingularity/parvenu/builds)
 [![codecov](https://codecov.io/gh/proSingularity/parvenu/branch/master/graph/badge.svg)](https://codecov.io/gh/proSingularity/parvenu)
+[![dependencies](https://david-dm.org/proSingularity/parvenu.svg)]()
+[![Dependabot](https://badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)](https://app.dependabot.com/accounts/proSingularity)
+[![dockerhub](https://badgen.net/docker/pulls/nonbiri/parvenu)](https://cloud.docker.com/repository/docker/nonbiri/parvenu)
 
 # Parvenu
 
-Play now at [https://prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/).
+## Build, Trade, Automate
 
-A phaser3 trading simulation game in TypeScript.
+**[>> PLAY NOW on github.io! <<](https://prosingularity.github.io/parvenu/)**
+
+Parvenu - Build, Trade, Automate. A phaser 3 economy simulation game written in TypeScript. Inspired by [Patrizier 2 & 3](https://en.wikipedia.org/wiki/Patrician_II:_Quest_for_Power), [Port Royale 2](https://en.wikipedia.org/wiki/Port_Royale_2), and [X2: The Thread](https://en.wikipedia.org/wiki/X2:_The_Threat).
+
+Can't wait to play the newest features? Try our dev deployments:
+[Deployment of latest CI pipeline at Heroku](https://parvenu-game.herokuapp.com/)
 
 ## Getting started
 
-### Installing
+### Initial setup
 
 Assumes you have globally installed
 
-- git
-- node.js
-
-Clone the git repository
+- [git](https://git-scm.com/)
+- [node.js](https://nodejs.org/en/) (comes with npm)
 
 ```
 git clone https://github.com/proSingularity/parvenu.git
-```
 
-Install dependencies:
+# Install npm dependencies, build and start dev server
+npm run sanity-check
 
-```
-npm install
-```
-
-### Building and Running
-
-Perform a quick build (bundle.js) and start server:
-
-```
-npm run dev
+# wait. Installing all dependencies might take a while. After a few minutes, your web browser opens and the game starts.
 ```
 
 ### Running with Docker
@@ -51,27 +48,19 @@ Continuous deployment is performed on each push to `master` via github pages to
 
 - [prosingularity.github.io/parvenu/](https://prosingularity.github.io/parvenu/) .
 
-At the same time, a new Docker image is published to
-
-- [Parvenu's Docker Hub repository](https://cloud.docker.com/u/nonbiri/repository/docker/nonbiri/parvenu).
+### Other Tools
 
 Note: The image with tag `latest` is the newest `master`.
 
-See [.travis.yml](.travis.yml).
+- [Travis CI](https://travis-ci.com/proSingularity/parvenu/builds)
+- [Codecov](https://codecov.io/gh/proSingularity/parvenu)
+- [Deployment of latest CI pipeline at Heroku](https://parvenu-game.herokuapp.com/)
+- [Heroku Dashboard](https://dashboard.heroku.com/apps/parvenu-game)
+- [Docker Hub](https://cloud.docker.com/u/nonbiri/repository/docker/nonbiri/parvenu)
+- [Sentry](https://sentry.io/)
+- [Dependabot](https://app.dependabot.com/)
 
-### Dev deployments and other tools
-
-The latest updated branch gets continuously deployed at
-
-- [parvenu-game.herokuapp.com](https://parvenu-game.herokuapp.com/)
-
-Dashboard for heroku at
-
-- [dashboard.heroku.com/apps/parvenu-game](https://dashboard.heroku.com/apps/parvenu-game)
-
-All exceptions in the game are automatically send to Sentry at
-
-- [sentry.io](https://sentry.io/)
+See also [.travis.yml](.travis.yml).
 
 Deployments can also be made with [Google Cloud Engine](https://console.cloud.google.com/kubernetes) in conjunction with Dockerhub. See
 
@@ -80,10 +69,8 @@ Deployments can also be made with [Google Cloud Engine](https://console.cloud.go
 ## External Resources
 
 - [Phaser 3 Framework](https://github.com/photonstorm/phaser)
-- [Phaser 3 Docs with TypeScript Definition File](https://github.com/photonstorm/phaser3-docs)
 - [Phaser 3 Online Docs](https://photonstorm.github.io/phaser3-docs/index.html)
 - [Phaser 3 Official Examples](https://github.com/photonstorm/phaser3-examples)
-- [Cheat sheets](https://github.com/digitsensitive/phaser3-typescript/blob/master/cheatsheets)
 - [Template Project - Phaser3 with TypeScript](https://github.com/digitsensitive/phaser3-typescript)
 
 ## Helpful tools
