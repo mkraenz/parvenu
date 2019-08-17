@@ -33,7 +33,6 @@ export class TableScene extends Scene {
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
     private textCityWareQuantities: TextCityWareQuantity[] = [];
-    private quantityButton!: QuantityButton;
 
     constructor() {
         super({
@@ -105,15 +104,15 @@ export class TableScene extends Scene {
     }
 
     private addQuantityButton(x: number, y: number, quantity: number) {
-        this.quantityButton = new QuantityButton(
+        const quantityButton = new QuantityButton(
             this,
             x,
             y,
             quantity.toString(),
             {}
         );
-        this.children.add(this.quantityButton);
-        this.quantityButton.init(this.logic, quantity);
+        this.children.add(quantityButton);
+        quantityButton.init(this.logic, quantity);
     }
 
     private addSellPrice(y: number, ware: WareType) {
