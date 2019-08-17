@@ -56,6 +56,13 @@ export const KEYS = {
             width: 500,
             height: 300,
         },
+        harborWithBoats: {
+            key: imgify("harbor-with-boats"),
+            path:
+                "./assets/images/Claude_Monet_Fishing_Boats_Leaving_the_Harbor_Le_Havre_1178×713px.jpg",
+            width: 1178,
+            height: 713,
+        },
         gameOver: {
             key: imgify("game-over"),
             path: "./assets/images/game-over501x301.png",
@@ -78,10 +85,13 @@ export const KEYS = {
 };
 
 export const cityViewConfig = {
-    [CityName.Mecklenburg]: {
+    [CityName.Rostock]: {
         backgroundImage: KEYS.images.culemborgCastle,
     },
-    [CityName.Holstein]: {
+    [CityName.Hamburg]: {
+        backgroundImage: KEYS.images.harborWithBoats,
+    },
+    [CityName.Wismar]: {
         backgroundImage: KEYS.images.heltishCastle,
     },
 };

@@ -38,8 +38,8 @@ describe("Logic", () => {
             sell: doNothing,
         };
         warehouse = getMockWarehouse();
-        city = getMockCity(CityName.Mecklenburg, warehouse);
-        logic = new Logic(player, [city], CityName.Mecklenburg);
+        city = getMockCity(CityName.Rostock, warehouse);
+        logic = new Logic(player, [city], CityName.Rostock);
     });
 
     const type = WareType.Furs;
@@ -202,21 +202,16 @@ describe("Logic", () => {
 
     describe("new", () => {
         it("throws on empty cities array", () => {
-            const resultFn = () =>
-                new Logic(null as any, [], CityName.Mecklenburg);
+            const resultFn = () => new Logic(null as any, [], CityName.Rostock);
 
             expect(resultFn).to.throw(/Must provide at least one city/i);
         });
 
         it("throws on duplicate city name", () => {
-            const anotherMecklenburg = getMockCity(CityName.Mecklenburg);
+            const anotherRostock = getMockCity(CityName.Rostock);
 
             const resultFn = () =>
-                new Logic(
-                    player,
-                    [city, anotherMecklenburg],
-                    CityName.Mecklenburg
-                );
+                new Logic(player, [city, anotherRostock], CityName.Rostock);
 
             expect(resultFn).to.throw(/City names must be unique./);
         });
@@ -224,12 +219,8 @@ describe("Logic", () => {
 
     describe("city (getter)", () => {
         it("initially returns the startCity", () => {
-            const anotherCity = getMockCity(CityName.Holstein);
-            logic = new Logic(
-                player,
-                [city, anotherCity],
-                CityName.Mecklenburg
-            );
+            const anotherCity = getMockCity(CityName.Hamburg);
+            logic = new Logic(player, [city, anotherCity], CityName.Rostock);
 
             const result = logic.city; // getter function
 
@@ -237,44 +228,44 @@ describe("Logic", () => {
         });
 
         it("can return the selected city", () => {
-            const holstein = getMockCity(CityName.Holstein);
-            logic = new Logic(player, [city, holstein], CityName.Mecklenburg);
+            const hamburg = getMockCity(CityName.Hamburg);
+            logic = new Logic(player, [city, hamburg], CityName.Rostock);
 
-            logic.selectedCity = CityName.Holstein;
+            logic.selectedCity = CityName.Hamburg;
             const result = logic.city; // getter function
 
-            expect(result).to.equal(holstein);
+            expect(result).to.equal(hamburg);
         });
 
         it("throws if selected city does not exist", () => {
-            logic = new Logic(player, [city], CityName.Mecklenburg);
+            logic = new Logic(player, [city], CityName.Rostock);
 
-            logic.selectedCity = CityName.Holstein;
+            logic.selectedCity = CityName.Hamburg;
             const resultFn = () => logic.city; // getter function
 
-            expect(resultFn).to.throw(/City not found Holstein/);
+            expect(resultFn).to.throw(/City not found Hamburg/);
         });
     });
 
     describe("setCity()", () => {
         it("sets the city", () => {
-            const holstein = getMockCity(CityName.Holstein);
-            logic = new Logic(player, [city, holstein], CityName.Mecklenburg);
-            expect(logic.city.name).to.equal(CityName.Mecklenburg);
+            const hamburg = getMockCity(CityName.Hamburg);
+            logic = new Logic(player, [city, hamburg], CityName.Rostock);
+            expect(logic.city.name).to.equal(CityName.Rostock);
 
-            logic.setCity(CityName.Holstein);
+            logic.setCity(CityName.Hamburg);
 
-            expect(logic.city.name).to.equal(CityName.Holstein);
+            expect(logic.city.name).to.equal(CityName.Hamburg);
         });
     });
 
     describe("register()", () => {
         it("with setCity() notifies observers with city-set event", () => {
-            logic = new Logic(player, [city], CityName.Mecklenburg);
+            logic = new Logic(player, [city], CityName.Rostock);
             const observer: IObserver = { onLogicEvent: spy() };
 
             logic.register(observer);
-            logic.setCity(CityName.Mecklenburg);
+            logic.setCity(CityName.Rostock);
 
             expect(observer.onLogicEvent).to.have.been.calledOnceWith({
                 name: LogicEvent.CitySet,
