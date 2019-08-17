@@ -5,8 +5,8 @@ export const wareConfig = {
         [WareType.Furs]: 355,
         [WareType.Juwelry]: 670,
         [WareType.Salt]: 48,
-        [WareType.Fish]: 10,
-        [WareType.Beer]: 10,
+        [WareType.Fish]: 95,
+        [WareType.Beer]: 95,
     },
     minPrice: {
         [WareType.Furs]: 130,
