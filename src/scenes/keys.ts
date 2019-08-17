@@ -78,10 +78,10 @@ export const KEYS = {
 };
 
 export const cityViewConfig = {
-    [CityName.Mecklenburg]: {
+    [CityName.Rostock]: {
         backgroundImage: KEYS.images.culemborgCastle,
     },
-    [CityName.Holstein]: {
+    [CityName.Hamburg]: {
         backgroundImage: KEYS.images.heltishCastle,
     },
     [CityName.Wismar]: {
