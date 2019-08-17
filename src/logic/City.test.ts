@@ -21,7 +21,7 @@ describe("City", () => {
     beforeEach(() => {
         ware = getMockWare();
         warehouse = getMockWarehouse();
-        city = new City([ware], CityName.Mecklenburg, warehouse);
+        city = new City([ware], CityName.Rostock, warehouse);
     });
 
     describe("getSellPrice()", () => {
@@ -81,7 +81,7 @@ describe("City", () => {
         it("consuming city does not reduce quantity when quantity = 0", () => {
             ware.add = spy();
 
-            // test city Mecklenburg consumes Furs
+            // test city Rostock consumes Furs
             city.consumeAndProduce();
 
             expect(ware.add).to.have.not.been.called;
@@ -91,17 +91,17 @@ describe("City", () => {
             ware.getQuantity = () => 1;
             ware.add = spy();
 
-            // test city Mecklenburg consumes Furs
+            // test city Rostock consumes Furs
             city.consumeAndProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(-1);
         });
 
         it("producing city increases ware quantity by 1", () => {
-            const producerCity = new City([ware], CityName.Holstein, warehouse);
+            const producerCity = new City([ware], CityName.Hamburg, warehouse);
             ware.add = spy();
 
-            // Holstein produces Furs
+            // Hamburg produces Furs
             producerCity.consumeAndProduce();
 
             expect(ware.add).to.have.been.calledWithExactly(1);

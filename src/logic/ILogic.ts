@@ -4,6 +4,7 @@ import { WareType } from "./WareType";
 
 export interface ILogic {
     city: ICity;
+    tradedQuantity: number;
     buy(ware: WareType): void;
     sell(ware: WareType): void;
     gameOver(): boolean;
