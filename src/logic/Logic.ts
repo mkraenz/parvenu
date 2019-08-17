@@ -8,9 +8,16 @@ import { ILogic } from "./ILogic";
 import { WareType } from "./WareType";
 
 export class Logic implements ILogic {
+    public get city(): ICity {
+        if (!this.cities.has(this.selectedCity)) {
+            throw new Error(`City not found ${this.selectedCity}`);
+        }
+        return this.cities.get(this.selectedCity)!;
+    }
+
     public selectedCity: CityName;
+    public tradedQuantity = 1;
     private cities: Map<CityName, ICity>;
-    private tradedQuantity = 1;
     private observers: IObserver[] = [];
 
     constructor(
@@ -30,17 +37,6 @@ export class Logic implements ILogic {
 
         this.cities = new Map(cities.map(value => [value.name, value]));
         this.selectedCity = startCity;
-    }
-
-    public setTradedQuantity(quantity: number) {
-        this.tradedQuantity = quantity;
-    }
-
-    public get city(): ICity {
-        if (!this.cities.has(this.selectedCity)) {
-            throw new Error(`City not found ${this.selectedCity}`);
-        }
-        return this.cities.get(this.selectedCity)!;
     }
 
     /** player takes from warehouse */

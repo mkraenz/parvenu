@@ -5,7 +5,7 @@ import { BaseText } from "./BaseText";
 import { getTradeButtonTweenConfig } from "./getTradeButtonTweenConfig";
 import { KEYS } from "./keys";
 
-interface ILogic extends Pick<ILogicBase, "buy" | "setTradedQuantity"> {
+interface ILogic extends Pick<ILogicBase, "buy" | "tradedQuantity"> {
     city: Pick<ICity, "getBuyPrice">;
 }
 
@@ -31,7 +31,7 @@ export class QuantityButton extends BaseText {
 
     private onButtonClick() {
         // TODO #106 only play sound / tween on successful buy
-        this.logic.setTradedQuantity(this.quantity);
+        this.logic.tradedQuantity = this.quantity;
         this.scene.sound.play(KEYS.sound.buy.key);
         this.scene.add.tween(getTradeButtonTweenConfig(this.button));
     }
