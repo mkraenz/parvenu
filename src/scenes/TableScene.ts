@@ -12,10 +12,10 @@ import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
 
-const TOP = 50;
+const TOP = 0;
 const LEFT = 0;
 const PLAYER_MONEY = TOP + 25;
-const HEADER = TOP + 100;
+const HEADER = TOP + 50;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
@@ -25,6 +25,7 @@ const COLUMN = {
     sell: LEFT + 400,
     player: LEFT + 500,
 };
+const TRADED_QUANTITY_BUTTONS = FIRST_ROW + Object.keys(WareType).length * 60;
 
 export class TableScene extends Scene {
     private logic!: ILogic;
@@ -74,9 +75,9 @@ export class TableScene extends Scene {
         Object.values(WareType).forEach((ware, i) => {
             this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
         });
-        this.addQuantityButton(50, 500, 1);
-        this.addQuantityButton(150, 500, 5);
-        this.addQuantityButton(250, 500, 10);
+        this.addQuantityButton(50, TRADED_QUANTITY_BUTTONS, 1);
+        this.addQuantityButton(150, TRADED_QUANTITY_BUTTONS, 5);
+        this.addQuantityButton(250, TRADED_QUANTITY_BUTTONS, 10);
     }
 
     private addHeader() {
@@ -157,7 +158,7 @@ export class TableScene extends Scene {
         this.add
             .image(LEFT, TOP, KEYS.images.parchment.key)
             .setOrigin(0)
-            .setScale(1, 0.25 * Object.keys(WareType).length)
+            .setScale(1, 0.2 * Object.keys(WareType).length)
             .setAlpha(0.7);
     }
 }
