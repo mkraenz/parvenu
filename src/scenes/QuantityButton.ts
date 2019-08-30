@@ -1,4 +1,5 @@
 import { GameObjects } from "phaser";
+import { Color, toHex } from "../Color";
 import { ICity } from "../logic/ICity";
 import { ILogic as ILogicBase } from "../logic/ILogic";
 import { BaseText } from "./BaseText";
@@ -9,6 +10,8 @@ import { TableScene } from "./TableScene";
 interface ILogic extends Pick<ILogicBase, "buy" | "tradedQuantity"> {
     city: Pick<ICity, "getBuyPrice">;
 }
+
+const POINTER_DOWN = "pointerdown";
 
 export class QuantityButton extends BaseText {
     public selected = false;
@@ -28,11 +31,13 @@ export class QuantityButton extends BaseText {
 
     public update() {
         if (this.selected) {
-            this.button.setTint(0xb0e21f);
-            this.clickZone.removeListener("pointerdown");
+            this.button.setTint(toHex(Color.YellowGreen));
+            this.clickZone.removeAllListeners(POINTER_DOWN);
         } else {
             this.button.setTint(-1);
-            this.clickZone.on("pointerdown", () => this.onButtonClick());
+            if (this.clickZone.listenerCount(POINTER_DOWN) === 0) {
+                this.clickZone.on(POINTER_DOWN, () => this.onButtonClick());
+            }
         }
     }
 
@@ -44,15 +49,13 @@ export class QuantityButton extends BaseText {
         // super random values although they should be equal to fillRoundedRect()
         this.clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
         this.clickZone.setInteractive();
-        this.clickZone.on("pointerdown", () => this.onButtonClick());
     }
 
     private onButtonClick() {
         // TODO #106 only play sound / tween on successful buy
         this.logic.tradedQuantity = this.quantity;
-        this.scene.sound.play(KEYS.sound.buy.key);
+        this.scene.sound.play(KEYS.sound.menuClick.key);
         this.scene.add.tween(getTradeButtonTweenConfig(this.button));
-        // tslint:disable-next-line: no-string-literal
         (this.scene as TableScene).setSelectedTradedQuantityButton(
             this.quantity
         );
