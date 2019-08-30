@@ -28,11 +28,11 @@ export class QuantityButton extends BaseText {
 
     public update() {
         if (this.selected) {
-            this.clickZone.disableInteractive();
             this.button.setTint(0xb0e21f);
+            this.clickZone.removeListener("pointerdown");
         } else {
-            this.clickZone.setInteractive();
             this.button.setTint(-1);
+            this.clickZone.on("pointerdown", () => this.onButtonClick());
         }
     }
 
