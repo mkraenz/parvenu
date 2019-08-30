@@ -4,29 +4,47 @@ import { ILogic as ILogicBase } from "../logic/ILogic";
 import { BaseText } from "./BaseText";
 import { getTradeButtonTweenConfig } from "./getTradeButtonTweenConfig";
 import { KEYS } from "./keys";
+import { TableScene } from "./TableScene";
 
 interface ILogic extends Pick<ILogicBase, "buy" | "tradedQuantity"> {
     city: Pick<ICity, "getBuyPrice">;
 }
 
 export class QuantityButton extends BaseText {
+    public selected = false;
     private logic!: ILogic;
+    private quantityX!: number;
     private button!: GameObjects.Image;
-    private quantity!: number;
+    private clickZone!: GameObjects.Zone;
 
-    public init(logic: ILogic, quantity: number) {
+    public init(logic: ILogic, quantity: number, selected = false) {
         this.logic = logic;
-        this.quantity = quantity;
+        this.quantityX = quantity;
+        this.selected = selected;
 
         this.addButton();
         this.addClickZone();
     }
 
+    public update() {
+        if (this.selected) {
+            this.clickZone.disableInteractive();
+            this.button.setTint(0xb0e21f);
+        } else {
+            this.clickZone.setInteractive();
+            this.button.setTint(-1);
+        }
+    }
+
+    public get quantity() {
+        return this.quantityX;
+    }
+
     private addClickZone() {
         // super random values although they should be equal to fillRoundedRect()
-        const clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
-        clickZone.setInteractive();
-        clickZone.on("pointerdown", () => this.onButtonClick());
+        this.clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
+        this.clickZone.setInteractive();
+        this.clickZone.on("pointerdown", () => this.onButtonClick());
     }
 
     private onButtonClick() {
@@ -34,6 +52,11 @@ export class QuantityButton extends BaseText {
         this.logic.tradedQuantity = this.quantity;
         this.scene.sound.play(KEYS.sound.buy.key);
         this.scene.add.tween(getTradeButtonTweenConfig(this.button));
+        // tslint:disable-next-line: no-string-literal
+        (this.scene as TableScene).setSelectedTradedQuantityButton(
+            this.quantity
+        );
+        this.selected = true;
     }
 
     private addButton() {
