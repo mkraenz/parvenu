@@ -25,11 +25,15 @@ export const KEYS = {
     sound: {
         sell: {
             key: sfxify("sell"),
-            path: "./assets/sounds/sell.wav",
+            path: "./assets/sounds/sell.mp3",
         },
         buy: {
             key: sfxify("buy"),
-            path: "./assets/sounds/buy.wav",
+            path: "./assets/sounds/buy.mp3",
+        },
+        menuClick: {
+            key: sfxify("menu-click"),
+            path: "./assets/sounds/menu-click.mp3",
         },
         backgroundMusic: {
             key: "background-music",

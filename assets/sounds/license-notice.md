@@ -7,7 +7,11 @@
 under CC-BY 3.0
 distributed via http://opengameart.org/users/varkalandar
 
-- `buy.wav` (original filename `hjm-coin_clicker_1.wav`)
-- `sell.wav` (original filename `hjm-coindrop_v2.wav`)
+- `buy.mp3` (original filename `hjm-coin_clicker_1.wav`)
+- `sell.mp3` (original filename `hjm-coindrop_v2.wav`)
 
-Besides renaming, no changes were made to the original files.
+Both files have been renamed and converted to `.mp3`.
+
+## Under CC 0
+
+- [menu-click.mp3](https://opengameart.org/content/zippo-click-sound)
