@@ -183,7 +183,7 @@ export const wareViewConfig = {
         image: KEYS.images.furs,
     },
     // TODO FIX TYPO jewelry
-    [WareType.Juwelry]: {
+    [WareType.Jewelry]: {
         image: KEYS.images.jewelry,
     },
     [WareType.Salt]: {

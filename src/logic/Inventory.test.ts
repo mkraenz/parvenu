@@ -73,9 +73,9 @@ describe("Inventory", () => {
         it("throws if ware not found", () => {
             const inventory = getMockInventory(0);
 
-            const resultFn = () => inventory.get(WareType.Juwelry);
+            const resultFn = () => inventory.get(WareType.Jewelry);
 
-            expect(resultFn).to.throw(/WareType not found Juwelry/i);
+            expect(resultFn).to.throw(/WareType not found Jewelry/i);
         });
     });
 });
