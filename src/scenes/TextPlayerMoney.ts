@@ -11,6 +11,6 @@ export class TextPlayerMoney extends GameObjects.Text {
     }
 
     public update() {
-        this.setText(`Gold: ${this.player.getMoney()}`);
+        this.setText(`${this.player.getMoney()}`);
     }
 }

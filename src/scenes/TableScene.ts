@@ -14,18 +14,22 @@ import { TextSellPrice } from "./TextSellPrice";
 
 const TOP = 0;
 const LEFT = 0;
-const PLAYER_MONEY = TOP + 25;
-const HEADER = TOP + 50;
-const FIRST_ROW = HEADER + 50;
-const SPACE_BETWEEN_ROWS = 60;
+const PLAYER_MONEY_X = 220;
+const PLAYER_MONEY_Y = TOP + 25;
+const HEADER_Y = TOP + 50;
+const FIRST_ROW_Y = HEADER_Y + 50;
+const Y_SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    ware: LEFT + 50,
-    city: LEFT + 200,
-    buy: LEFT + 300,
-    sell: LEFT + 400,
+    city: LEFT + 50,
+    sell: LEFT + 150,
+    ware: LEFT + 250,
+    buy: LEFT + 400,
     player: LEFT + 500,
 };
-const TRADED_QUANTITY_BUTTONS = FIRST_ROW + Object.keys(WareType).length * 60;
+const TRADED_QUANTITY_BUTTONS_X_CENTER = COLUMN.ware + 30;
+const TRADED_QUANTITY_BUTTON_X_OFFSET = 100;
+const TRADED_QUANTITY_BUTTONS_Y =
+    FIRST_ROW_Y + Object.keys(WareType).length * 60;
 
 export class TableScene extends Scene {
     private logic!: ILogic;
@@ -34,6 +38,7 @@ export class TableScene extends Scene {
     private textBuyPrices: TextBuyPrice[] = [];
     private textSellPrices: TextSellPrice[] = [];
     private textCityWareQuantities: TextCityWareQuantity[] = [];
+    private quantityButtons: QuantityButton[] = [];
 
     constructor() {
         super({
@@ -56,13 +61,32 @@ export class TableScene extends Scene {
         this.textBuyPrices.forEach(update);
         this.textSellPrices.forEach(update);
         this.textCityWareQuantities.forEach(update);
+        this.quantityButtons.forEach(update);
+    }
+
+    public setSelectedTradedQuantityButton(quantity: number) {
+        const newSelected = this.quantityButtons.find(
+            button => button.quantity === quantity
+        );
+        if (!newSelected) {
+            throw new Error(
+                `Cannot find TradedQuantityButton for given quantity: ${quantity}`
+            );
+        }
+        this.quantityButtons.forEach(button => (button.selected = false));
+        newSelected.selected = true;
     }
 
     private addPlayerMoneyText(player: IPlayer) {
+        const scale = 0.35;
+        this.add
+            .image(PLAYER_MONEY_X, PLAYER_MONEY_Y, KEYS.images.moneybag.key)
+            .setOrigin(0, 0.3)
+            .setScale(scale);
         this.playerMoneyText = new TextPlayerMoney(
             this,
-            COLUMN.ware,
-            PLAYER_MONEY,
+            PLAYER_MONEY_X + KEYS.images.moneybag.width * scale,
+            PLAYER_MONEY_Y,
             "",
             {}
         );
@@ -73,19 +97,20 @@ export class TableScene extends Scene {
     private addTable() {
         this.addHeader();
         Object.values(WareType).forEach((ware, i) => {
-            this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
+            this.addRow(ware, FIRST_ROW_Y + i * Y_SPACE_BETWEEN_ROWS);
         });
-        this.addQuantityButton(50, TRADED_QUANTITY_BUTTONS, 1);
-        this.addQuantityButton(150, TRADED_QUANTITY_BUTTONS, 5);
-        this.addQuantityButton(250, TRADED_QUANTITY_BUTTONS, 10);
+        this.addQuantityButtons();
     }
 
     private addHeader() {
-        const addTextAtY = this.addTableText(HEADER);
-        addTextAtY(COLUMN.city, "City");
-        addTextAtY(COLUMN.player, "You");
-        addTextAtY(COLUMN.buy, "Buy");
-        addTextAtY(COLUMN.sell, "Sell");
+        this.add
+            .image(COLUMN.city, HEADER_Y, KEYS.images.portTown.key)
+            .setOrigin(0, 0.5)
+            .setScale(0.2);
+        this.add
+            .image(COLUMN.player, HEADER_Y, KEYS.images.ship.key)
+            .setOrigin(0, 0.5)
+            .setScale(0.25);
     }
 
     private addRow(ware: WareType, y: number) {
@@ -102,18 +127,6 @@ export class TableScene extends Scene {
         this.textBuyPrices.push(text);
         this.children.add(text);
         text.init(this.logic, ware);
-    }
-
-    private addQuantityButton(x: number, y: number, quantity: number) {
-        const quantityButton = new QuantityButton(
-            this,
-            x,
-            y,
-            quantity.toString(),
-            {}
-        );
-        this.children.add(quantityButton);
-        quantityButton.init(this.logic, quantity);
     }
 
     private addSellPrice(y: number, ware: WareType) {
@@ -152,6 +165,29 @@ export class TableScene extends Scene {
     private addTableText(y: number) {
         return (x: number, text: string) =>
             setDefaultTextStyle(this.add.text(x, y, text));
+    }
+
+    private addQuantityButtons() {
+        this.addQuantityButton(-TRADED_QUANTITY_BUTTON_X_OFFSET, 1, true);
+        this.addQuantityButton(0, 5);
+        this.addQuantityButton(TRADED_QUANTITY_BUTTON_X_OFFSET, 10);
+    }
+
+    private addQuantityButton(
+        xOffset: number,
+        quantity: number,
+        selected = false
+    ) {
+        const quantityButton = new QuantityButton(
+            this,
+            TRADED_QUANTITY_BUTTONS_X_CENTER + xOffset,
+            TRADED_QUANTITY_BUTTONS_Y,
+            quantity.toString(),
+            {}
+        );
+        this.children.add(quantityButton);
+        quantityButton.init(this.logic, quantity, selected);
+        this.quantityButtons.push(quantityButton);
     }
 
     private addBackground() {
