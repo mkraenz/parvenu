@@ -80,3 +80,5 @@ Deployments can also be made with [Google Cloud Engine](https://console.cloud.go
 - [Littera](http://kvazars.com/littera)
 - [MagicTools](https://github.com/ellisonleao/magictools)
 - [Tiled](https://www.mapeditor.org)
+- [game-icons.com](https://game-icons.net)
+- [flaticon.com](https://www.flaticon.com)
