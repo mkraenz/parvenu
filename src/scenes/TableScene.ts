@@ -4,7 +4,7 @@ import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
-import { KEYS } from "./keys";
+import { KEYS, wareViewConfig } from "./keys";
 import { QuantityButton } from "./QuantityButton";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { TextBuyPrice } from "./TextBuyPrice";
@@ -14,6 +14,7 @@ import { TextSellPrice } from "./TextSellPrice";
 
 const TOP = 0;
 const LEFT = 0;
+const RIGHT = 640 - 40;
 const PLAYER_MONEY_X = 220;
 const PLAYER_MONEY_Y = TOP + 25;
 const HEADER_Y = TOP + 50;
@@ -22,14 +23,15 @@ const Y_SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
     city: LEFT + 50,
     sell: LEFT + 150,
-    ware: LEFT + 250,
+    ware: RIGHT / 2,
     buy: LEFT + 400,
     player: LEFT + 500,
 };
-const TRADED_QUANTITY_BUTTONS_X_CENTER = COLUMN.ware + 30;
+const TRADED_QUANTITY_BUTTONS_X_CENTER = RIGHT / 2 - 30;
 const TRADED_QUANTITY_BUTTON_X_OFFSET = 100;
 const TRADED_QUANTITY_BUTTONS_Y =
     FIRST_ROW_Y + Object.keys(WareType).length * 60;
+const WARE_ICON_SIZE = 50;
 
 export class TableScene extends Scene {
     private logic!: ILogic;
@@ -115,7 +117,14 @@ export class TableScene extends Scene {
 
     private addRow(ware: WareType, y: number) {
         const addTextAtY = this.addTableText(y);
-        addTextAtY(COLUMN.ware, ware);
+        const icon = wareViewConfig[ware].image;
+        this.add
+            .image(COLUMN.ware, y, icon.key)
+            .setOrigin(0.5, 0.2)
+            .setScale(
+                WARE_ICON_SIZE / icon.width,
+                WARE_ICON_SIZE / icon.height
+            );
         this.addCityQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addBuyPrice(y, ware);

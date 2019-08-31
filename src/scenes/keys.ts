@@ -1,4 +1,5 @@
 import { CityName } from "../logic/CityName";
+import { WareType } from "../logic/WareType";
 
 const scenify = (str: string) => `${str}-scene`;
 const imgify = (str: string) => `${str}-img`;
@@ -41,13 +42,6 @@ export const KEYS = {
         },
     },
     images: {
-        logo: {
-            key: imgify("logo"),
-            // TODO replace placeholder by logo
-            path: "./assets/images/parchment640x480.png",
-            width: 640,
-            height: 480,
-        },
         culemborgCastle: {
             key: imgify("culemborg-castle"),
             path: "./assets/images/culemborg-castle800x524.png",
@@ -121,6 +115,48 @@ export const KEYS = {
             width: 250,
             height: 224,
         },
+        beer: {
+            key: imgify("beer"),
+            path: "./assets/images/wares/beer512x512.png",
+            width: 512,
+            height: 512,
+        },
+        bricks: {
+            key: imgify("bricks"),
+            path: "./assets/images/wares/bricks194x157.png",
+            width: 194,
+            height: 157,
+        },
+        fish: {
+            key: imgify("fish"),
+            path: "./assets/images/wares/fish512x512.png",
+            width: 512,
+            height: 512,
+        },
+        furs: {
+            key: imgify("furs"),
+            path: "./assets/images/wares/furs512x512.png",
+            width: 512,
+            height: 512,
+        },
+        jewelry: {
+            key: imgify("jewelry"),
+            path: "./assets/images/wares/jewelry512x512.png",
+            width: 512,
+            height: 512,
+        },
+        spice: {
+            key: imgify("spice"),
+            path: "./assets/images/wares/spice512x512.png",
+            width: 512,
+            height: 512,
+        },
+        wood: {
+            key: imgify("wood"),
+            path: "./assets/images/wares/wood512x512.png",
+            width: 512,
+            height: 512,
+        },
     },
 };
 
@@ -133,5 +169,24 @@ export const cityViewConfig = {
     },
     [CityName.Wismar]: {
         backgroundImage: KEYS.images.heltishCastle,
+    },
+};
+
+export const wareViewConfig = {
+    [WareType.Beer]: {
+        image: KEYS.images.beer,
+    },
+    [WareType.Fish]: {
+        image: KEYS.images.fish,
+    },
+    [WareType.Furs]: {
+        image: KEYS.images.furs,
+    },
+    // TODO FIX TYPO jewelry
+    [WareType.Juwelry]: {
+        image: KEYS.images.jewelry,
+    },
+    [WareType.Salt]: {
+        image: KEYS.images.spice,
     },
 };

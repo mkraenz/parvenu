@@ -2,9 +2,9 @@
 
 ## Under CC 0
 
-- [parchment640x480.png](https://opengameart.org/content/old-parchment-paper)
 - [background500x300.png](https://www.kisscc0.com/clipart/middle-ages-watercolor-painting-castle-castle-vree-3zn99d/)
 - [culemborg-castle800x524.png](https://www.kisscc0.com/clipart/middle-ages-watercolor-painting-castle-historic-si-insnvi/)
+- [parchment640x480.png](https://opengameart.org/content/old-parchment-paper)
 - [view-on-a-port-town413x268.png](https://commons.wikimedia.org/wiki/Category:August_von_Siegen#/media/File:August_von_Siegen_Blick_auf_eine_Hafenstadt.jpg)
 
 ## Under CC BY-SA 3.0
@@ -26,6 +26,16 @@
 ## Under Non-commercial Use License
 
 - [moneybag250x224](https://imgbin.com/png/pYp7av9n/money-bag-png)
+
+## Under Flaticon basic license
+
+- [beer512x512.png](https://www.flaticon.com/free-icon/beer_931949) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+- [bricks194x157.png](https://www.flaticon.com/free-icon/brick_138498) - Icon made by [smashicons](https://www.flaticon.com/authors/smashicons) from www.flaticon.com - Changes made: triple image and add black outlines
+- [fish512x512.png](https://www.flaticon.com/free-icon/fish_2047923) - Icon made by [surang](https://www.flaticon.com/authors/surang) from www.flaticon.com
+- [furs512x512.png](https://www.flaticon.com/free-icon/animal_1860895#term=fur&page=1&position=11) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+- [jewelry512x512.png](https://www.flaticon.com/free-icon/gems_2036039) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+- [spice512x512.png](https://www.flaticon.com/free-icon/spice_898138) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+- [wood512x512.png](https://www.flaticon.com/free-icon/logs_2077030) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
 
 ## Licensed by Matthias Möser Copyright 2018
 
