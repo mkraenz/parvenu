@@ -4,7 +4,7 @@ import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
-import { KEYS } from "./keys";
+import { KEYS, wareViewConfig } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { StoreWareButton } from "./StoreWareButton";
 import { TakeWareButton } from "./TakeWareButton";
@@ -13,6 +13,8 @@ import { WareButton } from "./WareButton";
 
 const TOP = 500;
 const LEFT = 0;
+const RIGHT = 640 - 40;
+const CENTER = RIGHT / 2;
 const HEADER = TOP + 40;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
@@ -20,10 +22,11 @@ const COLUMN = {
     warehouse: LEFT + 50,
     store: LEFT + 150,
     storehouse: LEFT + 220,
-    ware: LEFT + 250,
+    ware: CENTER,
     take: LEFT + 400,
     player: LEFT + 500,
 };
+const WARE_ICON_SIZE = 50;
 
 export class WarehouseScene extends Scene {
     private logic!: ILogic;
@@ -75,7 +78,14 @@ export class WarehouseScene extends Scene {
 
     private addRow(ware: WareType, y: number) {
         const addTextAtY = this.addTableText(y);
-        addTextAtY(COLUMN.ware, ware);
+        const icon = wareViewConfig[ware].image;
+        this.add
+            .image(COLUMN.ware, y, icon.key)
+            .setOrigin(0.5, 0.2)
+            .setScale(
+                WARE_ICON_SIZE / icon.width,
+                WARE_ICON_SIZE / icon.height
+            );
         this.addWarehouseQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addTakePrice(y, ware);

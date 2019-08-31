@@ -15,6 +15,7 @@ import { TextSellPrice } from "./TextSellPrice";
 const TOP = 0;
 const LEFT = 0;
 const RIGHT = 640 - 40;
+const CENTER = RIGHT / 2;
 const PLAYER_MONEY_X = 220;
 const PLAYER_MONEY_Y = TOP + 25;
 const HEADER_Y = TOP + 50;
@@ -23,11 +24,11 @@ const Y_SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
     city: LEFT + 50,
     sell: LEFT + 150,
-    ware: RIGHT / 2,
+    ware: CENTER,
     buy: LEFT + 400,
     player: LEFT + 500,
 };
-const TRADED_QUANTITY_BUTTONS_X_CENTER = RIGHT / 2 - 30;
+const TRADED_QUANTITY_BUTTONS_X_CENTER = CENTER - 30;
 const TRADED_QUANTITY_BUTTON_X_OFFSET = 100;
 const TRADED_QUANTITY_BUTTONS_Y =
     FIRST_ROW_Y + Object.keys(WareType).length * 60;
