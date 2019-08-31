@@ -8,6 +8,7 @@ import { KEYS } from "./keys";
 export abstract class WareButton extends BaseText {
     protected logic!: ILogic;
     protected wareType!: WareType;
+    protected IMAGE_KEY = KEYS.images.buttonUpRect;
     private button!: GameObjects.Image;
 
     public init(logic: ILogic, type: WareType) {
@@ -35,7 +36,7 @@ export abstract class WareButton extends BaseText {
     }
 
     private addButton() {
-        const buttonCfg = KEYS.images.buttonUpRect;
+        const buttonCfg = this.IMAGE_KEY;
         this.button = this.scene.add
             .image(this.x + 29, this.y + 19, buttonCfg.key)
             .setScale(0.36);

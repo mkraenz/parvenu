@@ -17,10 +17,11 @@ const HEADER = TOP + 40;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    ware: LEFT + 50,
-    warehouse: LEFT + 200,
-    take: LEFT + 300,
-    store: LEFT + 400,
+    warehouse: LEFT + 50,
+    store: LEFT + 150,
+    storehouse: LEFT + 220,
+    ware: LEFT + 250,
+    take: LEFT + 400,
     player: LEFT + 500,
 };
 
@@ -61,10 +62,15 @@ export class WarehouseScene extends Scene {
 
     private addHeader() {
         const addTextAtY = this.addTableText(HEADER);
-        addTextAtY(COLUMN.warehouse, "Warehouse");
-        addTextAtY(COLUMN.player, "You");
-        addTextAtY(COLUMN.take, "Take");
-        addTextAtY(COLUMN.store, "Store");
+        this.add
+            .image(COLUMN.warehouse, HEADER, KEYS.images.warehouse.key)
+            .setOrigin(0, 0.15)
+            .setScale(0.15);
+        this.add
+            .image(COLUMN.player, HEADER, KEYS.images.ship.key)
+            .setOrigin(0, 0.5)
+            .setScale(0.25);
+        addTextAtY(COLUMN.storehouse, "Storehouse");
     }
 
     private addRow(ware: WareType, y: number) {

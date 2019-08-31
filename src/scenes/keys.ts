@@ -25,11 +25,15 @@ export const KEYS = {
     sound: {
         sell: {
             key: sfxify("sell"),
-            path: "./assets/sounds/sell.wav",
+            path: "./assets/sounds/sell.mp3",
         },
         buy: {
             key: sfxify("buy"),
-            path: "./assets/sounds/buy.wav",
+            path: "./assets/sounds/buy.mp3",
+        },
+        menuClick: {
+            key: sfxify("menu-click"),
+            path: "./assets/sounds/menu-click.mp3",
         },
         backgroundMusic: {
             key: "background-music",
@@ -80,6 +84,42 @@ export const KEYS = {
             path: "./assets/images/button-up-rect198x128.png",
             width: 200,
             height: 200,
+        },
+        buttonUpArrowLeft: {
+            key: imgify("button-up-arrow-left"),
+            path: "./assets/images/button-up-arrow-left236x128.png",
+            width: 236,
+            height: 128,
+        },
+        buttonUpArrowRight: {
+            key: imgify("button-up-arrow-right"),
+            path: "./assets/images/button-up-arrow-right230x128.png",
+            width: 230,
+            height: 128,
+        },
+        ship: {
+            key: imgify("ship"),
+            path: "./assets/images/ship389x288.png",
+            width: 389,
+            height: 288,
+        },
+        portTown: {
+            key: imgify("port-town"),
+            path: "./assets/images/view-on-a-port-town413x268.png",
+            width: 389,
+            height: 288,
+        },
+        warehouse: {
+            key: imgify("warehouse"),
+            path: "./assets/images/crates367x340.png",
+            width: 367,
+            height: 340,
+        },
+        moneybag: {
+            key: imgify("moneybag"),
+            path: "./assets/images/moneybag250x224.png",
+            width: 250,
+            height: 224,
         },
     },
 };
