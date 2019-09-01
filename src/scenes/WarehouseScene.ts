@@ -4,29 +4,32 @@ import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
-import { KEYS, wareViewConfig } from "./keys";
+import { headerIcon } from "./headerIcon";
+import { KEYS, SVG_SIZE, wareViewConfig } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { StoreWareButton } from "./StoreWareButton";
 import { TakeWareButton } from "./TakeWareButton";
 import { TextWarehouseWareQuantity } from "./TextWarehouseWareQuantity";
 import { WareButton } from "./WareButton";
 
+const WARE_ICON_SCALE = 50 / SVG_SIZE;
+const HEADER_ICON_PX = 65;
+export const HEADER_ICON_SCALE = HEADER_ICON_PX / SVG_SIZE;
 const TOP = 500;
 const LEFT = 0;
 const RIGHT = 640 - 40;
 const CENTER = RIGHT / 2;
-const HEADER = TOP + 40;
+const HEADER = TOP + 50;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
     warehouse: LEFT + 50,
     store: LEFT + 150,
-    storehouse: LEFT + 220,
+    storehouse: LEFT + 180,
     ware: CENTER,
     take: LEFT + 400,
     player: LEFT + 500,
 };
-const WARE_ICON_SIZE = 50;
 
 export class WarehouseScene extends Scene {
     private logic!: ILogic;
@@ -64,16 +67,13 @@ export class WarehouseScene extends Scene {
     }
 
     private addHeader() {
+        this.add
+            .image(COLUMN.warehouse, HEADER, KEYS.svgs.warehouse.key)
+            .setOrigin(0, 0.35)
+            .setScale(HEADER_ICON_SCALE * 0.7);
+        headerIcon(this.add.image(COLUMN.player, HEADER, KEYS.svgs.ship.key));
         const addTextAtY = this.addTableText(HEADER);
-        this.add
-            .image(COLUMN.warehouse, HEADER, KEYS.images.warehouse.key)
-            .setOrigin(0, 0.15)
-            .setScale(0.15);
-        this.add
-            .image(COLUMN.player, HEADER, KEYS.images.ship.key)
-            .setOrigin(0, 0.5)
-            .setScale(0.25);
-        addTextAtY(COLUMN.storehouse, "Storehouse");
+        addTextAtY(COLUMN.storehouse, "Your storehouse");
     }
 
     private addRow(ware: WareType, y: number) {
@@ -82,10 +82,7 @@ export class WarehouseScene extends Scene {
         this.add
             .image(COLUMN.ware, y, icon.key)
             .setOrigin(0.5, 0.2)
-            .setScale(
-                WARE_ICON_SIZE / icon.width,
-                WARE_ICON_SIZE / icon.height
-            );
+            .setScale(WARE_ICON_SCALE);
         this.addWarehouseQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addTakePrice(y, ware);
