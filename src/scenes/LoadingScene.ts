@@ -110,6 +110,9 @@ export class LoadingScene extends Scene {
         Object.values(KEYS.images).forEach(image =>
             this.load.image(image.key, image.path)
         );
+        Object.values(KEYS.svgs).forEach(svg =>
+            this.load.svg(svg.key, svg.path)
+        );
         Object.values(KEYS.sound).forEach(sound =>
             this.load.audio(sound.key, sound.path)
         );

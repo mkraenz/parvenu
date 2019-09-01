@@ -4,7 +4,8 @@ import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
 import { getLogic } from "./data-registry/getLogic";
 import { getPlayer } from "./data-registry/getPlayer";
-import { KEYS, wareViewConfig } from "./keys";
+import { headerIcon } from "./headerIcon";
+import { KEYS, SVG_SIZE, wareViewConfig } from "./keys";
 import { QuantityButton } from "./QuantityButton";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { TextBuyPrice } from "./TextBuyPrice";
@@ -12,11 +13,14 @@ import { TextCityWareQuantity } from "./TextCityWareQuantity";
 import { TextPlayerMoney } from "./TextPlayerMoney";
 import { TextSellPrice } from "./TextSellPrice";
 
+const WARE_ICON_SCALE = 50 / SVG_SIZE;
+const HEADER_ICON_PX = 60;
+const HEADER_ICON_SCALE = HEADER_ICON_PX / SVG_SIZE;
 const TOP = 0;
 const LEFT = 0;
 const RIGHT = 640 - 40;
 const CENTER = RIGHT / 2;
-const PLAYER_MONEY_X = 220;
+const PLAYER_MONEY_X = CENTER - HEADER_ICON_PX;
 const PLAYER_MONEY_Y = TOP + 25;
 const HEADER_Y = TOP + 50;
 const FIRST_ROW_Y = HEADER_Y + 50;
@@ -32,7 +36,6 @@ const TRADED_QUANTITY_BUTTONS_X_CENTER = CENTER - 30;
 const TRADED_QUANTITY_BUTTON_X_OFFSET = 100;
 const TRADED_QUANTITY_BUTTONS_Y =
     FIRST_ROW_Y + Object.keys(WareType).length * 60;
-const WARE_ICON_SIZE = 50;
 
 export class TableScene extends Scene {
     private logic!: ILogic;
@@ -81,14 +84,14 @@ export class TableScene extends Scene {
     }
 
     private addPlayerMoneyText(player: IPlayer) {
-        const scale = 0.35;
+        const moneybag = KEYS.svgs.moneybag;
         this.add
-            .image(PLAYER_MONEY_X, PLAYER_MONEY_Y, KEYS.images.moneybag.key)
+            .image(PLAYER_MONEY_X, PLAYER_MONEY_Y, moneybag.key)
             .setOrigin(0, 0.3)
-            .setScale(scale);
+            .setScale(HEADER_ICON_SCALE);
         this.playerMoneyText = new TextPlayerMoney(
             this,
-            PLAYER_MONEY_X + KEYS.images.moneybag.width * scale,
+            PLAYER_MONEY_X + HEADER_ICON_PX,
             PLAYER_MONEY_Y,
             "",
             {}
@@ -106,14 +109,10 @@ export class TableScene extends Scene {
     }
 
     private addHeader() {
-        this.add
-            .image(COLUMN.city, HEADER_Y, KEYS.images.portTown.key)
-            .setOrigin(0, 0.5)
-            .setScale(0.2);
-        this.add
-            .image(COLUMN.player, HEADER_Y, KEYS.images.ship.key)
-            .setOrigin(0, 0.5)
-            .setScale(0.25);
+        headerIcon(
+            this.add.image(COLUMN.city, HEADER_Y, KEYS.svgs.village.key)
+        );
+        headerIcon(this.add.image(COLUMN.player, HEADER_Y, KEYS.svgs.ship.key));
     }
 
     private addRow(ware: WareType, y: number) {
@@ -122,10 +121,7 @@ export class TableScene extends Scene {
         this.add
             .image(COLUMN.ware, y, icon.key)
             .setOrigin(0.5, 0.2)
-            .setScale(
-                WARE_ICON_SIZE / icon.width,
-                WARE_ICON_SIZE / icon.height
-            );
+            .setScale(WARE_ICON_SCALE);
         this.addCityQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
         this.addBuyPrice(y, ware);
