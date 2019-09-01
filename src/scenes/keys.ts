@@ -91,71 +91,51 @@ export const KEYS = {
             width: 230,
             height: 128,
         },
+    },
+    svgs: {
         ship: {
             key: imgify("ship"),
-            path: "./assets/images/ship389x288.png",
-            width: 389,
-            height: 288,
-        },
-        portTown: {
-            key: imgify("port-town"),
-            path: "./assets/images/view-on-a-port-town413x268.png",
-            width: 389,
-            height: 288,
+            path: "./assets/images/other/ship-3-mast.svg",
         },
         warehouse: {
             key: imgify("warehouse"),
-            path: "./assets/images/crates367x340.png",
-            width: 367,
-            height: 340,
-        },
-        moneybag: {
-            key: imgify("moneybag"),
-            path: "./assets/images/moneybag250x224.png",
-            width: 250,
-            height: 224,
+            path: "./assets/images/other/storage-boxes.svg",
         },
         beer: {
             key: imgify("beer"),
-            path: "./assets/images/wares/beer512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/beer.svg",
         },
         bricks: {
             key: imgify("bricks"),
-            path: "./assets/images/wares/bricks194x157.png",
-            width: 194,
-            height: 157,
+            path: "./assets/images/wares/bricks.svg",
         },
         fish: {
             key: imgify("fish"),
-            path: "./assets/images/wares/fish512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/fish.svg",
         },
         furs: {
             key: imgify("furs"),
-            path: "./assets/images/wares/furs512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/furs.svg",
         },
         jewelry: {
             key: imgify("jewelry"),
-            path: "./assets/images/wares/jewelry512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/jewelry.svg",
+        },
+        moneybag: {
+            key: imgify("moneybag"),
+            path: "./assets/images/other/money-bag.svg",
         },
         spice: {
             key: imgify("spice"),
-            path: "./assets/images/wares/spice512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/spice.svg",
+        },
+        village: {
+            key: imgify("village"),
+            path: "./assets/images/other/village.svg",
         },
         wood: {
             key: imgify("wood"),
-            path: "./assets/images/wares/wood512x512.png",
-            width: 512,
-            height: 512,
+            path: "./assets/images/wares/wood.svg",
         },
     },
 };
@@ -174,19 +154,22 @@ export const cityViewConfig = {
 
 export const wareViewConfig = {
     [WareType.Beer]: {
-        image: KEYS.images.beer,
+        image: KEYS.svgs.beer,
     },
     [WareType.Fish]: {
-        image: KEYS.images.fish,
+        image: KEYS.svgs.fish,
     },
     [WareType.Furs]: {
-        image: KEYS.images.furs,
+        image: KEYS.svgs.furs,
     },
     // TODO FIX TYPO jewelry
     [WareType.Jewelry]: {
-        image: KEYS.images.jewelry,
+        image: KEYS.svgs.jewelry,
     },
     [WareType.Salt]: {
-        image: KEYS.images.spice,
+        image: KEYS.svgs.spice,
     },
 };
+
+/** svg files have uniform size and are quadratic. see `assets/images/README.md` */
+export const SVG_SIZE = 512;
