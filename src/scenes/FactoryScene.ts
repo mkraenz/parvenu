@@ -7,7 +7,7 @@ import { DestroyFactoryButton } from "./DestroyFactoryButton";
 import { headerIcon } from "./headerIcon";
 import { KEYS, SVG_SIZE, wareViewConfig } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
-import { TextWarehouseWareQuantity } from "./TextWarehouseWareQuantity";
+import { TextFactory } from "./TextFactory";
 
 const BASE_X = 700;
 const BASE_Y = 500;
@@ -20,7 +20,6 @@ const HEADER = 50;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    warehouse: 50,
     destroy: 150,
     storehouse: 180,
     ware: CENTER,
@@ -30,7 +29,7 @@ const COLUMN = {
 
 export class FactoryScene extends Scene {
     private logic!: ILogic;
-    private textWarehouseWareQuantities: TextWarehouseWareQuantity[] = [];
+    private textFactory: TextFactory[] = [];
 
     constructor() {
         super({
@@ -48,7 +47,7 @@ export class FactoryScene extends Scene {
 
     public update() {
         const update = (x: { update(): void }) => x.update();
-        this.textWarehouseWareQuantities.forEach(update);
+        this.textFactory.forEach(update);
     }
 
     private addTable() {
@@ -72,22 +71,16 @@ export class FactoryScene extends Scene {
             .image(COLUMN.ware, y, icon.key)
             .setOrigin(0.5, 0.2)
             .setScale(WARE_ICON_SCALE);
-        this.addWarehouseQuantityText(y, ware);
+        this.addFactoryText(y, ware);
         this.addBuildButton(y, ware);
         this.addDestroyButton(y, ware);
     }
 
-    private addWarehouseQuantityText(y: number, ware: WareType) {
-        const text = new TextWarehouseWareQuantity(
-            this,
-            COLUMN.player,
-            y,
-            "",
-            {}
-        );
-        this.textWarehouseWareQuantities.push(text);
+    private addFactoryText(y: number, ware: WareType) {
+        const text = new TextFactory(this, COLUMN.player, y, "", {});
+        this.textFactory.push(text);
         this.children.add(text);
-        text.init(this.logic.city.warehouse.get(ware));
+        text.init(this.logic.city, ware);
     }
 
     private addBuildButton(y: number, ware: WareType) {
