@@ -39,6 +39,19 @@ export class Logic implements ILogic {
         this.selectedCity = startCity;
     }
 
+    public buildFactory(wareType: WareType): void {
+        this.city.factories.set(wareType, this.city.getFactory(wareType) + 1);
+    }
+
+    public destroyFactory(wareType: WareType): void {
+        if (this.city.factories.get(wareType)! > 0) {
+            this.city.factories.set(
+                wareType,
+                this.city.getFactory(wareType) - 1
+            );
+        }
+    }
+
     /** player takes from warehouse */
     public take(wareType: WareType): void {
         const warehouse = this.city.warehouse;

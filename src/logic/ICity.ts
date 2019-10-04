@@ -7,6 +7,8 @@ import { WareType } from "./WareType";
 export interface ICity extends IInventory {
     name: CityName;
     warehouse: IWarehouse;
+    factories: Map<WareType, number>;
+    getFactory(wareType: WareType): number;
     getSellPrice(ware: WareType, quantity: number): number;
     getBuyPrice(ware: WareType, quantity: number): number;
     get(ware: WareType): IWare;

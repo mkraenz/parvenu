@@ -16,21 +16,21 @@ import { TextSellPrice } from "./TextSellPrice";
 const WARE_ICON_SCALE = 50 / SVG_SIZE;
 const HEADER_ICON_PX = 60;
 const HEADER_ICON_SCALE = HEADER_ICON_PX / SVG_SIZE;
-const TOP = 0;
-const LEFT = 0;
+const BASE_Y = 0;
+const BASE_X = 0;
 const RIGHT = 640 - 40;
 const CENTER = RIGHT / 2;
 const PLAYER_MONEY_X = CENTER - HEADER_ICON_PX;
-const PLAYER_MONEY_Y = TOP + 25;
-const HEADER_Y = TOP + 50;
+const PLAYER_MONEY_Y = 25;
+const HEADER_Y = 50;
 const FIRST_ROW_Y = HEADER_Y + 50;
 const Y_SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    city: LEFT + 50,
-    sell: LEFT + 150,
+    city: 50,
+    sell: 150,
     ware: CENTER,
-    buy: LEFT + 400,
-    player: LEFT + 500,
+    buy: 400,
+    player: 500,
 };
 const TRADED_QUANTITY_BUTTONS_X_CENTER = CENTER - 30;
 const TRADED_QUANTITY_BUTTON_X_OFFSET = 100;
@@ -53,6 +53,7 @@ export class TableScene extends Scene {
     }
 
     public create(): void {
+        this.cameras.main.setPosition(BASE_X, BASE_Y);
         this.logic = getLogic(this);
         this.player = getPlayer(this);
 
@@ -198,7 +199,7 @@ export class TableScene extends Scene {
 
     private addBackground() {
         this.add
-            .image(LEFT, TOP, KEYS.images.parchment.key)
+            .image(0, 0, KEYS.images.parchment.key)
             .setOrigin(0)
             .setScale(1, 0.2 * Object.keys(WareType).length)
             .setAlpha(0.7);

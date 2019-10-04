@@ -388,5 +388,7 @@ function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
         name,
         sell: doNothing,
         warehouse: warehouse || getMockWarehouse(),
+        factories: new Map(),
+        getFactory: () => 0,
     };
 }
