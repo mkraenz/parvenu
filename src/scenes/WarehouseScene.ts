@@ -10,32 +10,29 @@ import { setDefaultTextStyle } from "./setDefaultTextStyle";
 import { StoreWareButton } from "./StoreWareButton";
 import { TakeWareButton } from "./TakeWareButton";
 import { TextWarehouseWareQuantity } from "./TextWarehouseWareQuantity";
-import { WareButton } from "./WareButton";
 
 const WARE_ICON_SCALE = 50 / SVG_SIZE;
 const HEADER_ICON_PX = 65;
 export const HEADER_ICON_SCALE = HEADER_ICON_PX / SVG_SIZE;
-const TOP = 500;
-const LEFT = 0;
+const BASE_X = 0;
+const BASE_Y = 500;
 const RIGHT = 640 - 40;
 const CENTER = RIGHT / 2;
-const HEADER = TOP + 50;
+const HEADER = 50;
 const FIRST_ROW = HEADER + 50;
 const SPACE_BETWEEN_ROWS = 60;
 const COLUMN = {
-    warehouse: LEFT + 50,
-    store: LEFT + 150,
-    storehouse: LEFT + 180,
+    warehouse: 50,
+    store: 150,
+    storehouse: 180,
     ware: CENTER,
-    take: LEFT + 400,
-    player: LEFT + 500,
+    take: 400,
+    player: 500,
 };
 
 export class WarehouseScene extends Scene {
     private logic!: ILogic;
     private player!: IPlayer;
-    private takeButtons: WareButton[] = [];
-    private storeButtons: WareButton[] = [];
     private textWarehouseWareQuantities: TextWarehouseWareQuantity[] = [];
 
     constructor() {
@@ -45,6 +42,7 @@ export class WarehouseScene extends Scene {
     }
 
     public create(): void {
+        this.cameras.main.setPosition(BASE_X, BASE_Y);
         this.logic = getLogic(this);
         this.player = getPlayer(this);
 
@@ -54,8 +52,6 @@ export class WarehouseScene extends Scene {
 
     public update() {
         const update = (x: { update(): void }) => x.update();
-        this.takeButtons.forEach(update);
-        this.storeButtons.forEach(update);
         this.textWarehouseWareQuantities.forEach(update);
     }
 
@@ -85,22 +81,20 @@ export class WarehouseScene extends Scene {
             .setScale(WARE_ICON_SCALE);
         this.addWarehouseQuantityText(y, ware);
         this.addPlayerQuantityText(addTextAtY, ware);
-        this.addTakePrice(y, ware);
-        this.addStorePrice(y, ware);
+        this.addTakeButton(y, ware);
+        this.addStoreButton(y, ware);
     }
 
-    private addTakePrice(y: number, ware: WareType) {
-        const text = new TakeWareButton(this, COLUMN.take, y, "", {});
-        this.takeButtons.push(text);
-        this.children.add(text);
-        text.init(this.logic, ware);
+    private addTakeButton(y: number, ware: WareType) {
+        const button = new TakeWareButton(this, COLUMN.take, y, "", {});
+        this.children.add(button);
+        button.init(this.logic, ware);
     }
 
-    private addStorePrice(y: number, ware: WareType) {
-        const text = new StoreWareButton(this, COLUMN.store, y, "", {});
-        this.storeButtons.push(text);
-        this.children.add(text);
-        text.init(this.logic, ware);
+    private addStoreButton(y: number, ware: WareType) {
+        const button = new StoreWareButton(this, COLUMN.store, y, "", {});
+        this.children.add(button);
+        button.init(this.logic, ware);
     }
 
     private addWarehouseQuantityText(y: number, ware: WareType) {
@@ -142,7 +136,7 @@ export class WarehouseScene extends Scene {
 
     private addBackground() {
         this.add
-            .image(LEFT, TOP, KEYS.images.parchment.key)
+            .image(0, 0, KEYS.images.parchment.key)
             .setOrigin(0)
             .setScale(1, 0.25 * Object.keys(WareType).length)
             .setAlpha(0.7);

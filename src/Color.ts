@@ -2,7 +2,7 @@ export enum Color {
     Black = "#000000",
     White = "#ffffff",
     DarkGrey = "#222222",
-    YellowGreen = "#b0e21f",
+    Yellow = "#fef857",
 }
 
 const to0x = (color: Color) => color.replace("#", "0x");

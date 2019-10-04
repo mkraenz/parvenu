@@ -11,6 +11,7 @@ export const KEYS = {
     },
     scenes: {
         citySelection: scenify("city-selection"),
+        factory: scenify("factory"),
         gameOver: scenify("game-over"),
         loading: scenify("loading"),
         main: scenify("main"),
@@ -100,6 +101,10 @@ export const KEYS = {
         warehouse: {
             key: imgify("warehouse"),
             path: "./assets/images/other/storage-boxes.svg",
+        },
+        factory: {
+            key: imgify("factory"),
+            path: "./assets/images/other/manufacture.svg",
         },
         beer: {
             key: imgify("beer"),
