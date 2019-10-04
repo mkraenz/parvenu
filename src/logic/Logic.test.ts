@@ -20,6 +20,7 @@ use(sinonChai);
 
 const buyPrice = 1234;
 const sellPrice = 2345;
+const fursFactories = 5;
 
 describe("Logic", () => {
     let player: IInventory;
@@ -374,6 +375,35 @@ describe("Logic", () => {
             expect(warehouse.store).to.have.not.been.called;
         });
     });
+
+    describe("buildFactory()", () => {
+        it("increases factories of the waretype by 1", () => {
+            expect(logic.city.factories.get(type)).to.equal(fursFactories);
+
+            logic.buildFactory(type);
+
+            expect(logic.city.factories.get(type)).to.equal(fursFactories + 1);
+        });
+    });
+
+    describe("destroyFactory()", () => {
+        it("reduces factories of the waretype by 1", () => {
+            expect(logic.city.factories.get(type)).to.equal(fursFactories);
+
+            logic.destroyFactory(type);
+
+            expect(logic.city.factories.get(type)).to.equal(fursFactories - 1);
+        });
+
+        it("does not reduces factories if already at 0", () => {
+            logic.city.factories.set(type, 0);
+            expect(logic.city.factories.get(type)).to.equal(0);
+
+            logic.destroyFactory(type);
+
+            expect(logic.city.factories.get(type)).to.equal(0);
+        });
+    });
 });
 
 function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
@@ -388,7 +418,8 @@ function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
         name,
         sell: doNothing,
         warehouse: warehouse || getMockWarehouse(),
-        factories: new Map(),
-        getFactory: () => 0,
+        factories: new Map().set(WareType.Furs, fursFactories),
+        getFactory: (type: WareType) =>
+            type === WareType.Furs ? fursFactories : 0,
     };
 }
