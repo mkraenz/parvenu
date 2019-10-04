@@ -13,6 +13,7 @@ import { LogicBuilder } from "../logic/LogicBuilder";
 import { CitySelectionScene } from "./CitySelectionScene";
 import { getCities } from "./data-registry/getCities";
 import { getLogic } from "./data-registry/getLogic";
+import { FactoryScene } from "./FactoryScene";
 import { cityViewConfig, KEYS } from "./keys";
 import { TableScene } from "./TableScene";
 import { WarehouseScene } from "./WarehouseScene";
@@ -38,21 +39,10 @@ export class MainScene extends Scene implements IObserver {
 
         this.addBackgroundMusic();
         this.addBackground(this.logic.city.name);
-
-        const citySelection = this.scene.add(
-            KEYS.scenes.citySelection,
-            CitySelectionScene,
-            true
-        );
-        this.childScenes.push(citySelection);
-        const tradeTable = this.scene.add(KEYS.scenes.table, TableScene, true);
-        this.childScenes.push(tradeTable);
-        const warehouse = this.scene.add(
-            KEYS.scenes.warehouse,
-            WarehouseScene,
-            true
-        );
-        this.childScenes.push(warehouse);
+        this.addScene(KEYS.scenes.citySelection, CitySelectionScene);
+        this.addScene(KEYS.scenes.table, TableScene);
+        this.addScene(KEYS.scenes.warehouse, WarehouseScene);
+        this.addScene(KEYS.scenes.factory, FactoryScene);
 
         this.time.addEvent({
             callback: () =>
@@ -81,6 +71,19 @@ export class MainScene extends Scene implements IObserver {
                 })
             );
         }
+    }
+
+    private addScene(
+        key: string,
+        sceneConfig:
+            | Scene
+            // tslint:disable: ban-types
+            | Function
+            | Phaser.Types.Scenes.SettingsConfig
+            | Phaser.Types.Scenes.CreateSceneFromObjectConfig
+    ) {
+        const scene = this.scene.add(key, sceneConfig, true);
+        this.childScenes.push(scene);
     }
 
     private addCityChangedListener() {

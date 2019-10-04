@@ -31,7 +31,7 @@ export class QuantityButton extends BaseText {
 
     public update() {
         if (this.selected) {
-            this.button.setTint(toHex(Color.YellowGreen));
+            this.button.setTint(toHex(Color.Yellow));
             this.clickZone.removeAllListeners(POINTER_DOWN);
         } else {
             this.button.setTint(-1);

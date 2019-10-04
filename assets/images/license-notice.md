@@ -22,6 +22,7 @@
 - [fish.svg](https://www.flaticon.com/free-icon/fish_2047923) - Icon made by [surang](https://www.flaticon.com/authors/surang) from www.flaticon.com
 - [furs.svg](https://www.flaticon.com/free-icon/animal_1860895#term=fur&page=1&position=11) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
 - [jewelry.svg](https://www.flaticon.com/free-icon/gems_2036039) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+- [manufacture.svg](https://www.flaticon.com/free-icon/manufacture_2166907) - Icon made by [eucalyp](https://www.flaticon.com/authors/eucalyp) from www.flaticon.com
 - [moneybag.svg](https://imgbin.com/png/pYp7av9n/money-bag-png) - Icon made by [dimitry-miroliubov](https://www.flaticon.com/authors/dimitry-miroliubov) from www.flaticon.com, Changes made: Replaced center Dollar sign by Sail Ship Icon made by [vitaly-gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev) from www.flaticon.com
 - [ship-3-mast.svg](https://www.flaticon.com/free-icon/ship_2022092) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
 - [spice.svg](https://www.flaticon.com/free-icon/spice_898138) - Icon made by [freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com

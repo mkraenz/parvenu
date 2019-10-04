@@ -10,9 +10,17 @@ export class City extends Inventory implements ICity {
     constructor(
         wares: IWareForCity[],
         public readonly name: CityName,
-        public warehouse: IWarehouse
+        public warehouse: IWarehouse,
+        public factories: Map<WareType, number> = new Map(
+            Object.values(WareType).map(type => [type, 0])
+        )
     ) {
         super(wares);
+    }
+
+    public getFactory(type: WareType): number {
+        /* safe by assumption */
+        return this.factories.get(type)!;
     }
 
     public get(type: WareType): IWareForCity {
@@ -64,6 +72,15 @@ export class City extends Inventory implements ICity {
                 ware.add(-1);
                 return;
             }
+        });
+        this.playerFactoriesProduce();
+    }
+
+    private playerFactoriesProduce() {
+        this.wares.forEach(ware => {
+            const type = ware.type;
+            const increase = this.getFactory(type);
+            this.warehouse.store(type, increase);
         });
     }
 
