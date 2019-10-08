@@ -1,6 +1,8 @@
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
+import { cityConfig } from "../logic/City.config";
 import { ILogic } from "../logic/ILogic";
 import { WareType } from "../logic/WareType";
+import { ObjectKeys } from "../utils/ObjectKeys";
 import { BuildFactoryButton } from "./BuildFactoryButton";
 import { getLogic } from "./data-registry/getLogic";
 import { DestroyFactoryButton } from "./DestroyFactoryButton";
@@ -26,10 +28,18 @@ const COLUMN = {
     build: 400,
     player: 500,
 };
+interface ITableRow {
+    ware: WareType;
+    icon: GameObjects.Image;
+    factoryCountText: TextFactoryCount;
+    buildButton: BuildFactoryButton;
+    destroyButton: DestroyFactoryButton;
+}
 
 export class FactoryScene extends Scene {
     private logic!: ILogic;
     private textFactoryCount: TextFactoryCount[] = [];
+    private rows: ITableRow[] = [];
 
     constructor() {
         super({
@@ -43,6 +53,8 @@ export class FactoryScene extends Scene {
 
         this.addBackground();
         this.addTable();
+
+        this.events.on(KEYS.events.cityChanged, () => this.handleCityChanged());
     }
 
     public update() {
@@ -55,6 +67,8 @@ export class FactoryScene extends Scene {
         Object.values(WareType).forEach((ware, i) => {
             this.addRow(ware, FIRST_ROW + i * SPACE_BETWEEN_ROWS);
         });
+        // initially setting active or inactive
+        this.handleCityChanged();
     }
 
     private addHeader() {
@@ -66,14 +80,22 @@ export class FactoryScene extends Scene {
     }
 
     private addRow(ware: WareType, y: number) {
-        const icon = wareViewConfig[ware].image;
-        this.add
-            .image(COLUMN.ware, y, icon.key)
+        const image = wareViewConfig[ware].image;
+        const icon = this.add
+            .image(COLUMN.ware, y, image.key)
             .setOrigin(0.5, 0.2)
             .setScale(WARE_ICON_SCALE);
-        this.addFactoryText(y, ware);
-        this.addBuildButton(y, ware);
-        this.addDestroyButton(y, ware);
+        const factoryCountText = this.addFactoryText(y, ware);
+        const buildButton = this.addBuildButton(y, ware);
+        const destroyButton = this.addDestroyButton(y, ware);
+
+        this.rows.push({
+            buildButton,
+            destroyButton,
+            factoryCountText,
+            icon,
+            ware,
+        });
     }
 
     private addFactoryText(y: number, ware: WareType) {
@@ -81,6 +103,7 @@ export class FactoryScene extends Scene {
         this.textFactoryCount.push(text);
         this.children.add(text);
         text.init(this.logic.city, ware);
+        return text;
     }
 
     private addBuildButton(y: number, ware: WareType) {
@@ -93,6 +116,7 @@ export class FactoryScene extends Scene {
         ).setScale(0.8);
         this.children.add(button);
         button.init(this.logic, ware);
+        return button;
     }
 
     private addDestroyButton(y: number, ware: WareType) {
@@ -105,6 +129,7 @@ export class FactoryScene extends Scene {
         ).setScale(0.6);
         this.children.add(button);
         button.init(this.logic, ware);
+        return button;
     }
 
     private addTableText(y: number) {
@@ -119,4 +144,36 @@ export class FactoryScene extends Scene {
             .setScale(1, 0.25 * Object.keys(WareType).length)
             .setAlpha(0.7);
     }
+
+    private handleCityChanged() {
+        this.rows.forEach(setActive);
+        const city = this.logic.city;
+        this.rows.forEach(row => {
+            const isWareProducedByCity = cityConfig.cities[
+                city.name
+            ].producedWares.includes(row.ware);
+            if (!isWareProducedByCity) {
+                setInactive(row);
+            }
+        });
+    }
+}
+
+function setInactive(row: ITableRow) {
+    ObjectKeys(row).forEach(key => {
+        if (key !== "ware") {
+            row[key].setAlpha(0.3);
+        }
+    });
+}
+
+function setActive(row: ITableRow) {
+    ObjectKeys(row).forEach(key => {
+        if (key !== "ware") {
+            row[key].setAlpha(1);
+        }
+        if (key === "buildButton" || key === "destroyButton") {
+            row[key].setInteractive();
+        }
+    });
 }

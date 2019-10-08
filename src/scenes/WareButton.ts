@@ -10,6 +10,7 @@ export abstract class WareButton extends BaseText {
     protected wareType!: WareType;
     protected IMAGE_KEY = KEYS.images.buttonUpRect;
     private button!: GameObjects.Image;
+    private clickZone!: GameObjects.Zone;
 
     public init(logic: ILogic, type: WareType) {
         this.logic = logic;
@@ -19,16 +20,35 @@ export abstract class WareButton extends BaseText {
         this.addClickZone();
     }
 
+    public disableInteractive() {
+        // disableInteractive() should still disable interactivity on everything, including the text
+        super.disableInteractive();
+        this.clickZone.disableInteractive();
+        return this;
+    }
+
+    public setInteractive() {
+        // do not call super.setInteractive(), instead send everything to the clickzone
+        this.clickZone.setInteractive();
+        return this;
+    }
+
+    public setAlpha(alpha?: number | undefined) {
+        super.setAlpha(alpha);
+        this.button.setAlpha(alpha);
+        return this;
+    }
+
     protected abstract logicCallBackOnClick(): void;
 
     private addClickZone() {
         // super random values although they should be equal to fillRoundedRect()
-        const clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
-        clickZone.setInteractive();
-        clickZone.on("pointerdown", () => this.onButtonClick());
+        this.clickZone = this.scene.add.zone(this.x + 30, this.y + 20, 70, 50);
+        this.clickZone.setInteractive();
+        this.clickZone.on("pointerdown", () => this.handleButtonClicked());
     }
 
-    private onButtonClick() {
+    private handleButtonClicked() {
         // TODO #106 only play sound / tween on successful buy
         this.logicCallBackOnClick();
         this.scene.sound.play(KEYS.sound.buy.key);
