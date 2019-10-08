@@ -1,6 +1,7 @@
 import { ICity as ILogicCity } from "../logic/ICity";
 import { WareType } from "../logic/WareType";
 import { BaseText } from "./BaseText";
+import { KEYS } from "./keys";
 
 type ICity = Pick<ILogicCity, "getFactory">;
 
@@ -12,7 +13,7 @@ export class TextFactoryCount extends BaseText {
         this.city = city;
         this.wareType = wareType;
         this.scene.events.addListener(
-            "city-changed",
+            KEYS.events.cityChanged,
             (event: { city: Pick<ICity, "getFactory"> }) => {
                 this.city = event.city;
             }
