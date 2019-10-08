@@ -162,7 +162,7 @@ export class FactoryScene extends Scene {
 function setInactive(row: ITableRow) {
     ObjectKeys(row).forEach(key => {
         if (key !== "ware") {
-            row[key].setAlpha(0.3);
+            row[key].setAlpha(0.3).disableInteractive();
         }
     });
 }
