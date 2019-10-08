@@ -9,9 +9,8 @@ import { CityName } from "./CityName";
 import { IObserver } from "./events/IObserver";
 import { LogicEvent } from "./events/LogicEvents";
 import { ICity } from "./ICity";
-import { IInventory } from "./IInventory";
 import { IWarehouse } from "./IWarehouse";
-import { Logic } from "./Logic";
+import { IPlayer, Logic } from "./Logic";
 import { doNothing } from "./test/doNothing";
 import { getMockWarehouse } from "./test/getMockWarehouse";
 import { WareType } from "./WareType";
@@ -20,10 +19,10 @@ use(sinonChai);
 
 const buyPrice = 1234;
 const sellPrice = 2345;
-const fursFactories = 5;
+const saltFactories = 5;
 
 describe("Logic", () => {
-    let player: IInventory;
+    let player: IPlayer;
     let city: ICity;
     let stub: sinon.SinonStub;
     let logic: Logic;
@@ -37,13 +36,14 @@ describe("Logic", () => {
             hasMoney: () => true,
             isValidSell: () => true,
             sell: doNothing,
+            pay: doNothing,
         };
         warehouse = getMockWarehouse();
         city = getMockCity(CityName.Rostock, warehouse);
         logic = new Logic(player, [city], CityName.Rostock);
     });
 
-    const type = WareType.Furs;
+    const type = WareType.Salt;
     const quantity = 1; // Should match Logic.quantity
 
     describe("buy()", () => {
@@ -232,7 +232,7 @@ describe("Logic", () => {
             const hamburg = getMockCity(CityName.Hamburg);
             logic = new Logic(player, [city, hamburg], CityName.Rostock);
 
-            logic.selectedCity = CityName.Hamburg;
+            logic.setCity(CityName.Hamburg);
             const result = logic.city; // getter function
 
             expect(result).to.equal(hamburg);
@@ -241,7 +241,7 @@ describe("Logic", () => {
         it("throws if selected city does not exist", () => {
             logic = new Logic(player, [city], CityName.Rostock);
 
-            logic.selectedCity = CityName.Hamburg;
+            logic.setCity(CityName.Hamburg);
             const resultFn = () => logic.city; // getter function
 
             expect(resultFn).to.throw(/City not found Hamburg/);
@@ -378,21 +378,46 @@ describe("Logic", () => {
 
     describe("buildFactory()", () => {
         it("increases factories of the waretype by 1", () => {
-            expect(logic.city.factories.get(type)).to.equal(fursFactories);
+            expect(logic.city.factories.get(type)).to.equal(saltFactories);
 
             logic.buildFactory(type);
 
-            expect(logic.city.factories.get(type)).to.equal(fursFactories + 1);
+            expect(logic.city.factories.get(type)).to.equal(saltFactories + 1);
+        });
+
+        it("calls player.pay() with correct price", () => {
+            player.pay = spy();
+
+            logic.buildFactory(type);
+
+            expect(player.pay).to.have.been.calledWithExactly(678);
+        });
+
+        it("does nothing if player does not have enough money", () => {
+            player.hasMoney = stubFalse;
+            player.pay = spy();
+
+            logic.buildFactory(type);
+
+            expect(player.pay).to.have.not.been.called;
+        });
+
+        it("does nothing if ware is not produced in the current city", () => {
+            player.pay = spy();
+
+            logic.buildFactory(WareType.Jewelry);
+
+            expect(player.pay).to.have.not.been.called;
         });
     });
 
     describe("destroyFactory()", () => {
         it("reduces factories of the waretype by 1", () => {
-            expect(logic.city.factories.get(type)).to.equal(fursFactories);
+            expect(logic.city.factories.get(type)).to.equal(saltFactories);
 
             logic.destroyFactory(type);
 
-            expect(logic.city.factories.get(type)).to.equal(fursFactories - 1);
+            expect(logic.city.factories.get(type)).to.equal(saltFactories - 1);
         });
 
         it("does not reduces factories if already at 0", () => {
@@ -418,8 +443,9 @@ function getMockCity(name: CityName, warehouse?: IWarehouse): ICity {
         name,
         sell: doNothing,
         warehouse: warehouse || getMockWarehouse(),
-        factories: new Map().set(WareType.Furs, fursFactories),
+        factories: new Map().set(WareType.Salt, saltFactories),
         getFactory: (type: WareType) =>
-            type === WareType.Furs ? fursFactories : 0,
+            type === WareType.Salt ? saltFactories : 0,
+        getBuildFactoryPrice: () => 678,
     };
 }

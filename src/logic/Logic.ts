@@ -1,4 +1,5 @@
 import { uniq } from "lodash";
+import { cityConfig } from "./City.config";
 import { CityName } from "./CityName";
 import { IObserver } from "./events/IObserver";
 import { LogicEvent } from "./events/LogicEvents";
@@ -6,6 +7,10 @@ import { ICity } from "./ICity";
 import { IInventory } from "./IInventory";
 import { ILogic } from "./ILogic";
 import { WareType } from "./WareType";
+
+export interface IPlayer extends IInventory {
+    pay: (price: number) => void;
+}
 
 export class Logic implements ILogic {
     public get city(): ICity {
@@ -15,16 +20,12 @@ export class Logic implements ILogic {
         return this.cities.get(this.selectedCity)!;
     }
 
-    public selectedCity: CityName;
     public tradedQuantity = 1;
+    private selectedCity: CityName;
     private cities: Map<CityName, ICity>;
     private observers: IObserver[] = [];
 
-    constructor(
-        private player: IInventory,
-        cities: ICity[],
-        startCity: CityName
-    ) {
+    constructor(private player: IPlayer, cities: ICity[], startCity: CityName) {
         if (!cities.length) {
             throw new Error("Must provide at least one city");
         }
@@ -40,7 +41,17 @@ export class Logic implements ILogic {
     }
 
     public buildFactory(wareType: WareType): void {
-        this.city.factories.set(wareType, this.city.getFactory(wareType) + 1);
+        const price = this.city.getBuildFactoryPrice(wareType);
+        const isWareProducedByCity = cityConfig.cities[
+            this.city.name
+        ].producedWares.includes(wareType);
+        if (this.player.hasMoney(price) && isWareProducedByCity) {
+            this.city.factories.set(
+                wareType,
+                this.city.getFactory(wareType) + 1
+            );
+            this.player.pay(price);
+        }
     }
 
     public destroyFactory(wareType: WareType): void {

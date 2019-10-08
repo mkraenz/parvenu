@@ -4,6 +4,7 @@ import { ICity } from "./ICity";
 import { Inventory } from "./Inventory";
 import { IWareForCity } from "./IWareForCity";
 import { IWarehouse } from "./IWarehouse";
+import { wareConfig } from "./Ware.config";
 import { WareType } from "./WareType";
 
 export class City extends Inventory implements ICity {
@@ -16,6 +17,10 @@ export class City extends Inventory implements ICity {
         )
     ) {
         super(wares);
+    }
+
+    public getBuildFactoryPrice(wareType: WareType): number {
+        return Math.ceil(wareConfig.maxPrice[wareType] * 10.5);
     }
 
     public getFactory(type: WareType): number {
