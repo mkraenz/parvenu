@@ -1,5 +1,5 @@
 import { difference } from "lodash";
-import { Scene } from "phaser";
+import { Scene, Types } from "phaser";
 import { CityName } from "../logic/CityName";
 import { ILogicEvent } from "../logic/events/ILogicEvent";
 import { IObservable } from "../logic/events/IObservable";
@@ -79,8 +79,8 @@ export class MainScene extends Scene implements IObserver {
             | Scene
             // tslint:disable: ban-types
             | Function
-            | Phaser.Types.Scenes.SettingsConfig
-            | Phaser.Types.Scenes.CreateSceneFromObjectConfig
+            | Types.Scenes.SettingsConfig
+            | Types.Scenes.CreateSceneFromObjectConfig
     ) {
         const scene = this.scene.add(key, sceneConfig, true);
         this.childScenes.push(scene);
