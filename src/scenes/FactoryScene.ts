@@ -7,7 +7,7 @@ import { DestroyFactoryButton } from "./DestroyFactoryButton";
 import { headerIcon } from "./headerIcon";
 import { KEYS, SVG_SIZE, wareViewConfig } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
-import { TextFactory } from "./TextFactory";
+import { TextFactoryCount } from "./TextFactoryCount";
 
 const BASE_X = 700;
 const BASE_Y = 500;
@@ -29,7 +29,7 @@ const COLUMN = {
 
 export class FactoryScene extends Scene {
     private logic!: ILogic;
-    private textFactory: TextFactory[] = [];
+    private textFactoryCount: TextFactoryCount[] = [];
 
     constructor() {
         super({
@@ -47,7 +47,7 @@ export class FactoryScene extends Scene {
 
     public update() {
         const update = (x: { update(): void }) => x.update();
-        this.textFactory.forEach(update);
+        this.textFactoryCount.forEach(update);
     }
 
     private addTable() {
@@ -77,8 +77,8 @@ export class FactoryScene extends Scene {
     }
 
     private addFactoryText(y: number, ware: WareType) {
-        const text = new TextFactory(this, COLUMN.player, y, "", {});
-        this.textFactory.push(text);
+        const text = new TextFactoryCount(this, COLUMN.player, y, "", {});
+        this.textFactoryCount.push(text);
         this.children.add(text);
         text.init(this.logic.city, ware);
     }
