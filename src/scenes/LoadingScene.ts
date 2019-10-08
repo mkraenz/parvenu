@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
 import { Color, toHex } from "../Color";
 import { KEYS } from "./keys";
 import { setDefaultTextStyle } from "./setDefaultTextStyle";
@@ -69,10 +69,10 @@ export class LoadingScene extends Scene {
     }
 
     private destroyAndStartMainScene(
-        progressBar: Phaser.GameObjects.Graphics,
-        progressBox: Phaser.GameObjects.Graphics,
-        loadingText: Phaser.GameObjects.Text,
-        assetText: Phaser.GameObjects.Text
+        progressBar: GameObjects.Graphics,
+        progressBox: GameObjects.Graphics,
+        loadingText: GameObjects.Text,
+        assetText: GameObjects.Text
     ): () => void {
         return () => {
             progressBar.destroy();
@@ -84,7 +84,7 @@ export class LoadingScene extends Scene {
     }
 
     private getAssetTextWriter(
-        assetText: Phaser.GameObjects.Text
+        assetText: GameObjects.Text
     ): (file: { key: string }) => void {
         return (file: { key: string }) => {
             assetText.setText(`Loading asset: ${file.key}`);
@@ -92,7 +92,7 @@ export class LoadingScene extends Scene {
     }
 
     private getProgressBarFiller(
-        progressBar: Phaser.GameObjects.Graphics
+        progressBar: GameObjects.Graphics
     ): (count: number) => void {
         return (count: number) => {
             progressBar.clear();

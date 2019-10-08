@@ -1,4 +1,4 @@
-import { Types } from "phaser";
+import { AUTO, Types } from "phaser";
 import { GameOverScene } from "./scenes/GameOverScene";
 import { LoadingScene } from "./scenes/LoadingScene";
 import { MainScene } from "./scenes/MainScene";
@@ -8,5 +8,5 @@ export const gameConfig: Types.Core.GameConfig = {
     width: window.innerWidth,
     parent: "game",
     scene: [LoadingScene, MainScene, GameOverScene],
-    type: Phaser.AUTO,
+    type: AUTO,
 };
