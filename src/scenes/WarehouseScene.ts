@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
 import { ILogic } from "../logic/ILogic";
 import { IPlayer } from "../logic/IPlayer";
 import { WareType } from "../logic/WareType";
@@ -111,7 +111,7 @@ export class WarehouseScene extends Scene {
     }
 
     private addPlayerQuantityText(
-        addTextAtY: (x: number, text: string) => Phaser.GameObjects.Text,
+        addTextAtY: (x: number, text: string) => GameObjects.Text,
         ware: WareType
     ) {
         const playerQuantityText = addTextAtY(
