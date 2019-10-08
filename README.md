@@ -66,6 +66,23 @@ Deployments can also be made with [Google Cloud Engine](https://console.cloud.go
 
 - [deployment/parvenu.k8s.yaml](deployment/parvenu.k8s.yaml)
 
+### Debugging
+
+#### Mocha tests
+
+Use the debug config for mocha tests inside of VS Code. Simply start from the debugger.
+
+#### Inside web browser
+
+- `google-chrome localhost:8080` # or firefox etc
+- open Developer tools (`Ctrl` + `Shift` + `i`)
+- goto tab Sources
+- `Ctrl` + `P` to open file search and write `.ts` file name, for example `TableScene.ts`
+- click on the line number to add a breakpoint
+- wait for breakpoint to be triggered if the line is in, for example, the `update()` method
+- or trigger the breakpoint by clicking on a respective button
+- or reload the website if the breakpoint is inside of a `create()` method
+
 ## External Resources
 
 - [Phaser 3 Framework](https://github.com/photonstorm/phaser)
