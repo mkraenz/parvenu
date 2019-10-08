@@ -44,22 +44,11 @@ export class MainScene extends Scene implements IObserver {
         this.addScene(KEYS.scenes.warehouse, WarehouseScene);
         this.addScene(KEYS.scenes.factory, FactoryScene);
 
-        this.time.addEvent({
-            callback: () =>
-                this.cities.forEach(city => city.consumeAndProduce()),
-            delay: logicConfig.cityConsumeTime,
-            loop: true,
-        });
-        this.addCityChangedListener();
+        this.time.addEvent(this.getHandleNextTimeEvent());
+        this.events.on(KEYS.events.cityChanged, () => this.handleCityChanged());
 
         // TODO #78 REMOVE debug shortcut
         this.input.keyboard.on("keydown-G", () => this.gotoGameOver());
-    }
-
-    public update() {
-        if (this.logic.gameOver()) {
-            this.gotoGameOver();
-        }
     }
 
     public onLogicEvent(event: ILogicEvent) {
@@ -71,6 +60,15 @@ export class MainScene extends Scene implements IObserver {
                 })
             );
         }
+    }
+
+    private getHandleNextTimeEvent(): Types.Time.TimerEventConfig {
+        return {
+            callback: () =>
+                this.cities.forEach(city => city.consumeAndProduce()),
+            delay: logicConfig.cityConsumeTime,
+            loop: true,
+        };
     }
 
     private addScene(
@@ -86,10 +84,8 @@ export class MainScene extends Scene implements IObserver {
         this.childScenes.push(scene);
     }
 
-    private addCityChangedListener() {
-        this.events.on(KEYS.events.cityChanged, () => {
-            this.addBackground(this.logic.city.name);
-        });
+    private handleCityChanged() {
+        this.addBackground(this.logic.city.name);
     }
 
     private gotoGameOver() {

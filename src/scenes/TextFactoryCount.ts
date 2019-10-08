@@ -4,7 +4,7 @@ import { BaseText } from "./BaseText";
 
 type ICity = Pick<ILogicCity, "getFactory">;
 
-export class TextFactory extends BaseText {
+export class TextFactoryCount extends BaseText {
     private city!: ICity;
     private wareType!: WareType;
 
