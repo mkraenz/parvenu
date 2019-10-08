@@ -107,4 +107,12 @@ describe("City", () => {
             expect(ware.add).to.have.been.calledWithExactly(1);
         });
     });
+
+    describe("getBuildFactoryPrice()", () => {
+        it("returns 10.5 times the maxPrice of a ware", () => {
+            const result = city.getBuildFactoryPrice(ware.type);
+
+            expect(result).to.equal(Math.ceil(355 * 10.5));
+        });
+    });
 });

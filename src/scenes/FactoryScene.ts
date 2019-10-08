@@ -40,6 +40,7 @@ export class FactoryScene extends Scene {
     private logic!: ILogic;
     private textFactoryCount: TextFactoryCount[] = [];
     private rows: ITableRow[] = [];
+    private buildButtons: BuildFactoryButton[] = [];
 
     constructor() {
         super({
@@ -60,6 +61,7 @@ export class FactoryScene extends Scene {
     public update() {
         const update = (x: { update(): void }) => x.update();
         this.textFactoryCount.forEach(update);
+        this.buildButtons.forEach(update);
     }
 
     private addTable() {
@@ -111,9 +113,10 @@ export class FactoryScene extends Scene {
             this,
             COLUMN.build,
             y,
-            "build",
+            "",
             {}
         ).setScale(0.8);
+        this.buildButtons.push(button);
         this.children.add(button);
         button.init(this.logic, ware);
         return button;
