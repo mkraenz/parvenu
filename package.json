@@ -48,7 +48,7 @@
         "typescript": "3.7.2",
         "webpack": "4.41.5",
         "webpack-cli": "3.3.10",
-        "webpack-dev-server": "3.8.2"
+        "webpack-dev-server": "3.10.2"
     },
     "dependencies": {
         "lodash": "^4.17.11",
